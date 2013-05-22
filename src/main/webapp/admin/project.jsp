@@ -4,6 +4,7 @@
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
+	/*version 0.13*/
 	var editRow;
 	var editType;/*add or edit or undefined*/
 	var treegrid;
