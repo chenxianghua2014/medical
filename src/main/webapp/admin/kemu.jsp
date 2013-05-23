@@ -1,3 +1,7 @@
+<!-- 
+	author:wlq
+	date:2013/5/23
+ -->
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
