@@ -292,7 +292,7 @@
             						if (value){  
                 						return '￥'+value;  
             						} else {  
-                						return '空';  
+                						return '0';  
             						}  
         						}  
 			} 
