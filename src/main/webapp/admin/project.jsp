@@ -4,7 +4,6 @@
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
-	/*version 0.13*/
 	var editRow;
 	var editType;/*add or edit or undefined*/
 	var treegrid;
@@ -285,6 +284,7 @@
 				field : 'cbudget',
 				title : '资金（万元）',
 				width : 150,
+				align : 'right',
 				editor : {
 					type : 'text'
 				},
@@ -292,7 +292,7 @@
             						if (value){  
                 						return '￥'+value;  
             						} else {  
-                						return '0';  
+                						return '无';  
             						}  
         						}  
 			} 
