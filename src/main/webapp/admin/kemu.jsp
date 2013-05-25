@@ -1,7 +1,3 @@
-<!-- 
-	author:wlq
-	date:2013/5/23
- -->
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,10 +40,13 @@
 			} , {
 				title : '金额（元）',
 				field : 'cmoney',
+				align : 'right',
 				width : 150
-			} , {
+			} ] ],
+			columns : [ [  {
 				title : '会计凭证号',
 				field : 'ccountId',
+				align : 'right',
 				width : 150
 			}  , {
 				title : '记账时间',
@@ -56,6 +55,7 @@
 			}, {
 				title : '票据号',
 				field : 'ctickets',
+				align : 'right',
 				width : 150
 			} , {
 				title : '电子凭证',
@@ -67,6 +67,11 @@
 			}, {
 				title : '科目',
 				field : 'ccourse',
+				width : 150,
+				sortable : true
+			}, {
+				title : '负责人',
+				field : 'cprojectid',
 				width : 150,
 				sortable : true
 			}] ],
@@ -136,7 +141,7 @@
 				handler : function() {
 					kemuAddForm.submit();
 				}
-			} ]
+			}]
 		});
 
 		kemuEditForm = $('#kemuEditForm').form({
@@ -325,8 +330,19 @@
 					<td>
 						<select  name="ccourse">
 						   <option value="购置设备费">购置设备费</option>
+						   <option value="试制设备费">试制设备费</option>
+						   <option value="设备改造与租赁费">设备改造与租赁费</option>
 						   <option value="材料费">材料费</option>
-						   <option value="劳务费">劳务费</option>
+						   <option value="测试化验加工费">测试化验加工费</option>
+						   <option value="燃料动力费">燃料动力费</option>
+						   <option value="差旅费">差旅费</option>
+						   <option value="会议费">会议费</option>
+						   <option value="国际合作与交流费">国际合作与交流费</option>
+						   <option value="出版费等">出版费等</option>
+						   <option value="专家咨询费">专家咨询费</option>
+						   <option value="其他支出">其他支出</option>
+						   <option value="间接费用">间接费用</option>
+						   <option value="绩效支出">绩效支出</option>
 						</select>
 					</td>					
 				</tr>
@@ -366,8 +382,19 @@
 					<td>
 						<select  name="ccourse">
 						   <option value="购置设备费">购置设备费</option>
+						   <option value="试制设备费">试制设备费</option>
+						   <option value="设备改造与租赁费">设备改造与租赁费</option>
 						   <option value="材料费">材料费</option>
-						   <option value="劳务费">劳务费</option>
+						   <option value="测试化验加工费">测试化验加工费</option>
+						   <option value="燃料动力费">燃料动力费</option>
+						   <option value="差旅费">差旅费</option>
+						   <option value="会议费">会议费</option>
+						   <option value="国际合作与交流费">国际合作与交流费</option>
+						   <option value="出版费等">出版费等</option>
+						   <option value="专家咨询费">专家咨询费</option>
+						   <option value="其他支出">其他支出</option>
+						   <option value="间接费用">间接费用</option>
+						   <option value="绩效支出">绩效支出</option>
 						</select>
 					</td>					
 				</tr>

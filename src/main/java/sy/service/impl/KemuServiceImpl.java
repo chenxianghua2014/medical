@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +14,36 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tkemu;
+import sy.model.Tmenu;
+import sy.model.Tproject;
 import sy.pageModel.DataGrid;
 import sy.pageModel.Kemu;
+import sy.pageModel.SessionInfo;
 import sy.service.KemuServiceI;
+import sy.util.ResourceUtil;
 
 @Service("kemuService")
 public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 
 	private BaseDaoI<Tkemu> kemuDao;
-
+	private BaseDaoI<Tproject> projectDao;
+    
 	public BaseDaoI<Tkemu> getKemuDao() {
 		return kemuDao;
+	}
+
+	public BaseDaoI<Tproject> getProjectDao() {
+		return projectDao;
 	}
 
 	@Autowired
 	public void setkemuDao(BaseDaoI<Tkemu> kemuDao) {
 		this.kemuDao = kemuDao;
+	}
+	
+	@Autowired
+	public void setProjectDao(BaseDaoI<Tproject> projectDao) {
+		this.projectDao = projectDao;
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
@@ -51,7 +66,7 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 	}
 
 	private List<Tkemu> find(Kemu kemu) {
-		String hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cdatei) from Tkemu t where 1=1 ";
+		String hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cprojectid) from Tkemu t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(kemu, hql, values);
@@ -77,7 +92,12 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		if (kemu.getCid() == null || kemu.getCid().trim().equals("")) {
 			kemu.setCid(UUID.randomUUID().toString());
 		}
-		Tkemu t = new Tkemu();
+		String cname = null;
+		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
+		String cprojectid  = sessionInfo.getLoginName();
+		kemu.setCprojectid(cprojectid);	
+		
+		Tkemu t = new Tkemu();	
 		BeanUtils.copyProperties(kemu, t);
 		kemuDao.save(t);
 	}
