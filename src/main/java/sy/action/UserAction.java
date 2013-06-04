@@ -1,5 +1,8 @@
 package sy.action;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -24,14 +27,14 @@ import com.opensymphony.xwork2.ModelDriven;
  * @author 
  * 
  */
-@Action(value = "userAction", results = { @Result(name = "user", location = "/admin/user.jsp"), @Result(name = "showUserInfo", location = "/user/userInfo.jsp") })
+@Action(value = "userAction", results = { @Result(name = "user", location = "/admin/user.jsp"),@Result(name = "loginsuccess", location = "/loginIn.jsp"), @Result(name = "showUserInfo", location = "/user/userInfo.jsp") })
 public class UserAction extends BaseAction implements ModelDriven<User> {
 
 	private static final Logger logger = Logger.getLogger(UserAction.class);
 
 	private User user = new User();
 	private UserServiceI userService;
-
+	
 	public UserServiceI getUserService() {
 		return userService;
 	}
@@ -48,20 +51,31 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	/**
 	 * 用户登录
 	 */
-	public void login() {
+	public String login() {
 		Json j = new Json();
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String name = ServletActionContext.getRequest().getParameter("cname");
+		user.setCname(name);
+		System.out.println("the yonghuming is "+user.getCname());
 		User u = userService.login(user);
+		
 		if (u != null) {
 			SessionInfo sessionInfo = saveSessionInfo(u);
 			j.setSuccess(true);
 			j.setMsg("用户登录成功！");
 			j.setObj(sessionInfo);
-
 			changeUserAuths(u);
+			return "loginsuccess";
 		} else {
 			j.setMsg("用户名或密码错误!");
+			writeJson(j);
+			return "";
 		}
-		writeJson(j);
 	}
 
 	/**
@@ -149,7 +163,12 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	public String user() {
 		return "user";
 	}
-
+	
+    public String loginsuccess()
+    {
+    	return "loginsuccess";
+    	
+    }
 	/**
 	 * 获得用户datagrid
 	 */
