@@ -85,9 +85,10 @@ public class ProjectAction extends BaseAction implements ModelDriven<Project> {
 	}
 
 	/**
-	 * 相应权限的树
+	 * 所有人都有权限的
 	 */
 	public void projectTreeRecursive() {
+
 		writeJson(projectService.tree(project, true));
 	}
 
@@ -145,11 +146,11 @@ public class ProjectAction extends BaseAction implements ModelDriven<Project> {
 	/**
 	 * 获得用户下拉列表
 	 */
-	public void userCombobox() {
+	public void projectCombobox() {
 		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
 		String groupId = sessionInfo.getGroupId();
 		logger.info(groupId);
-		writeJson(projectService.userCombobox(groupId));
+		writeJson(projectService.combobox(groupId));
 	}
 	
 }

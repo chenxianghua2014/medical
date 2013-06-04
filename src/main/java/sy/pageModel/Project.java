@@ -24,6 +24,7 @@ public class Project implements java.io.Serializable {
 	private String cuid;
 	private String cuname;
 
+
 	public String getId() {
 		return id;
 	}
@@ -99,6 +100,16 @@ public class Project implements java.io.Serializable {
 	private String cresponser;
 	private String cstatus;
 	private Float cbudget;
+	private Float cprogress;
+	
+	
+	public Float getCprogress() {
+		return cprogress;
+	}
+
+	public void setCprogress(Float cprogress) {
+		this.cprogress = cprogress;
+	}
 
 	public String getCid() {
 		return cid;

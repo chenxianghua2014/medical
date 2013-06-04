@@ -74,6 +74,7 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 		getUserInfo(project.getTuser());
 		List<Tproject> tprojects;
 		String userId = project.getTuser().getCid();
+	
 		if(project.getId() !=null){
 			tprojects = projectDao.find("from Tproject t where t.tproject.cid = ? order by t.cseq", new Object[] { project.getId() });
 		}
@@ -162,7 +163,7 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 			node.setState("closed");
 			if (recursive) {// 递归查询子节点
 				List<Tproject> l = new ArrayList<Tproject>(t.getTprojects());
-				//Collections.sort(l, new ProjectComparator());// 排序
+				Collections.sort(l, new ProjectComparator());// 排序
 				List<TreeNode> children = new ArrayList<TreeNode>();
 				for (Tproject r : l) {
 					TreeNode tn = tree(r, true);
@@ -199,6 +200,9 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 		if (project.getIconCls() != null) {
 			t.setCiconcls(project.getIconCls());
 		}
+		if(project.getCstatus() != null){
+			t.setCstatus(project.getCstatus());
+		}
 		if (project.getCpid() != null && !project.getCpid().equals(project.getCid())) {
 			Tproject pt = projectDao.get(Tproject.class, project.getCpid());
 			if (pt != null) {
@@ -215,7 +219,37 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 				t.setTproject(pt);
 			}
 
-		}		
+		}
+		
+		editStatus(project);
+		editProgress(project);		
+	   }
+	
+	
+	//update cstatus字段
+	private void editStatus(Project project)
+	{
+		String hql_1 = "update tproject c set c.cstatus = ? where c.cid = ?";
+		projectDao.updatestatus(hql_1, project.getCstatus(), project.getCid());
+		
+	}
+	
+	//计算分子/分母的值
+	private void editProgress(Project project)
+	{
+
+		String cpid = project.getCpid();
+		String hql2 = "update tproject c set c.cprogress=(select t1.fenzi/t2.fenmu from (SELECT count(*)  fenzi FROM tproject  a where a.cpid=? and a.cstatus=0) t1,(SELECT count(*) fenmu FROM tproject  b where b.cpid=?) t2) where c.cid=?";
+		List<Object> paramProgress = new ArrayList<Object>();
+	
+		try {
+			project.getId();
+			project.getCpid();
+			projectDao.updateProgress(hql2,project.getCpid());
+			
+		    } catch (Exception e) {
+			e.printStackTrace();
+		    }
 	}
 
 	/**
@@ -246,6 +280,7 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 			t.setTproject(projectDao.get(Tproject.class, project.getCpid()));
 		}
 		projectDao.save(t);
+	
 	}
 
 	public void delete(Project project) {
@@ -279,7 +314,7 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
-	public List<User> userCombobox(String groupId) {
+	public List<User> combobox(String groupId) {
 		return getUsersFromTusers(findAllTuser(groupId));
 	}
 
@@ -287,6 +322,5 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 		String hql = "from Tuser t where t.cgroupid=?";
 		return userDao.find(hql,new Object[] { groupId });
 	}
-	
 	
 }

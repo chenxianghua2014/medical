@@ -37,6 +37,7 @@ public class Tproject implements java.io.Serializable {
 	private String cresponser;
 	private String cstatus;
 	private Float cbudget;
+	private Float cprogress;
 	private Set<Tproject> tprojects = new HashSet<Tproject>(0);
 
 	// Constructors
@@ -55,7 +56,7 @@ public class Tproject implements java.io.Serializable {
 	public Tproject(String cid, Tproject tproject, Tuser tuser,
 			String ciconcls, String cname, BigDecimal cseq, String curl,
 			Date cstarttime, Date cendtime, String cresponsecompany,
-			String cresponser, String cstatus, Float cbudget,
+			String cresponser, String cstatus, Float cbudget,Float cprogress,
 			Set<Tproject> tprojects) {
 		this.cid = cid;
 		this.tproject = tproject;
@@ -70,6 +71,7 @@ public class Tproject implements java.io.Serializable {
 		this.cresponser = cresponser;
 		this.cstatus = cstatus;
 		this.cbudget = cbudget;
+		this.cprogress = cprogress;
 		this.tprojects = tprojects;
 	}
 
@@ -202,5 +204,14 @@ public class Tproject implements java.io.Serializable {
 	public void setTprojects(Set<Tproject> tprojects) {
 		this.tprojects = tprojects;
 	}
+	@Column(name = "CPROGRESS")
+	public Float getCprogress() {
+		return cprogress;
+	}
+
+	public void setCprogress(Float cprogress) {
+		this.cprogress = cprogress;
+	}
+	
 
 }

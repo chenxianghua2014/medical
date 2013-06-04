@@ -177,5 +177,55 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 		}
 		return q.executeUpdate();
 	}
+	
+	
+	/*
+	 * author zhang
+	 * 更新进度
+	 */	
+	public Integer updateProgress(String hql2, String id) {
+
+			
+			Query q = this.getCurrentSession().createSQLQuery(hql2);
+
+		    q.setParameter(0, id);
+			q.setParameter(1, id);
+			q.setParameter(2, id);
+			int d=0;
+			try {
+				 d=q.executeUpdate();
+				 
+				// this.getCurrentSession().clear();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			return d;
+		}
+		
+	/*
+	 * author zhang
+	 * 更新状态
+	 */	
+		public Integer updatestatus(String hql,String cstatus,String id)
+		{
+			
+			Query q = this.getCurrentSession().createSQLQuery(hql);
+
+		    q.setParameter(0, cstatus);
+			q.setParameter(1, id);
+			int d=0;
+			try {
+				 d=q.executeUpdate();
+				 
+				// this.getCurrentSession().clear();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			return d;
+		}	
 
 }

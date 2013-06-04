@@ -58,6 +58,7 @@ public interface ProjectServiceI extends BaseServiceI {
 	 * 
 	 * @return
 	 */
-	public List<User> userCombobox(String groupId);
+	public List<User> combobox(String groupId);
+	
 
 }

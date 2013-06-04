@@ -169,5 +169,25 @@ public interface BaseDaoI<T> {
 	 * @return
 	 */
 	public Integer executeHql(String hql, List<Object> param);
+	
+	/**
+	 * 执行HQL语句
+	 * 更新进度
+	 * @param hql
+	 * @param param
+	 * @author zhang
+	 * @return
+	 */
+	public Integer updateProgress(String hql2, String id);
+	
+	/**
+	 * 执行HQL语句
+	 * 更新状态
+	 * @param hql
+	 * @param param
+	 * @return
+	 * @author zhang
+	 */	
+	public Integer updatestatus(String hql,String cstatus,String id);
 
 }

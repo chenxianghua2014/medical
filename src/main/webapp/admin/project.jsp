@@ -3,7 +3,7 @@
 <html>
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="UTF-8">
 	var editRow;
 	var editType;/*add or edit or undefined*/
 	var treegrid;
@@ -122,6 +122,7 @@
 				handler : function() {
 					if (editRow != undefined) {
 						treegrid.treegrid('endEdit', editRow.cid);
+						treegrid.treegrid('reload');
 					}
 				}
 			}, '-', {
@@ -149,19 +150,22 @@
 			}, '-' ],
 			title : '',
 			iconCls : 'icon-save',
-			rownumbers:true, 
 			fit : true,
 			fitColumns : false,
 			nowrap : true,
-			border : false,
 			animate : false,
+			border : false,
 			idField : 'cid',
-			treeField : 'cname', 
-			frozenColumns : [ [ 
-			 {
+			treeField : 'cname',
+			frozenColumns : [ [ /* {
+				title : 'cid',
+				field : 'cid',
+				width : 50,
+				hidden : true
+			}, */ {
 				field : 'cname',
 				title : '项目名称',
-				width : 240,
+				width : 350,
 				editor : {
 					type : 'validatebox',
 					options : {
@@ -177,14 +181,8 @@
 				field : 'cpid',
 				title : '从属项目',
 				width : 150,
-				align : 'center',
-				formatter : function(value, rowData, rowIndex) {
-					if (rowData.cpname) {
-						return sy.fs('<span title="{0}">{1}</span>', rowData.cpname, rowData.cpname);
-					}
-				},
 				editor : {
-					type : 'combocheckboxtree',
+					type : 'combotree',
 					options : {
 						url : 'projectAction!projectTreeRecursive.action',
 						animate : false,
@@ -200,27 +198,23 @@
 							}
 						}
 					}
+				},
+				formatter : function(value, rowData, rowIndex) {
+					return rowData.cpname;
 				}
-
-			},{
-				field : 'cpname',
-				title : '从属项目',
-				width : 150,
-				hidden : true
 			} ] ],
 			columns : [ [ 
 			{
 				field : 'cuid',
 				title : '负责人',
 				width : 150,
-				align : 'center',
 				formatter : function(value, rowData, rowIndex) {
 					return rowData.cuname;
 				},
 				editor : {
 					type : 'combobox',
 					options : {
-						url : 'projectAction!userCombobox.action',
+						url : 'projectAction!projectCombobox.action',
 						valueField : 'cid',
 						textField : 'cname'
 					}
@@ -246,7 +240,7 @@
 				}
 			} ,{
 				field : 'cresponsecompany',
-				title : '负责单位1',
+				title : '负责单位',
 				width : 150,
 				editor : {
 					type : 'text'
@@ -258,7 +252,7 @@
 				}
 			} ,{
 				field : 'cresponser',
-				title : '赞助单位',
+				title : '负责人',
 				width : 150,
 				editor : {
 					type : 'text'
@@ -271,31 +265,35 @@
 			} ,{
 				field : 'cstatus',
 				title : '状态',
+				align : 'right',
 				width : 150,
 				editor : {
 					type : 'text'
 				},
 				formatter : function(value) {
-					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+					if (value == 1) {
+						return value = '进行中......';
+						//return sy.fs('<span title="{0}">{1}</span>', value, value);
+					}else{
+						return value = '完成';
 					}
 				}
 			} ,{
-				field : 'cbudget',
-				title : '资金（万元）',
-				width : 150,
-				align : 'right',
-				editor : {
-					type : 'text'
-				},
-				formatter :  function formatBudget(value){  
-            						if (value){  
-                						return '￥'+value;  
-            						} else {  
-                						return '无';  
-            						}  
-        						}  
-			} 
+				field : 'cprogress',
+				title : '进度',
+				align : 'center',
+				width : 100,
+				formatter : function(value) {
+				if (value!=0) {
+				
+					value = value*100;
+					value.toFixed(2);
+					value2=value+"%";
+					return sy.fs('<center> <table> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=red style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
+					}
+				}					
+					
+			}
 			] ],
 			onDblClickRow : function(row) {
 				if (editRow != undefined) {
@@ -398,7 +396,7 @@
 	}
 	function append() {
 
-	   if (editRow != undefined) {
+	/* if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -420,8 +418,8 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		} 
-		//alert("hello");
+		} */
+		alert("hello");
 			
 	}
 	function remove() {
