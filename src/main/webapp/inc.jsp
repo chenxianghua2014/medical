@@ -11,6 +11,9 @@
 
 <script type="text/javascript" src="<%=basePath%>/jslib/jquery-easyui-1.3/jquery-1.7.2.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath%>/jslib/jquery.cookie.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath%>/jslib/xheditor-1.2.1.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath%>/jslib/xheditor_lang/zh-cn.js" charset="utf-8"></script>
+
 <%
 	String easyuiThemeName = "gray";
 	Cookie cookies[] = request.getCookies();

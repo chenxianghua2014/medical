@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
 
 <%
 	String path = request.getContextPath();
@@ -19,28 +19,25 @@
 	<meta http-equiv="expires" content="0">    
 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>å†œæ‘åŸºæœ¬åŒ»ç–—å«ç”Ÿå…³é”®æŠ€æœ¯ç ”ç©¶ä¸ç¤ºèŒƒååŒç ”ç©¶å·¥ä½œå¹³å°</title>
+		<title>Å©´å»ù±¾Ò½ÁÆÎÀÉú¹Ø¼ü¼¼ÊõÑĞ¾¿ÓëÊ¾·¶Ğ­Í¬ÑĞ¾¿¹¤×÷Æ½Ì¨</title>
 		<meta name="keywords" content="" />
 		<meta name="description" content="" />
 		<link href="css/style.css" rel="stylesheet" type="text/css"
 			media="screen" />
                 <script language="JavaScript">
-                
 window.attachEvent("onload", correctPNG);
-      // é‡è½½éªŒè¯ç 
+      // ÖØÔØÑéÖ¤Âë
       function reloadVerifyCode(){
           var timenow = new Date().getTime();                       
           document.getElementById("safecode").src="<%=request.getContextPath()%>/healthAction/ImageServlet?d="+timenow;
        }
-       
-       
 </script>
 	</head>
 	<body>
 		<div id="wrapper" align="center">
 			<div id="logo">
 				<h1 align="left">
-					<a href="#">å†œæ‘åŸºæœ¬åŒ»ç–—å«ç”Ÿå…³é”®æŠ€æœ¯ç ”ç©¶ä¸ç¤ºèŒƒååŒç ”ç©¶å·¥ä½œå¹³å° </a>
+					<a href="#">Å©´å»ù±¾Ò½ÁÆÎÀÉú¹Ø¼ü¼¼ÊõÑĞ¾¿ÓëÊ¾·¶Ğ­Í¬ÑĞ¾¿¹¤×÷Æ½Ì¨ </a>
 				</h1>
 			</div>
 			<hr />
@@ -49,19 +46,19 @@ window.attachEvent("onload", correctPNG);
 				<div id="menu">
 					<ul>
 						<li class="current_page_item">
-							<a href="index.jsp" class="first">é¦–é¡µ</a>
+							<a href="index.jsp" class="first">Ê×Ò³</a>
 						</li>
 						<li>
-							<a href="">å¹³å°ä»‹ç»</a>
+							<a href="">Æ½Ì¨½éÉÜ</a>
 						</li>
 						<li>
-							<a href="#">è¿‘æœŸåŠ¨æ€</a>
+							<a href="#">½üÆÚ¶¯Ì¬</a>
 						</li>
 						<li>
-							<a href="#">èµ„æºä¸‹è½½</a>
+							<a href="#">×ÊÔ´ÏÂÔØ</a>
 						</li>
 						<li>
-							<a href="#">è”ç³»æˆ‘ä»¬</a>
+							<a href="#">ÁªÏµÎÒÃÇ</a>
 						</li>
 					</ul>
 				</div>
@@ -87,7 +84,7 @@ window.attachEvent("onload", correctPNG);
 				<td><a href=""><img src="fimages/xiangmulan.png" />
 									</a>
 									<h2>
-										<a href="" style="text-decoration:none "><strong>é¡¹ç›®ç®¡ç†</strong> </a>
+										<a href="" style="text-decoration:none "><strong>ÏîÄ¿¹ÜÀí</strong> </a>
 									</h2>
 									
 			   </td>
@@ -96,7 +93,7 @@ window.attachEvent("onload", correctPNG);
 					<a href="index.jsp"><img src="fimages/guanjian.jpg" />
 									</a>
 									<h2>
-										<a href="index.jsp" style="text-decoration:none "><strong>å…³é”®æŠ€æœ¯é›†æˆä¸åº”ç”¨ç¤ºèŒƒ</strong> </a>
+										<a href="index.jsp" style="text-decoration:none "><strong>¹Ø¼ü¼¼Êõ¼¯³ÉÓëÓ¦ÓÃÊ¾·¶</strong> </a>
 									</h2>				
 			   </td>
 				</tr>
@@ -115,7 +112,7 @@ window.attachEvent("onload", correctPNG);
 				<a href=""><img src="fimages/shujuwajue.jpg"> </a><a
 										href=""></a>
 									<h2>
-										<a href="disp/welcome.jsp" style="text-decoration:none "><strong>æ•°æ®æœåŠ¡</strong></a>
+										<a href="disp/welcome.jsp" style="text-decoration:none "><strong>Êı¾İ·şÎñ</strong></a>
 									</h2>
 				</td>
 				</tr>
@@ -125,9 +122,9 @@ window.attachEvent("onload", correctPNG);
 				<tr>
 				<td width="80"></td>
 				<td>
-				<a href="peixun/video.jsp"><img src="fimages/peixun.jpg" /> </a>
+				<a href=""><img src="fimages/peixun.jpg" /> </a>
 									<h2>
-										<a href="peixun/video.jsp" style="text-decoration:none "><strong>è¿œç¨‹åŸ¹è®­</strong></a>
+										<a href="video.jsp" style="text-decoration:none "><strong>Ô¶³ÌÅàÑµ</strong></a>
 									</h2>
 				</td>
 				</tr>
@@ -137,7 +134,7 @@ window.attachEvent("onload", correctPNG);
 				</div>
 				
 				<div id="secondlayer_2" style="float:left;height:283">
-					<form action="userAction!login.action" method="post"> 
+					<form action="healthAction/UserLogin.do" method="post"> 
                                                 <table height="283" background="fimages/loginpic.jpg" align="left" width="307"> 
  
 							<tbody><tr> 
@@ -149,27 +146,27 @@ window.attachEvent("onload", correctPNG);
 							<tr align="center"> 
 								<td> 
  
-									<strong>ç”¨æˆ·ç™»å½•</strong>&nbsp;&nbsp;&nbsp; 
+									<strong>ÓÃ»§µÇÂ¼</strong>&nbsp;&nbsp;&nbsp; 
 								</td> 
 							</tr> 
 							<tr align="center"> 
 								<td> 
-									ç”¨æˆ·åï¼š 
-									<input type="text" name="cname" size="12" value="${requestScope.msgN}" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4e00-\u9fa5]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9\u4e00-\u9fa5]/g,'')" oncontextmenu="value=value.replace(/[^\a-\z\A-\Z0-90-9]/g,'')"><br> 
+									ÓÃ»§Ãû£º 
+									<input type="text" name="username" size="12" value="${requestScope.msgN}" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"><br> 
 									<font color="red">${requestScope.msgName}</font> 
-								</td> 			
+								</td> 
 							</tr> 
 							<tr align="center"> 
 								<td> 
-									&nbsp;&nbsp;&nbsp;å¯†ç ï¼š &nbsp;
-									<input type="password" name="cpwd" size="13"><br> 
+									&nbsp;&nbsp;&nbsp;ÃÜÂë£º &nbsp;
+									<input type="password" name="password" size="13"><br> 
 									<font color="red">${requestScope.msgPwd}</font> 
 								</td> 
 							</tr> 
 							<tr align="center"> 
 								<td> 
-									éªŒè¯ç ï¼š &nbsp;
-									<input type="text" id="verifyCode" name="verifyCode" size="6"> <a href="javascript:reloadVerifyCode();" onclick="javascript:reloadVerifyCode();"><img height="22" align="bottom" width="50" alt="æ¢ä¸€å¼ " id="safecode" src="<%=request.getContextPath()%>/healthAction/ImageServlet"></a> 
+									ÑéÖ¤Âë£º &nbsp;
+									<input type="text" id="verifyCode" name="verifyCode" size="6"> <a href="javascript:reloadVerifyCode();" onclick="javascript:reloadVerifyCode();"><img height="22" align="bottom" width="50" alt="»»Ò»ÕÅ" id="safecode" src="<%=request.getContextPath()%>/healthAction/ImageServlet"></a> 
 									<br><font color="red">${requestScope.msgYanzhengma}</font>    
 								</td> 
 								 
@@ -177,7 +174,7 @@ window.attachEvent("onload", correctPNG);
 							</tr> 
 							<tr align="center"> 
 								<td> 
-									<input type="submit" value="ç™»å½•"> 
+									<input type="submit" value="µÇÂ¼"> 
 								</td> 
 							</tr> 
 							<tr> 
@@ -202,7 +199,7 @@ window.attachEvent("onload", correctPNG);
 				<td>
 			<a><img src="fimages/xinxi.jpg"></a>
 									<h2>
-										<a href="info_show.jsp" style="text-decoration:none "><strong>ä¿¡æ¯å‘å¸ƒ</strong> </a>
+										<a href="info_show.jsp" style="text-decoration:none "><strong>ĞÅÏ¢·¢²¼</strong> </a>
 									</h2>
 				</td>
 				</tr>
@@ -214,7 +211,7 @@ window.attachEvent("onload", correctPNG);
 				<td>
 				<a href=""><img src="fimages/22.jpg" /> </a>
 									<h2>
-										<a href="" style="text-decoration:none "><strong>ç¤ºèŒƒå¿ä¿¡æ¯å¹³å°</strong></a>
+										<a href="" style="text-decoration:none "><strong>Ê¾·¶ÏØĞÅÏ¢Æ½Ì¨</strong></a>
 									</h2>
 				</td>
 				</tr>
@@ -246,7 +243,7 @@ window.attachEvent("onload", correctPNG);
 		<div id="footer-bgcontent" align="center">
 			<div id="footer">
 				<p>
-					Copyright (c) 2012 æ•™è‚²éƒ¨ç§‘æŠ€å¸ã€ä¸­å›½äººæ°‘è§£æ”¾å†›æ€»åŒ»é™¢ . Design by ä¸­å›½äººæ°‘è§£æ”¾å†›æ€»åŒ»é™¢.
+					Copyright (c) 2012 ½ÌÓı²¿¿Æ¼¼Ë¾¡¢ÖĞ¹úÈËÃñ½â·Å¾ü×ÜÒ½Ôº . Design by ÖĞ¹úÈËÃñ½â·Å¾ü×ÜÒ½Ôº.
 				</p>
 			</div>
 		</div>

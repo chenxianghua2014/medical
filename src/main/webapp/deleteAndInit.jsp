@@ -8,7 +8,7 @@
 	初始化数据库。。。
 	<script type="text/javascript">
 		window.setTimeout(function() {
-			window.location.replace('repairAction!deleteAndRepair.action');
+			//window.location.replace('repairAction!deleteAndRepair.action');
 		}, 1000);
 	</script>
 </body>
