@@ -1,2 +1,2 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<div style="text-align: center;">版权所有&nbsp;ONEFISH</div>
+<div style="text-align: center;">版权所有&nbsp;BUPT</div>

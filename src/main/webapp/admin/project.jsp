@@ -178,8 +178,20 @@
 					}
 				}
 			},{
+				field : 'curl',
+				title : '项目编号',
+				width : 150,
+				editor : {
+					type : 'text'
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
 				field : 'cpid',
-				title : '从属项目',
+				title : '从属课题',
 				width : 150,
 				editor : {
 					type : 'combotree',
@@ -233,7 +245,7 @@
 				}
 			},{
 				field : 'cendtime',
-				title : '开始时间',
+				title : '结束时间',
 				width : 150,				
 				editor : {
 					type : 'datebox'
@@ -250,19 +262,7 @@
 						return sy.fs('<span title="{0}">{1}</span>', value, value);
 					}
 				}
-			} ,{
-				field : 'cresponser',
-				title : '负责人',
-				width : 150,
-				editor : {
-					type : 'text'
-				},
-				formatter : function(value) {
-					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
-					}
-				}
-			} ,{
+			}  ,{
 				field : 'cstatus',
 				title : '状态',
 				align : 'right',
