@@ -218,9 +218,16 @@
 					value = value*100;
 					value.toFixed(2);
 					value2=value+"%";
-					return sy.fs('<center> <table bgcolor=#F1FEDD> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
+					return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
 					}
-				}					
+				else {
+				
+					value = 0;
+					value.toFixed(2);
+					value2=value+"%";
+					return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
+					}
+				}						
 					
 			},{
 				field : 'cstarttime',
