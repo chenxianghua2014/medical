@@ -163,6 +163,18 @@
 				width : 50,
 				hidden : true
 			}, */ {
+				field : 'curl',
+				title : '项目编号',
+				width : 150,
+				editor : {
+					type : 'text'
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
 				field : 'cname',
 				title : '项目名称',
 				width : 350,
@@ -177,60 +189,39 @@
 						return sy.fs('<span title="{0}">{1}</span>', value, value);
 					}
 				}
-			},{
-				field : 'curl',
-				title : '项目编号',
+			} ] ],
+			columns : [ [ 
+			{
+				field : 'cstatus',
+				title : '状态',
+				align : 'right',
 				width : 150,
 				editor : {
 					type : 'text'
 				},
 				formatter : function(value) {
-					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+					if (value == 1) {
+						return value = '进行中......';
+						//return sy.fs('<span title="{0}">{1}</span>', value, value);
+					}else{
+						return value = '完成';
 					}
 				}
-			},{
-				field : 'cpid',
-				title : '从属课题',
-				width : 150,
-				editor : {
-					type : 'combotree',
-					options : {
-						url : 'projectAction!projectTreeRecursive.action',
-						animate : false,
-						lines : !sy.isLessThanIe8(),
-						onLoadSuccess : function(row, data) {
-							var t = $(this);
-							if (data) {
-								$(data).each(function(index, d) {
-									if (this.state == 'closed') {
-										t.tree('expandAll');
-									}
-								});
-							}
-						}
+			} ,{
+				field : 'cprogress',
+				title : '进度',
+				align : 'center',
+				width : 100,
+				formatter : function(value) {
+				if (value!=0) {
+				
+					value = value*100;
+					value.toFixed(2);
+					value2=value+"%";
+					return sy.fs('<center> <table bgcolor=#F1FEDD> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
 					}
-				},
-				formatter : function(value, rowData, rowIndex) {
-					return rowData.cpname;
-				}
-			} ] ],
-			columns : [ [ 
-			{
-				field : 'cuid',
-				title : '负责人',
-				width : 150,
-				formatter : function(value, rowData, rowIndex) {
-					return rowData.cuname;
-				},
-				editor : {
-					type : 'combobox',
-					options : {
-						url : 'projectAction!projectCombobox.action',
-						valueField : 'cid',
-						textField : 'cname'
-					}
-				}
+				}					
+					
 			},{
 				field : 'cstarttime',
 				title : '开始时间',
@@ -263,36 +254,20 @@
 					}
 				}
 			}  ,{
-				field : 'cstatus',
-				title : '状态',
-				align : 'right',
+				field : 'cuid',
+				title : '负责人',
 				width : 150,
-				editor : {
-					type : 'text'
+				formatter : function(value, rowData, rowIndex) {
+					return rowData.cuname;
 				},
-				formatter : function(value) {
-					if (value == 1) {
-						return value = '进行中......';
-						//return sy.fs('<span title="{0}">{1}</span>', value, value);
-					}else{
-						return value = '完成';
+				editor : {
+					type : 'combobox',
+					options : {
+						url : 'projectAction!projectCombobox.action',
+						valueField : 'cid',
+						textField : 'cname'
 					}
 				}
-			} ,{
-				field : 'cprogress',
-				title : '进度',
-				align : 'center',
-				width : 100,
-				formatter : function(value) {
-				if (value!=0) {
-				
-					value = value*100;
-					value.toFixed(2);
-					value2=value+"%";
-					return sy.fs('<center> <table> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=red style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
-					}
-				}					
-					
 			}
 			] ],
 			onDblClickRow : function(row) {
