@@ -14,6 +14,11 @@
 	var showCdescDialog;
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
+			rowStyler:function(index,row){     
+			    if (index%2==0){     
+			            return 'background-color:#EFEFEF;';     
+			        }     
+			    },
 			url : 'kemuAction!datagrid.action',
 			title : 'kemu列表(弹窗修改模式)',
 			iconCls : 'icon-save',
@@ -111,6 +116,14 @@
 			}
 		});
 
+		function _search() {
+			datagrid.datagrid('load', sy.serializeObject(searchForm));
+		}
+		function cleanSearch() {
+			datagrid.datagrid('load', {});
+			searchForm.find('input').val('');
+		}
+		
 		kemuAddForm = $('#kemuAddForm').form({
 			url : 'kemuAction!add.action',
 			success : function(data) {
@@ -295,6 +308,20 @@
 </script>
 </head>
 <body class="easyui-layout">
+	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+		<form id="searchForm">
+			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
+				<tr>
+					<th>负责人</th>
+					<td><input name="cprojectid" style="width:315px;" /></td>
+				</tr>
+				<tr>
+					<th>记账时间</th>
+					<td><input name="ccountTimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />至<input name="ccountTimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td></td>
+				</tr>				
+			</table>
+		</form>
+	</div>
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>

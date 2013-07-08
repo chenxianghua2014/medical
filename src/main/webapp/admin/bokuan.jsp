@@ -14,6 +14,11 @@
 	var showCdescDialog;
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
+			rowStyler:function(index,row){     
+			    if (index%2==0){     
+			            return 'background-color:#EFEFEF;';     
+			        }     
+			    },
 			url : 'bokuanAction!datagrid.action',
 			title : '经费拨入拨出信息列表',
 			iconCls : 'icon-save',
