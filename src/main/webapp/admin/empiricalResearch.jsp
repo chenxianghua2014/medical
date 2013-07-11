@@ -344,7 +344,7 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="empiricalResearchAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="empiricalResearchAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="empiricalResearchAddForm" method="post">
 			<table class="tableForm">
 				<tr>
@@ -391,7 +391,7 @@
 		</form>
 	</div>
 
-	<div id="empiricalResearchEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="empiricalResearchEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="empiricalResearchEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">

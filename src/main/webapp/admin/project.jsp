@@ -68,6 +68,11 @@
 
 		treegrid = $('#treegrid').treegrid({
 			url : 'projectAction!treegrid.action',
+			rowStyler:function(index,row){     
+			    if (index%2==0){     
+			            return 'background-color:#EFEFEF;';     
+			        }     
+			    },
 			toolbar : [ {
 				text : '展开',
 				iconCls : 'icon-redo',
@@ -125,7 +130,7 @@
 						treegrid.treegrid('reload');
 					}
 				}
-			}, '-', {
+			}, '-'/* , {
 				text : '取消编辑',
 				iconCls : 'icon-undo',
 				handler : function() {
@@ -147,7 +152,7 @@
 				handler : function() {
 					treegrid.treegrid('unselectAll');
 				}
-			}, '-' ],
+			}, '-' */ ],
 			title : '',
 			iconCls : 'icon-save',
 			fit : true,
@@ -157,12 +162,13 @@
 			border : false,
 			idField : 'cid',
 			treeField : 'cname',
-			frozenColumns : [ [ /* {
+			frozenColumns : [ [  {
 				title : 'cid',
 				field : 'cid',
 				width : 50,
-				hidden : true
-			}, */ {
+				hidden : false,
+				checkbox : true
+			},  {
 				field : 'curl',
 				title : '项目编号',
 				size : 2000,
@@ -221,15 +227,24 @@
 				
 					value = value*100;
 					value.toFixed(2);
-					value2=value+"%";
-					return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
+					//value2=value+"%";
+					var s = '<div style="width:100%;border:1px solid #ccc">' +
+                        '<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+                        '</div>';
+              		return s;
+					//return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
 					}
 				else {
 				
 					value = 0;
 					value.toFixed(2);
-					value2=value+"%";
-					return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
+					//value2=value+"%";
+					
+					var s = '<div style="width:100%;border:1px solid #ccc">' +
+                        '<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+                        '</div>';
+              		return s;
+					//return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
 					}
 				}						
 					

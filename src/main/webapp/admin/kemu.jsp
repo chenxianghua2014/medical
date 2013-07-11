@@ -14,11 +14,11 @@
 	var showCdescDialog;
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
-			rowStyler:function(index,row){     
+			/* rowStyler:function(index,row){     
 			    if (index%2==0){     
 			            return 'background-color:#EFEFEF;';     
 			        }     
-			    },
+			    }, */
 			url : 'kemuAction!datagrid.action',
 			title : '经费科目支出列表',
 			iconCls : 'icon-save',
@@ -31,6 +31,7 @@
 			nowrap : false,
 			border : false,
 			idField : 'cid',
+			striped : true,
 			sortOrder : 'desc',
 			frozenColumns : [ [ {
 				title : '编号',

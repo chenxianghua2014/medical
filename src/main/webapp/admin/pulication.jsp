@@ -341,7 +341,7 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="pulicationAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="pulicationAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="pulicationAddForm" method="post">
 			<table class="tableForm">
 				<tr>
@@ -384,7 +384,7 @@
 		</form>
 	</div>
 
-	<div id="pulicationEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="pulicationEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="pulicationEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">

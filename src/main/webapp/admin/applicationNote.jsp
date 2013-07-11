@@ -332,7 +332,7 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="applicationNoteAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="applicationNoteAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="applicationNoteAddForm" method="post">
 			<table class="tableForm">
 				<tr>
@@ -369,7 +369,7 @@
 		</form>
 	</div>
 
-	<div id="applicationNoteEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="applicationNoteEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="applicationNoteEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">

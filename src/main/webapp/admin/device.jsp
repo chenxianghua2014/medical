@@ -5,10 +5,10 @@
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
 	var datagrid;
-	var patentAddDialog;
-	var patentAddForm;
-	var patentEditDialog;
-	var patentEditForm;
+	var deviceAddDialog;
+	var deviceAddForm;
+	var deviceEditDialog;
+	var deviceEditForm;
 	var cdescEdit;
 	var cdescAdd;
 	var showCdescDialog;
@@ -19,8 +19,8 @@
 			            return 'background-color:#EFEFEF;';     
 			        }     
 			    },
-			url : 'patentAction!datagrid.action',
-			title : '专利列表',
+			url : 'deviceAction!datagrid.action',
+			title : '大型科学仪器列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -32,59 +32,71 @@
 			border : false,
 			idField : 'cid',
 			sortOrder : 'desc',
-			frozenColumns : [ [ {
+			frozenColumns : [[ {
 				title : '编号',
 				field : 'cid',
 				width : 150,
-				sortable : true,
 				checkbox : true
-			}, {
-				title : '专利名称',
-				field : 'cname',
-				width : 200,
-				sortable : true
-			} , {
-				title : '授权国',
-				field : 'ccountry',
-				width : 150
-			} ] ],
-			columns : [ [  {
-				title : '专利编号',
+			},  {
+				title : '仪器设备编号',
 				field : 'cnumber',
 				width : 150,
 				sortable : true
+			},{
+				title : '中文名称',
+				field : 'ccname',
+				width : 200
+			},{
+				title : '英文名称',
+				field : 'cename',
+				width : 200
+			},{
+				title : '仪器来源',
+				field : 'csource',
+				width : 200
+			}] ],
+			columns : [ [ {
+				title : '仪器设备负责人',
+				field : 'cbackup1',
+				width : 150
+			},{
+				title : '购置(研发)时间',
+				field : 'cresearchtime',
+				width : 150
+			},{
+				title : '规格型号',
+				field : 'cversion',
+				width : 150
+			},{
+				title : '产地',
+				field : 'cfield',
+				width : 150,
+				sortable : true
 			}  , {
-				title : '专利类型',
-				field : 'cclassify',
+				title : '生产厂商',
+				field : 'cfactory',
 				width : 150,
 				sortable : true
 			}, {
-				title : '发明设计人',
-				field : 'cinvent',
+				title : '价格',
+				field : 'cprice',
 				width : 150,
 				sortable : true
-			} , {
-				title : '专利权人',
-				field : 'cpatentee',
-				width : 150,
-				sortable : true
-			}, {
-				title : '摘要',
-				field : 'csummary',
+			},{
+				title : '功能说明',
+				field : 'cnote',
 				formatter : function(value, rowData, rowIndex) {
-					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
+					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看功能说明</a>';
 				},
 				width : 150
-			}, {
-				title : '录入人',
-				field : 'ctypeman',
-				width : 150,
-				sortable : true
-			}, {
-				title : '录入时间',
-				field : 'ctypetime',
-				width : 150,
-				sortable : true
+			},{
+				title : '仪器设备所属单位',
+				field : 'cunit',
+				width : 150
+			},{
+				title : '联系方式',
+				field : 'ccontactid',
+				width : 150
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -124,8 +136,8 @@
 			searchForm.find('input').val('');
 		}
 		
-		patentAddForm = $('#patentAddForm').form({
-			url : 'patentAction!add.action',
+		deviceAddForm = $('#deviceAddForm').form({
+			url : 'deviceAction!add.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -134,7 +146,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					patentAddDialog.dialog('close');
+					deviceAddDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -144,21 +156,21 @@
 			}
 		});
 
-		patentAddDialog = $('#patentAddDialog').show().dialog({
-			title : '添加专利信息',
+		deviceAddDialog = $('#deviceAddDialog').show().dialog({
+			title : '添加大型科学仪器信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '添加',
 				handler : function() {
-					patentAddForm.submit();
+					deviceAddForm.submit();
 				}
 			}]
 		});
 
-		patentEditForm = $('#patentEditForm').form({
-			url : 'patentAction!edit.action',
+		deviceEditForm = $('#deviceEditForm').form({
+			url : 'deviceAction!edit.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -167,7 +179,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					patentEditDialog.dialog('close');
+					deviceEditDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -177,15 +189,15 @@
 			}
 		});
 
-		patentEditDialog = $('#patentEditDialog').show().dialog({
-			title : '编辑专利信息',
+		deviceEditDialog = $('#deviceEditDialog').show().dialog({
+			title : '编辑大型科学仪器信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '编辑',
 				handler : function() {
-					patentEditForm.submit();
+					deviceEditForm.submit();
 				}
 			} ]
 		});
@@ -194,9 +206,9 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'patentAction!upload.action',
+			upLinkUrl : 'deviceAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'patentAction!upload.action',
+			upImgUrl : 'deviceAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 		
@@ -204,14 +216,14 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'patentAction!upload.action',
+			upLinkUrl : 'deviceAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'patentAction!upload.action',
+			upImgUrl : 'deviceAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '摘要',
+			title : '功能说明',
 			modal : true,
 			closed : true,
 			maximizable : true
@@ -220,9 +232,9 @@
 	});
 
 	function add() {
-		patentAddForm.find('input,textarea').val('');
+		deviceAddForm.find('input,textarea').val('');
 		$('div.validatebox-tip').remove();
-		patentAddDialog.dialog('open');
+		deviceAddDialog.dialog('open');
 	}
 	function del() {
 		var rows = datagrid.datagrid('getSelections');
@@ -234,7 +246,7 @@
 						ids.push(rows[i].cid);
 					}
 					$.ajax({
-						url : 'patentAction!delete.action',
+						url : 'deviceAction!delete.action',
 						data : {
 							ids : ids.join(',')
 						},
@@ -262,16 +274,16 @@
 				interval : 100
 			});
 			$.ajax({
-				url : 'patentAction!showDesc.action',
+				url : 'deviceAction!showDesc.action',
 				data : {
 					cid : rows[0].cid
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(response) {
-					patentEditForm.form('load', response);
+					deviceEditForm.form('load', response);
 					$('div.validatebox-tip').remove();
-					patentEditDialog.dialog('open');
+					deviceEditDialog.dialog('open');
 					$.messager.progress('close');
 				}
 			});
@@ -287,15 +299,15 @@
 			interval : 100
 		});
 		$.ajax({
-			url : 'patentAction!showDesc.action',
+			url : 'deviceAction!showDesc.action',
 			data : {
 				cid : row.cid
 			},
 			dataType : 'json',
 			cache : false,
 			success : function(response) {
-				if (response && response.csummary) {
-					showCdescDialog.find('div[name=csummary]').html(response.csummary);
+				if (response && response.cnote) {
+					showCdescDialog.find('div[name=cnote]').html(response.cnote);
 					showCdescDialog.dialog('open');
 				} else {
 					$.messager.alert('提示', '没有电子凭证 ！', 'error');
@@ -332,77 +344,103 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="patentAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
-		<form id="patentAddForm" method="post">
+	<div id="deviceAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="deviceAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>专利名称</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写专利名称" /></td>					
-				
-					<th>专利编号</th>
-					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写专利编号" /></td>
+					<th>仪器设备编号</th>
+					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写仪器设备编号" /></td>					
+					<th>仪器来源</th>
+					<td><input name="csource" class="easyui-validatebox" required="true" missingMessage="请填写仪器来源" /></td>
 				</tr>
 				<tr>
-					<th>授权国</th>
-					<td><input name="ccountry" class="easyui-validatebox" required="true"   missingMessage="请填写授权国" /></td>				
-					<th>专利类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写专利类型" /></td>
-				</tr>
-				<tr>
-					<th>发明设计人</th>
-					<td><input name="cinvent" class="easyui-validatebox" required="true"   missingMessage="请填写发明设计人" /></td>				
-					<th>专利权人</th>
-					<td><input name="cpatentee" class="easyui-validatebox" required="true"   missingMessage="请填写专利权人" /></td>
-				</tr>
-				<tr>
-					<th>录入人</th>
-					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
-					<th>录入时间</th>
-					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					<th>中文名称</th>
+					<td><input name="ccname" class="easyui-validatebox" required="true"   missingMessage="请填写中文名称" /></td>				
+					<th>英文名称</th>
+					<td><input name="cename" class="easyui-validatebox" required="true"   missingMessage="请填写英文名称" /></td>
 				</tr>				
 				<tr>
-					<th>摘要</th>
-					<td colspan="4">
-					<textarea id="cdescAdd" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
-					</td>
+					<th>仪器设备负责人</th>
+					<td><input name="cbackup1" class="easyui-validatebox" required="true"   missingMessage="请填写仪器设备负责人" /></td>				
+					<th>联系方式</th>
+					<td><input name="ccontactid" class="easyui-validatebox" required="true"   missingMessage="请填写联系方式" /></td>
+					
 				</tr>
+				<tr>
+					<th>规格型号</th>
+					<td><input name="cversion" class="easyui-validatebox" required="true"   missingMessage="请填写规格型号" /></td>				
+					<th>产地</th>
+					<td><input name="cfield" class="easyui-validatebox" required="true"   missingMessage="请填写产地" /></td>
+				</tr>
+				<tr>
+					<th>生产厂商</th>
+					<td><input name="cfactory" class="easyui-validatebox" required="true"   missingMessage="请填写生产厂商" /></td>
+					<th>价格</th>
+					<td><input name="cprice" class="easyui-validatebox" required="true"   missingMessage="请填写价格" /></td>
+				</tr>
+				<tr>
+					<th>购置(研发)时间</th>
+					<td><input name="cresearchtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					
+					<th>仪器设备所属单位</th>
+					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写仪器设备所属单位" /></td>
+				</tr>				
+				<tr>
+					<th>功能说明</th>
+					<td colspan="4">
+					<textarea id="cdescAdd" name="cnote"  rows="12" cols="80" style="width: 80%"></textarea>
+					</td>
+				</tr>			
 			</table>
 		</form>
 	</div>
 
-	<div id="patentEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
-		<form id="patentEditForm" method="post">
+	<div id="deviceEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="deviceEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>专利名称</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写专利名称" /></td>					
-				
-					<th>专利编号</th>
-					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写专利编号" /></td>
+					<th>仪器设备编号</th>
+					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写仪器设备编号" /></td>					
+					<th>仪器来源</th>
+					<td><input name="csource" class="easyui-validatebox" required="true" missingMessage="请填写仪器来源" /></td>
 				</tr>
 				<tr>
-					<th>授权国</th>
-					<td><input name="ccountry" class="easyui-validatebox" required="true"   missingMessage="请填写授权国" /></td>				
-					<th>专利类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写专利类型" /></td>
+					<th>中文名称</th>
+					<td><input name="ccname" class="easyui-validatebox" required="true"   missingMessage="请填写中文名称" /></td>				
+					<th>英文名称</th>
+					<td><input name="cename" class="easyui-validatebox" required="true"   missingMessage="请填写英文名称" /></td>
+				</tr>				
+				<tr>
+					<th>仪器设备负责人</th>
+					<td><input name="cbackup1" class="easyui-validatebox" required="true"   missingMessage="请填写仪器设备负责人" /></td>				
+					<th>联系方式</th>
+					<td><input name="ccontactid" class="easyui-validatebox" required="true"   missingMessage="请填写联系方式" /></td>
+					
 				</tr>
 				<tr>
-					<th>发明设计人</th>
-					<td><input name="cinvent" class="easyui-validatebox" required="true"   missingMessage="请填写发明设计人" /></td>				
-					<th>专利权人</th>
-					<td><input name="cpatentee" class="easyui-validatebox" required="true"   missingMessage="请填写专利权人" /></td>
+					<th>规格型号</th>
+					<td><input name="cversion" class="easyui-validatebox" required="true"   missingMessage="请填写规格型号" /></td>				
+					<th>产地</th>
+					<td><input name="cfield" class="easyui-validatebox" required="true"   missingMessage="请填写产地" /></td>
 				</tr>
 				<tr>
-					<th>录入人</th>
-					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
-					<th>录入时间</th>
-					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					<th>生产厂商</th>
+					<td><input name="cfactory" class="easyui-validatebox" required="true"   missingMessage="请填写生产厂商" /></td>
+					<th>价格</th>
+					<td><input name="cprice" class="easyui-validatebox" required="true"   missingMessage="请填写价格" /></td>
 				</tr>
 				<tr>
-					<th>摘要</th>
+					<th>购置(研发)时间</th>
+					<td><input name="cresearchtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					
+					<th>仪器设备所属单位</th>
+					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写仪器设备所属单位" /></td>
+				</tr>
+				<tr>
+					<th>功能说明</th>
 					<td colspan="4">
-					<textarea id="cdescEdit" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
+					<textarea id="cdescEdit" name="cnote"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>
@@ -410,7 +448,7 @@
 	</div>
 
 	<div id="showCdescDialog" style="display: none;overflow: auto;width: 500px;height: 400px;">
-		<div name="csummary"></div>
+		<div name="cnote"></div>
 	</div>
 
 </body>

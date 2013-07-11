@@ -5,10 +5,10 @@
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
 	var datagrid;
-	var patentAddDialog;
-	var patentAddForm;
-	var patentEditDialog;
-	var patentEditForm;
+	var resourceAddDialog;
+	var resourceAddForm;
+	var resourceEditDialog;
+	var resourceEditForm;
 	var cdescEdit;
 	var cdescAdd;
 	var showCdescDialog;
@@ -19,8 +19,8 @@
 			            return 'background-color:#EFEFEF;';     
 			        }     
 			    },
-			url : 'patentAction!datagrid.action',
-			title : '专利列表',
+			url : 'resourceAction!datagrid.action',
+			title : '实物资源信息列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -32,57 +32,57 @@
 			border : false,
 			idField : 'cid',
 			sortOrder : 'desc',
-			frozenColumns : [ [ {
+			frozenColumns : [[ {
 				title : '编号',
 				field : 'cid',
 				width : 150,
 				sortable : true,
 				checkbox : true
 			}, {
-				title : '专利名称',
+				title : '实物资源名称',
 				field : 'cname',
 				width : 200,
 				sortable : true
-			} , {
-				title : '授权国',
-				field : 'ccountry',
+			} ,{
+				title : '实物资源分类',
+				field : 'cclassify',
+				width : 200,
+				sortable : true
+			} ,{
+				title : '关键词',
+				field : 'cinformation',           
+				width : 200,
+				sortable : true
+			}] ],
+			columns : [ [ {
+				title : '实物资源数量',
+				field : 'cmount',
+				width : 100,
+				sortable : true
+			},{
+				title : '实物资源描述',
+				field : 'csummary',
+				formatter : function(value, rowData, rowIndex) {
+					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看实物资源描述</a>';
+				},
+				width : 120
+			},{
+				title : '储存方式',
+				field : 'cstorage',
+				width : 100,
+				sortable : true
+			},{
+				title : '所在单位名称',
+				field : 'cunit',
 				width : 150
-			} ] ],
-			columns : [ [  {
-				title : '专利编号',
-				field : 'cnumber',
+			},{
+				title : '负责人',
+				field : 'cprinciple',
 				width : 150,
 				sortable : true
 			}  , {
-				title : '专利类型',
-				field : 'cclassify',
-				width : 150,
-				sortable : true
-			}, {
-				title : '发明设计人',
-				field : 'cinvent',
-				width : 150,
-				sortable : true
-			} , {
-				title : '专利权人',
-				field : 'cpatentee',
-				width : 150,
-				sortable : true
-			}, {
-				title : '摘要',
-				field : 'csummary',
-				formatter : function(value, rowData, rowIndex) {
-					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
-				},
-				width : 150
-			}, {
-				title : '录入人',
-				field : 'ctypeman',
-				width : 150,
-				sortable : true
-			}, {
-				title : '录入时间',
-				field : 'ctypetime',
+				title : '管理员联系方式',
+				field : 'ccontactid',
 				width : 150,
 				sortable : true
 			}] ],
@@ -124,8 +124,8 @@
 			searchForm.find('input').val('');
 		}
 		
-		patentAddForm = $('#patentAddForm').form({
-			url : 'patentAction!add.action',
+		resourceAddForm = $('#resourceAddForm').form({
+			url : 'resourceAction!add.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -134,7 +134,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					patentAddDialog.dialog('close');
+					resourceAddDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -144,21 +144,21 @@
 			}
 		});
 
-		patentAddDialog = $('#patentAddDialog').show().dialog({
-			title : '添加专利信息',
+		resourceAddDialog = $('#resourceAddDialog').show().dialog({
+			title : '添加实物资源信息信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '添加',
 				handler : function() {
-					patentAddForm.submit();
+					resourceAddForm.submit();
 				}
 			}]
 		});
 
-		patentEditForm = $('#patentEditForm').form({
-			url : 'patentAction!edit.action',
+		resourceEditForm = $('#resourceEditForm').form({
+			url : 'resourceAction!edit.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -167,7 +167,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					patentEditDialog.dialog('close');
+					resourceEditDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -177,15 +177,15 @@
 			}
 		});
 
-		patentEditDialog = $('#patentEditDialog').show().dialog({
-			title : '编辑专利信息',
+		resourceEditDialog = $('#resourceEditDialog').show().dialog({
+			title : '编辑实物资源信息信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '编辑',
 				handler : function() {
-					patentEditForm.submit();
+					resourceEditForm.submit();
 				}
 			} ]
 		});
@@ -194,9 +194,9 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'patentAction!upload.action',
+			upLinkUrl : 'resourceAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'patentAction!upload.action',
+			upImgUrl : 'resourceAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 		
@@ -204,14 +204,14 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'patentAction!upload.action',
+			upLinkUrl : 'resourceAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'patentAction!upload.action',
+			upImgUrl : 'resourceAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '摘要',
+			title : '实物资源描述',
 			modal : true,
 			closed : true,
 			maximizable : true
@@ -220,9 +220,9 @@
 	});
 
 	function add() {
-		patentAddForm.find('input,textarea').val('');
+		resourceAddForm.find('input,textarea').val('');
 		$('div.validatebox-tip').remove();
-		patentAddDialog.dialog('open');
+		resourceAddDialog.dialog('open');
 	}
 	function del() {
 		var rows = datagrid.datagrid('getSelections');
@@ -234,7 +234,7 @@
 						ids.push(rows[i].cid);
 					}
 					$.ajax({
-						url : 'patentAction!delete.action',
+						url : 'resourceAction!delete.action',
 						data : {
 							ids : ids.join(',')
 						},
@@ -262,16 +262,16 @@
 				interval : 100
 			});
 			$.ajax({
-				url : 'patentAction!showDesc.action',
+				url : 'resourceAction!showDesc.action',
 				data : {
 					cid : rows[0].cid
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(response) {
-					patentEditForm.form('load', response);
+					resourceEditForm.form('load', response);
 					$('div.validatebox-tip').remove();
-					patentEditDialog.dialog('open');
+					resourceEditDialog.dialog('open');
 					$.messager.progress('close');
 				}
 			});
@@ -287,7 +287,7 @@
 			interval : 100
 		});
 		$.ajax({
-			url : 'patentAction!showDesc.action',
+			url : 'resourceAction!showDesc.action',
 			data : {
 				cid : row.cid
 			},
@@ -332,36 +332,35 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="patentAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
-		<form id="patentAddForm" method="post">
+	<div id="resourceAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="resourceAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>专利名称</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写专利名称" /></td>					
-				
-					<th>专利编号</th>
-					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写专利编号" /></td>
+					<th>实物资源名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写实物资源名称" /></td>					
+					<th>实物资源分类</th>
+					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实物资源分类" /></td>
 				</tr>
 				<tr>
-					<th>授权国</th>
-					<td><input name="ccountry" class="easyui-validatebox" required="true"   missingMessage="请填写授权国" /></td>				
-					<th>专利类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写专利类型" /></td>
-				</tr>
-				<tr>
-					<th>发明设计人</th>
-					<td><input name="cinvent" class="easyui-validatebox" required="true"   missingMessage="请填写发明设计人" /></td>				
-					<th>专利权人</th>
-					<td><input name="cpatentee" class="easyui-validatebox" required="true"   missingMessage="请填写专利权人" /></td>
-				</tr>
-				<tr>
-					<th>录入人</th>
-					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
-					<th>录入时间</th>
-					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					<th>关键词</th>
+					<td><input name="cinformation" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>				
+					<th>实物资源数量</th>
+					<td><input name="cmount" class="easyui-validatebox" required="true"   missingMessage="请填写实物资源数量" /></td>
 				</tr>				
 				<tr>
-					<th>摘要</th>
+					<th>管理员联系方式</th>
+					<td><input name="ccontactid" class="easyui-validatebox" required="true"   missingMessage="请填写实物资源管理员与联系方式" /></td>
+					<th>储存方式</th>
+					<td><input name="cstorage" class="easyui-validatebox" required="true"   missingMessage="请填写储存方式" /></td>
+				</tr>
+				<tr>
+					<th>所在单位名称</th>
+					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写所在单位名称" /></td>				
+					<th>负责人</th>
+					<td><input name="cprinciple" class="easyui-validatebox" required="true"   missingMessage="请填写负责人" /></td>
+				</tr>
+				<tr>
+					<th>实物资源描述</th>
 					<td colspan="4">
 					<textarea id="cdescAdd" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
@@ -370,37 +369,36 @@
 		</form>
 	</div>
 
-	<div id="patentEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
-		<form id="patentEditForm" method="post">
+	<div id="resourceEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="resourceEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>专利名称</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写专利名称" /></td>					
-				
-					<th>专利编号</th>
-					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写专利编号" /></td>
+					<th>实物资源名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写实物资源名称" /></td>					
+					<th>实物资源分类</th>
+					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实物资源分类" /></td>
 				</tr>
 				<tr>
-					<th>授权国</th>
-					<td><input name="ccountry" class="easyui-validatebox" required="true"   missingMessage="请填写授权国" /></td>				
-					<th>专利类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写专利类型" /></td>
+					<th>关键词</th>
+					<td><input name="cinformation" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>				
+					<th>实物资源数量</th>
+					<td><input name="cmount" class="easyui-validatebox" required="true"   missingMessage="请填写实物资源数量" /></td>
+				</tr>				
+				<tr>
+					<th>管理员联系方式</th>
+					<td><input name="ccontactid" class="easyui-validatebox" required="true"   missingMessage="请填写实物资源管理员与联系方式" /></td>
+					<th>储存方式</th>
+					<td><input name="cstorage" class="easyui-validatebox" required="true"   missingMessage="请填写储存方式" /></td>
 				</tr>
 				<tr>
-					<th>发明设计人</th>
-					<td><input name="cinvent" class="easyui-validatebox" required="true"   missingMessage="请填写发明设计人" /></td>				
-					<th>专利权人</th>
-					<td><input name="cpatentee" class="easyui-validatebox" required="true"   missingMessage="请填写专利权人" /></td>
+					<th>所在单位名称</th>
+					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写所在单位名称" /></td>				
+					<th>负责人</th>
+					<td><input name="cprinciple" class="easyui-validatebox" required="true"   missingMessage="请填写负责人" /></td>
 				</tr>
 				<tr>
-					<th>录入人</th>
-					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
-					<th>录入时间</th>
-					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
-				</tr>
-				<tr>
-					<th>摘要</th>
+					<th>实物资源描述</th>
 					<td colspan="4">
 					<textarea id="cdescEdit" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>

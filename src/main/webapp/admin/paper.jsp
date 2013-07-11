@@ -359,7 +359,7 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="paperAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="paperAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="paperAddForm" method="post">
 			<table class="tableForm">
 				<tr>
@@ -415,7 +415,7 @@
 		</form>
 	</div>
 
-	<div id="paperEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="paperEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="paperEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
