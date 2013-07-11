@@ -33,7 +33,7 @@ public class Tkemu implements java.io.Serializable {
 	public Tkemu() {
 	}
 	
-	public Tkemu(String cid, String cname, String ccountId, Date ccountTime, String ccourse,Float cmoney, String ctickets, String cdatei) {
+	public Tkemu(String cid, String cname, String ccountId, Date ccountTime, String ccourse,Float cmoney, String ctickets,String cprojectid) {
 		this.cid = cid;
 		this.cname = cname;
 		this.ctickets = ctickets;
@@ -41,7 +41,7 @@ public class Tkemu implements java.io.Serializable {
 		this.ccountTime = ccountTime;
 		this.ccountId = ccountId;
 		this.ccourse = ccourse;
-		this.cdatei = cdatei;
+		this.cprojectid = cprojectid;
 	}
 	/**
 	 * @return the cid
@@ -107,7 +107,7 @@ public class Tkemu implements java.io.Serializable {
 	public void setCcountId(String ccountId) {
 		this.ccountId = ccountId;
 	}
-	@Column(name = "cdatei", length = 255)
+	@Column(name = "cdatei", length = 100)
 	public String getCdatei() {
 		return cdatei;
 	}

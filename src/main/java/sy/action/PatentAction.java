@@ -22,61 +22,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Patent;
+import sy.service.PatentServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
+@Action(value = "patentAction", results = { @Result(name = "patent", location = "/admin/patent.jsp") })
+public class PatentAction extends BaseAction implements ModelDriven<Patent>{
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+	private static final Logger logger = Logger.getLogger(PatentAction.class);
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private PatentServiceI patentService;
 
-	private KemuServiceI kemuService;
+	private Patent patent = new Patent();
 
-	private Kemu kemu = new Kemu();
-
-	public Kemu getModel() {
-		return kemu;
+	public Patent getModel() {
+		return patent;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public PatentServiceI getpatentService() {
+		return patentService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setpatentService(PatentServiceI patentService) {
+		this.patentService = patentService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到patent管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String patent() {
+		return "patent";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(patentService.get(patent));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得patent数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(patentService.datagrid(patent));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个patent
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			patentService.add(patent);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +86,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑patent
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			patentService.update(patent);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +102,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除patent
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		patentService.delete(patent.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

@@ -22,61 +22,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Device;
+import sy.service.DeviceServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
+@Action(value = "deviceAction", results = { @Result(name = "device", location = "/admin/device.jsp") })
+public class DeviceAction extends BaseAction implements ModelDriven<Device>{
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+	private static final Logger logger = Logger.getLogger(DeviceAction.class);
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private DeviceServiceI deviceService;
 
-	private KemuServiceI kemuService;
+	private Device device = new Device();
 
-	private Kemu kemu = new Kemu();
-
-	public Kemu getModel() {
-		return kemu;
+	public Device getModel() {
+		return device;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public DeviceServiceI getdeviceService() {
+		return deviceService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setdeviceService(DeviceServiceI deviceService) {
+		this.deviceService = deviceService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到device管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String device() {
+		return "device";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(deviceService.get(device));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得device数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(deviceService.datagrid(device));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个device
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			deviceService.add(device);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +86,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑device
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			deviceService.update(device);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +102,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除device
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		deviceService.delete(device.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

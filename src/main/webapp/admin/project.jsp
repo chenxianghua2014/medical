@@ -165,19 +165,22 @@
 			}, */ {
 				field : 'curl',
 				title : '项目编号',
+				size : 2000,
 				width : 150,
+				height : 200,
 				editor : {
 					type : 'text'
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			},{
 				field : 'cname',
 				title : '项目名称',
 				width : 350,
+				size : 100,
 				editor : {
 					type : 'validatebox',
 					options : {
@@ -186,7 +189,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			} ] ],
@@ -201,10 +204,11 @@
 				},
 				formatter : function(value) {
 					if (value == 1) {
-						return value = '进行中......';
-						//return sy.fs('<span title="{0}">{1}</span>', value, value);
+						value = '进行中......';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}else{
-						return value = '完成';
+						value = '完成';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			} ,{
@@ -235,7 +239,7 @@
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				},
 				editor : {
@@ -244,7 +248,12 @@
 			},{
 				field : 'cendtime',
 				title : '结束时间',
-				width : 150,				
+				width : 150,
+				formatter : function(value, rowData, rowIndex) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},				
 				editor : {
 					type : 'datebox'
 				}
@@ -257,7 +266,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}  ,{
@@ -265,7 +274,10 @@
 				title : '负责人',
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
-					return rowData.cuname;
+					value=rowData.cuname;
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				},
 				editor : {
 					type : 'combobox',

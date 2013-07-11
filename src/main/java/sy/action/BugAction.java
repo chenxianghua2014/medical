@@ -78,7 +78,7 @@ public class BugAction extends BaseAction implements ModelDriven<Bug> {
 	/**
 	 * 获得bug数据表格
 	 */
-	public void datagrid() {
+	public void datagrid() {		
 		writeJson(bugService.datagrid(bug));
 	}
 

@@ -1,6 +1,7 @@
 package sy.action;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,61 +23,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.ApplicationNote;
+import sy.service.ApplicationNoteServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+@Action(value = "applicationNoteAction", results = { @Result(name = "applicationNote", location = "/admin/applicationNote.jsp") })
+public class ApplicationNoteAction extends BaseAction implements ModelDriven<ApplicationNote>{
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private static final Logger logger = Logger.getLogger(ApplicationNoteAction.class);
 
-	private KemuServiceI kemuService;
+	private ApplicationNoteServiceI applicationNoteService;
 
-	private Kemu kemu = new Kemu();
+	private ApplicationNote applicationNote = new ApplicationNote();
 
-	public Kemu getModel() {
-		return kemu;
+	public ApplicationNote getModel() {
+		return applicationNote;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public ApplicationNoteServiceI getapplicationNoteService() {
+		return applicationNoteService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setapplicationNoteService(ApplicationNoteServiceI applicationNoteService) {
+		this.applicationNoteService = applicationNoteService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到applicationNote管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String applicationNote() {
+		return "applicationNote";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(applicationNoteService.get(applicationNote));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得applicationNote数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(applicationNoteService.datagrid(applicationNote));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个applicationNote
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			applicationNoteService.add(applicationNote);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +88,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑applicationNote
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			applicationNoteService.update(applicationNote);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +104,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除applicationNote
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		applicationNoteService.delete(applicationNote.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

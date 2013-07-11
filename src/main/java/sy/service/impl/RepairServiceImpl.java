@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import sy.dao.BaseDaoI;
 import sy.model.Tauth;
 import sy.model.Tbug;
+import sy.model.Tkemu;
 import sy.model.Tmenu;
 import sy.model.Tonline;
 import sy.model.Tproject;
@@ -38,6 +39,7 @@ public class RepairServiceImpl extends BaseServiceImpl implements RepairServiceI
 	private BaseDaoI<Tusertrole> userroleDao;
 	private BaseDaoI<Troletauth> roleauthDao;
 	private BaseDaoI<Tproject> projectDao;
+	private BaseDaoI<Tkemu> kemuDao;
 
 	public BaseDaoI<Tbug> getBugDao() {
 		return bugDao;
@@ -740,6 +742,14 @@ public class RepairServiceImpl extends BaseServiceImpl implements RepairServiceI
 		xmcj.setCurl("projectAction!project.action");
 		xmcj.setTmenu(xmgl);
 		menuDao.saveOrUpdate(xmcj);
+		
+		/*Tmenu xmcx = new Tmenu();
+		xmcx.setCid("xmcx");
+		xmcx.setCname("项目查询和修改");
+		xmcx.setCseq(BigDecimal.valueOf(2));
+		xmcx.setCurl("");
+		xmcx.setTmenu(xmgl);
+		menuDao.saveOrUpdate(xmcx);*/
 
 	}
 

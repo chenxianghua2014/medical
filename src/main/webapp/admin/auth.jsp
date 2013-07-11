@@ -107,7 +107,7 @@
 			}, {
 				field : 'cname',
 				title : '权限名称',
-				width : 200,
+				width : 350,
 				editor : {
 					type : 'validatebox',
 					options : {

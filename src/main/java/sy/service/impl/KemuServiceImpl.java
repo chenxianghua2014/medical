@@ -92,7 +92,6 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		if (kemu.getCid() == null || kemu.getCid().trim().equals("")) {
 			kemu.setCid(UUID.randomUUID().toString());
 		}
-		String cname = null;
 		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
 		String cprojectid  = sessionInfo.getLoginName();
 		kemu.setCprojectid(cprojectid);	

@@ -67,6 +67,7 @@
 		} ];
 
 		treegrid = $('#treegrid').treegrid({
+			
 			url : 'payAction!treegrid.action',
 			toolbar : [ {
 				text : '展开',
@@ -114,15 +115,14 @@
 			border : false,
 			idField : 'cid',
 			treeField : 'cname',
-			frozenColumns : [ [ /* {
+			frozenColumns : [ [/*  {
 				title : 'cid',
 				field : 'cid',
-				width : 50,
-				hidden : true
+				width : 50
 			}, */ {
 				field : 'cname',
 				title : '项目名称',
-				width : 500,
+				width : 400,
 				editor : {
 					type : 'validatebox',
 					options : {

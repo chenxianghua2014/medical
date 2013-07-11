@@ -14,8 +14,8 @@
 	var showCdescDialog;
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
-			url : 'bugAction!datagrid.action',
-			title : 'BUG列表(弹窗修改模式)',
+			url : 'newsAction!datagrid.action',
+			title : '新闻列表(弹窗修改模式)',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -35,18 +35,23 @@
 				sortable : true,
 				checkbox : true
 			}, {
-				title : 'BUG名称',
+				title : '新闻主题',
 				field : 'cname',
 				width : 150,
 				sortable : true
 			} ] ],
 			columns : [ [ {
-				title : 'BUG创建时间',
+				title : '新闻创建时间',
 				field : 'ccreatedatetime',
 				sortable : true,
 				width : 150
 			}, {
-				title : 'BUG描述',
+				title : '新闻图片名字',
+				field : 'cpname',
+				sortable : true,
+				width : 150
+			}, {
+				title : '新闻内容',
 				field : 'cdesc',
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
@@ -90,7 +95,7 @@
 		});
 
 		bugAddForm = $('#bugAddForm').form({
-			url : 'bugAction!add.action',
+			url : 'newsAction!add.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -100,6 +105,26 @@
 					});
 					datagrid.datagrid('reload');
 					bugAddDialog.dialog('close');
+				} else {
+					$.messager.show({
+						title : '失败',
+						msg : json.msg
+					});
+				}
+			}
+		});
+		
+		bugEditForm = $('#bugEditForm').form({
+			url : 'newsAction!edit.action',
+			success : function(data) {
+				var json = $.parseJSON(data);
+				if (json && json.success) {
+					$.messager.show({
+						title : '成功',
+						msg : json.msg
+					});
+					datagrid.datagrid('reload');
+					bugEditDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -121,65 +146,46 @@
 				}
 			} ]
 		});
-
-		cdescAdd = $('#cdescAdd').xheditor({
-			tools : 'mini',
-			html5Upload : true,
-			upMultiple : 4,
-			upLinkUrl : 'bugAction!upload.action',
-			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'bugAction!upload.action',
-			upImgExt : 'jpg,jpeg,gif,png'
-		});
-
-		bugEditForm = $('#bugEditForm').form({
-			url : 'bugAction!edit.action',
-			success : function(data) {
-				var json = $.parseJSON(data);
-				if (json && json.success) {
-					$.messager.show({
-						title : '成功',
-						msg : json.msg
-					});
-					datagrid.datagrid('reload');
-					bugEditDialog.dialog('close');
-				} else {
-					$.messager.show({
-						title : '失败',
-						msg : json.msg
-					});
-				}
-			}
-		});
-
+		
 		bugEditDialog = $('#bugEditDialog').show().dialog({
 			title : '编辑BUG',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
-				text : '编辑',
+				text : '添加',
 				handler : function() {
 					bugEditForm.submit();
 				}
 			} ]
+		});
+		
+		showCdescDialog = $('#showCdescDialog').show().dialog({
+			title : '新闻内容',
+			modal : true,
+			closed : true,
+			maximizable : true
+		});
+		
+		
+		cdescAdd = $('#cdescAdd').xheditor({
+			tools : 'mini',
+			html5Upload : true,
+			upMultiple : 4,
+			upLinkUrl : 'newsAction!upload.action',
+			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
+			upImgUrl : 'newsAction!upload.action',
+			upImgExt : 'jpg,jpeg,gif,png'
 		});
 
 		cdescEdit = $('#cdescEdit').xheditor({
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'bugAction!upload.action',
+			upLinkUrl : 'newsAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'bugAction!upload.action',
+			upImgUrl : 'newsAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
-		});
-
-		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : 'BUG描述',
-			modal : true,
-			closed : true,
-			maximizable : true
 		});
 
 	});
@@ -199,7 +205,7 @@
 						ids.push(rows[i].cid);
 					}
 					$.ajax({
-						url : 'bugAction!delete.action',
+						url : 'newsAction!delete.action',
 						data : {
 							ids : ids.join(',')
 						},
@@ -227,16 +233,16 @@
 				interval : 100
 			});
 			$.ajax({
-				url : 'bugAction!showDesc.action',
+				url : 'newsAction!showDesc.action',
 				data : {
 					cid : rows[0].cid
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(response) {
-					bugEditForm.form('load', response);
-					$('div.validatebox-tip').remove();
-					bugEditDialog.dialog('open');
+				    		bugEditForm.form('load',response);
+		                    $('div.validatebox-tip').remove();
+		                    bugEditDialog.dialog('open');
 					$.messager.progress('close');
 				}
 			});
@@ -252,7 +258,7 @@
 			interval : 100
 		});
 		$.ajax({
-			url : 'bugAction!showDesc.action',
+			url : 'newsAction!showDesc.action',
 			data : {
 				cid : row.cid
 			},
@@ -287,40 +293,53 @@
 		<form id="bugAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>BUG名称</th>
+					<th>新闻主题</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写BUG名称" /></td>
 					<th>创建时间</th>
 					<td><input name="ccreatedatetime" class="easyui-datetimebox" editable="false" style="width: 155px;" />
 					</td>
+
 				</tr>
-				<tr>
-					<th>BUG描述</th>
-					<td colspan="3">
-					<textarea id="cdescAdd" name="cdesc"  rows="12" cols="80" style="width: 80%"></textarea>
+
+               <tr>
+               <th>新闻图片名字</th>
+					<td><input name="cpname" class="easyui-validatebox" required="true"/>
 					</td>
+					</tr>
+				<tr>
+					<th>新闻内容</th>
+					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
 				</tr>
 			</table>
 		</form>
 	</div>
-
-	<div id="bugEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	
+		<div id="bugEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
 		<form id="bugEditForm" method="post">
-			<input type="hidden" name="cid" />
+		   <input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>BUG名称</th>
+					<th>新闻主题</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写BUG名称" /></td>
 					<th>创建时间</th>
 					<td><input name="ccreatedatetime" class="easyui-datetimebox" editable="false" style="width: 155px;" />
 					</td>
+
 				</tr>
+
+               <tr>
+               <th>新闻图片名字</th>
+					<td><input name="cpname" class="easyui-validatebox" required="true"/>
+					</td>
+					</tr>
 				<tr>
-					<th>BUG描述</th>
-					<td colspan="3"><textarea name="cdesc" id="cdescEdit"></textarea></td>
+					<th>新闻内容</th>
+					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
 				</tr>
 			</table>
 		</form>
 	</div>
+	
 
 	<div id="showCdescDialog" style="display: none;overflow: auto;width: 500px;height: 400px;">
 		<div name="cdesc"></div>

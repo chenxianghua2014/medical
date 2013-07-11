@@ -22,61 +22,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Keytech;
+import sy.service.KeytechServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+@Action(value = "keytechAction", results = { @Result(name = "keytech", location = "/admin/keytech.jsp") })
+public class KeytechAction extends BaseAction implements ModelDriven<Keytech>{
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private static final Logger logger = Logger.getLogger(KeytechAction.class);
 
-	private KemuServiceI kemuService;
+	private KeytechServiceI keytechService;
 
-	private Kemu kemu = new Kemu();
+	private Keytech keytech = new Keytech();
 
-	public Kemu getModel() {
-		return kemu;
+	public Keytech getModel() {
+		return keytech;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public KeytechServiceI getkeytechService() {
+		return keytechService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setkeytechService(KeytechServiceI keytechService) {
+		this.keytechService = keytechService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到keytech管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String keytech() {
+		return "keytech";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(keytechService.get(keytech));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得keytech数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(keytechService.datagrid(keytech));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个keytech
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			keytechService.add(keytech);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +87,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑keytech
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			keytechService.update(keytech);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +103,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除keytech
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		keytechService.delete(keytech.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}
@@ -270,3 +270,4 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 }
+

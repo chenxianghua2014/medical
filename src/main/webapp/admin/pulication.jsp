@@ -5,10 +5,10 @@
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
 	var datagrid;
-	var kemuAddDialog;
-	var kemuAddForm;
-	var kemuEditDialog;
-	var kemuEditForm;
+	var pulicationAddDialog;
+	var pulicationAddForm;
+	var pulicationEditDialog;
+	var pulicationEditForm;
 	var cdescEdit;
 	var cdescAdd;
 	var showCdescDialog;
@@ -19,66 +19,81 @@
 			            return 'background-color:#EFEFEF;';     
 			        }     
 			    },
-			url : 'kemuAction!datagrid.action',
-			title : '经费科目支出列表',
+			url : 'pulicationAction!datagrid.action',
+			title : '论著列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40 ],
 			fit : true,
-			fitColumns : true,
+			fitColumns : false,
 			nowrap : false,
 			border : false,
 			idField : 'cid',
 			sortOrder : 'desc',
-			frozenColumns : [ [ {
+			frozenColumns : [[ {
 				title : '编号',
 				field : 'cid',
 				width : 150,
 				sortable : true,
 				checkbox : true
 			}, {
-				title : '支出摘要',
+				title : '论著名称',
 				field : 'cname',
-				width : 300
-			} , {
-				title : '金额（元）',
-				field : 'cmoney',
-				align : 'right',
+				width : 200,
+				sortable : true
+			} ,{
+				title : '作者',
+				field : 'cauthor',
+				width : 200,
+				sortable : true
+			} ,{
+				title : '中文关键词',
+				field : 'cckeyword',
+				width : 200,
+				sortable : true
+			},{
+				title : '英文关键词',
+				field : 'cekeyword',
+				width : 200,
+				sortable : true
+			}] ],
+			columns : [ [ {
+				title : '出版社',
+				field : 'cpublishhous',
+				width : 100,
+				sortable : true
+			},{
+				title : '出版时间',
+				field : 'cpublishtime',
 				width : 150
-			} ] ],
-			columns : [ [  {
-				title : '会计凭证号',
-				field : 'ccountId',
-				align : 'right',
-				width : 150
+			},{
+				title : '论著总字数',
+				field : 'cwords',
+				width : 150,
+				sortable : true
 			}  , {
-				title : '记账时间',
-				field : 'ccountTime',
-				width : 150
-			}, {
-				title : '票据号',
-				field : 'ctickets',
-				align : 'right',
-				width : 150
-			} , {
-				title : '电子凭证',
-				field : 'cdatei',
+				title : 'ISBN号',
+				field : 'cisbn',
 				width : 150,
+				sortable : true
+			}, {
+				title : '数据录入人',
+				field : 'ctypeman',
+				width : 150,
+				sortable : true
+			}, {
+				title : '数据录入日期',
+				field : 'ctypetime',
+				width : 150
+			},{
+				title : '内容摘要',
+				field : 'csummary',
 				formatter : function(value, rowData, rowIndex) {
-					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看电子凭证</a>';
-				}
-			}, {
-				title : '科目',
-				field : 'ccourse',
-				width : 150,
-				sortable : true
-			}, {
-				title : '负责人',
-				field : 'cprojectid',
-				width : 150,
-				sortable : true
+					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
+				},
+				width : 300
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -118,8 +133,8 @@
 			searchForm.find('input').val('');
 		}
 		
-		kemuAddForm = $('#kemuAddForm').form({
-			url : 'kemuAction!add.action',
+		pulicationAddForm = $('#pulicationAddForm').form({
+			url : 'pulicationAction!add.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -128,7 +143,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					kemuAddDialog.dialog('close');
+					pulicationAddDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -138,21 +153,21 @@
 			}
 		});
 
-		kemuAddDialog = $('#kemuAddDialog').show().dialog({
-			title : '添加科目支出',
+		pulicationAddDialog = $('#pulicationAddDialog').show().dialog({
+			title : '添加论著信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '添加',
 				handler : function() {
-					kemuAddForm.submit();
+					pulicationAddForm.submit();
 				}
 			}]
 		});
 
-		kemuEditForm = $('#kemuEditForm').form({
-			url : 'kemuAction!edit.action',
+		pulicationEditForm = $('#pulicationEditForm').form({
+			url : 'pulicationAction!edit.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -161,7 +176,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					kemuEditDialog.dialog('close');
+					pulicationEditDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -171,15 +186,15 @@
 			}
 		});
 
-		kemuEditDialog = $('#kemuEditDialog').show().dialog({
-			title : '编辑科目支出',
+		pulicationEditDialog = $('#pulicationEditDialog').show().dialog({
+			title : '编辑论著信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '编辑',
 				handler : function() {
-					kemuEditForm.submit();
+					pulicationEditForm.submit();
 				}
 			} ]
 		});
@@ -188,9 +203,9 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'kemuAction!upload.action',
+			upLinkUrl : 'pulicationAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'kemuAction!upload.action',
+			upImgUrl : 'pulicationAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 		
@@ -198,14 +213,14 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'kemuAction!upload.action',
+			upLinkUrl : 'pulicationAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'kemuAction!upload.action',
+			upImgUrl : 'pulicationAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '电子凭证',
+			title : '摘要',
 			modal : true,
 			closed : true,
 			maximizable : true
@@ -214,9 +229,9 @@
 	});
 
 	function add() {
-		kemuAddForm.find('input,textarea').val('');
+		pulicationAddForm.find('input,textarea').val('');
 		$('div.validatebox-tip').remove();
-		kemuAddDialog.dialog('open');
+		pulicationAddDialog.dialog('open');
 	}
 	function del() {
 		var rows = datagrid.datagrid('getSelections');
@@ -228,7 +243,7 @@
 						ids.push(rows[i].cid);
 					}
 					$.ajax({
-						url : 'kemuAction!delete.action',
+						url : 'pulicationAction!delete.action',
 						data : {
 							ids : ids.join(',')
 						},
@@ -256,16 +271,16 @@
 				interval : 100
 			});
 			$.ajax({
-				url : 'kemuAction!showDesc.action',
+				url : 'pulicationAction!showDesc.action',
 				data : {
 					cid : rows[0].cid
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(response) {
-					kemuEditForm.form('load', response);
+					pulicationEditForm.form('load', response);
 					$('div.validatebox-tip').remove();
-					kemuEditDialog.dialog('open');
+					pulicationEditDialog.dialog('open');
 					$.messager.progress('close');
 				}
 			});
@@ -281,15 +296,15 @@
 			interval : 100
 		});
 		$.ajax({
-			url : 'kemuAction!showDesc.action',
+			url : 'pulicationAction!showDesc.action',
 			data : {
 				cid : row.cid
 			},
 			dataType : 'json',
 			cache : false,
 			success : function(response) {
-				if (response && response.cdatei) {
-					showCdescDialog.find('div[name=cdatei]').html(response.cdatei);
+				if (response && response.csummary) {
+					showCdescDialog.find('div[name=csummary]').html(response.csummary);
 					showCdescDialog.dialog('open');
 				} else {
 					$.messager.alert('提示', '没有电子凭证 ！', 'error');
@@ -326,103 +341,87 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="kemuAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
-		<form id="kemuAddForm" method="post">
+	<div id="pulicationAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+		<form id="pulicationAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>科目支出摘要</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写科目支出摘要" /></td>					
-				
-					<th>金额</th>
-					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写科目支出金额" /></td>
+					<th>论著名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写论著名称" /></td>					
+					<th>中文关键词</th>
+					<td><input name="cckeyword" class="easyui-validatebox" required="true" missingMessage="请填写中文关键词" /></td>
 				</tr>
 				<tr>
-					<th>会计凭证号</th>
-					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
-				
-					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>
+					<th>英文关键词</th>
+					<td><input name="cekeyword" class="easyui-validatebox" required="true"   missingMessage="请填写英文关键词" /></td>				
+					<th>作者</th>
+					<td><input name="cauthor" class="easyui-validatebox" required="true"   missingMessage="请填写作者" /></td>
+				</tr>				
+				<tr>
+					<th>出版社</th>
+					<td><input name="cpublishhous" class="easyui-validatebox" required="true"   missingMessage="请填写出版社" /></td>				
+					<th>出版时间</th>
+					<td><input name="cpublishtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
-					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>	
-				
-					<th>科目</th>
-					<td>
-						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
-						   <option value="试制设备费">试制设备费</option>
-						   <option value="设备改造与租赁费">设备改造与租赁费</option>
-						   <option value="材料费">材料费</option>
-						   <option value="测试化验加工费">测试化验加工费</option>
-						   <option value="燃料动力费">燃料动力费</option>
-						   <option value="差旅费">差旅费</option>
-						   <option value="会议费">会议费</option>
-						   <option value="国际合作与交流费">国际合作与交流费</option>
-						   <option value="出版费等">出版费等</option>
-						   <option value="专家咨询费">专家咨询费</option>
-						   <option value="其他支出">其他支出</option>
-						   <option value="间接费用">间接费用</option>
-						   <option value="绩效支出">绩效支出</option>
-						</select>
-					</td>					
+					<th>论著总字数</th>
+					<td><input name="cwords" class="easyui-validatebox" required="true"   missingMessage="请填写论著总字数" /></td>				
+					<th>ISBN号</th>
+					<td><input name="cisbn" class="easyui-validatebox" required="true"   missingMessage="请填写ISBN号" /></td>
 				</tr>
 				<tr>
-					<th>电子凭证</th>
-					<td colspan="3">
-					<textarea id="cdescAdd" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
+					<th>数据录入人</th>
+					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写数据录入人" /></td>
+					<th>数据录入日期</th>
+					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+				</tr>
+				<tr>
+					<th>摘要</th>
+					<td colspan="4">
+					<textarea id="cdescAdd" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
-				</tr>
+				</tr>			
 			</table>
 		</form>
 	</div>
 
-	<div id="kemuEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
-		<form id="kemuEditForm" method="post">
+	<div id="pulicationEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+		<form id="pulicationEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>科目支出摘要</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写科目支出摘要" /></td>					
-				
-					<th>金额</th>
-					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写科目支出金额" /></td>
+					<th>论著名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写论著名称" /></td>					
+					<th>中文关键词</th>
+					<td><input name="cckeyword" class="easyui-validatebox" required="true" missingMessage="请填写中文关键词" /></td>
 				</tr>
 				<tr>
-					<th>会计凭证号</th>
-					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
-				
-					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					<th>英文关键词</th>
+					<td><input name="cekeyword" class="easyui-validatebox" required="true"   missingMessage="请填写英文关键词" /></td>				
+					<th>作者</th>
+					<td><input name="cauthor" class="easyui-validatebox" required="true"   missingMessage="请填写作者" /></td>
+				</tr>				
+				<tr>
+					<th>出版社</th>
+					<td><input name="cpublishhous" class="easyui-validatebox" required="true"   missingMessage="请填写出版社" /></td>				
+					<th>出版时间</th>
+					<td><input name="cpublishtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
-					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>	
-				
-					<th>科目</th>
-					<td>
-						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
-						   <option value="试制设备费">试制设备费</option>
-						   <option value="设备改造与租赁费">设备改造与租赁费</option>
-						   <option value="材料费">材料费</option>
-						   <option value="测试化验加工费">测试化验加工费</option>
-						   <option value="燃料动力费">燃料动力费</option>
-						   <option value="差旅费">差旅费</option>
-						   <option value="会议费">会议费</option>
-						   <option value="国际合作与交流费">国际合作与交流费</option>
-						   <option value="出版费等">出版费等</option>
-						   <option value="专家咨询费">专家咨询费</option>
-						   <option value="其他支出">其他支出</option>
-						   <option value="间接费用">间接费用</option>
-						   <option value="绩效支出">绩效支出</option>
-						</select>
-					</td>					
+					<th>论著总字数</th>
+					<td><input name="cwords" class="easyui-validatebox" required="true"   missingMessage="请填写论著总字数" /></td>				
+					<th>ISBN号</th>
+					<td><input name="cisbn" class="easyui-validatebox" required="true"   missingMessage="请填写ISBN号" /></td>
 				</tr>
 				<tr>
-					<th>电子凭证</th>
-					<td colspan="3">
-					<textarea id="cdescEdit" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
+					<th>数据录入人</th>
+					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写数据录入人" /></td>
+					<th>数据录入日期</th>
+					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+				</tr>
+				<tr>
+					<th>摘要</th>
+					<td colspan="4">
+					<textarea id="cdescEdit" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>
@@ -430,7 +429,7 @@
 	</div>
 
 	<div id="showCdescDialog" style="display: none;overflow: auto;width: 500px;height: 400px;">
-		<div name="cdatei"></div>
+		<div name="csummary"></div>
 	</div>
 
 </body>

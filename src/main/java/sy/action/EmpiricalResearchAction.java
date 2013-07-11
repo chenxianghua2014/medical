@@ -1,6 +1,7 @@
 package sy.action;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,61 +23,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.EmpiricalResearch;
+import sy.service.EmpiricalResearchServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+@Action(value = "empiricalResearchAction", results = { @Result(name = "empiricalResearch", location = "/admin/empiricalResearch.jsp") })
+public class EmpiricalResearchAction extends BaseAction implements ModelDriven<EmpiricalResearch>{
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private static final Logger logger = Logger.getLogger(EmpiricalResearchAction.class);
 
-	private KemuServiceI kemuService;
+	private EmpiricalResearchServiceI empiricalResearchService;
 
-	private Kemu kemu = new Kemu();
+	private EmpiricalResearch empiricalResearch = new EmpiricalResearch();
 
-	public Kemu getModel() {
-		return kemu;
+	public EmpiricalResearch getModel() {
+		return empiricalResearch;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public EmpiricalResearchServiceI getempiricalResearchService() {
+		return empiricalResearchService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setempiricalResearchService(EmpiricalResearchServiceI empiricalResearchService) {
+		this.empiricalResearchService = empiricalResearchService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到empiricalResearch管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String empiricalResearch() {
+		return "empiricalResearch";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(empiricalResearchService.get(empiricalResearch));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得empiricalResearch数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(empiricalResearchService.datagrid(empiricalResearch));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个empiricalResearch
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			empiricalResearchService.add(empiricalResearch);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +88,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑empiricalResearch
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			empiricalResearchService.update(empiricalResearch);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +104,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除empiricalResearch
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		empiricalResearchService.delete(empiricalResearch.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

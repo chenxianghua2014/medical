@@ -36,7 +36,7 @@ public class BaseAction extends ActionSupport {
 			// serializeConfig.setAsmEnable(false);
 			// String json = JSON.toJSONString(object);
 			// String json = JSON.toJSONString(object, serializeConfig, SerializerFeature.PrettyFormat);
-			String json = JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss");
+			String json = JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd");
 			// String json = JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss", SerializerFeature.PrettyFormat);
 			ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
 			ServletActionContext.getResponse().getWriter().write(json);

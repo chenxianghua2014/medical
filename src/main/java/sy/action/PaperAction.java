@@ -22,61 +22,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Paper;
+import sy.service.PaperServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
+@Action(value = "paperAction", results = { @Result(name = "paper", location = "/admin/paper.jsp") })
+public class PaperAction extends BaseAction implements ModelDriven<Paper>{
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+	private static final Logger logger = Logger.getLogger(PaperAction.class);
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private PaperServiceI paperService;
 
-	private KemuServiceI kemuService;
+	private Paper paper = new Paper();
 
-	private Kemu kemu = new Kemu();
-
-	public Kemu getModel() {
-		return kemu;
+	public Paper getModel() {
+		return paper;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public PaperServiceI getpaperService() {
+		return paperService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setpaperService(PaperServiceI paperService) {
+		this.paperService = paperService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到paper管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String paper() {
+		return "paper";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(paperService.get(paper));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得paper数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(paperService.datagrid(paper));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个paper
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			paperService.add(paper);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +86,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑paper
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			paperService.update(paper);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +102,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除paper
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		paperService.delete(paper.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

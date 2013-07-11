@@ -5,10 +5,10 @@
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
 	var datagrid;
-	var kemuAddDialog;
-	var kemuAddForm;
-	var kemuEditDialog;
-	var kemuEditForm;
+	var keytechAddDialog;
+	var keytechAddForm;
+	var keytechEditDialog;
+	var keytechEditForm;
 	var cdescEdit;
 	var cdescAdd;
 	var showCdescDialog;
@@ -19,8 +19,8 @@
 			            return 'background-color:#EFEFEF;';     
 			        }     
 			    },
-			url : 'kemuAction!datagrid.action',
-			title : '经费科目支出列表',
+			url : 'keytechAction!datagrid.action',
+			title : '关键技术列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -39,44 +39,55 @@
 				sortable : true,
 				checkbox : true
 			}, {
-				title : '支出摘要',
+				title : '关键技术名称',
 				field : 'cname',
-				width : 300
+				width : 200,
+				sortable : true
 			} , {
-				title : '金额（元）',
-				field : 'cmoney',
-				align : 'right',
+				title : '负责人',
+				field : 'cresponser',
 				width : 150
 			} ] ],
 			columns : [ [  {
-				title : '会计凭证号',
-				field : 'ccountId',
-				align : 'right',
-				width : 150
-			}  , {
-				title : '记账时间',
-				field : 'ccountTime',
-				width : 150
-			}, {
-				title : '票据号',
-				field : 'ctickets',
-				align : 'right',
-				width : 150
-			} , {
-				title : '电子凭证',
-				field : 'cdatei',
+				title : '提交单位',
+				field : 'ccompany',
 				width : 150,
-				formatter : function(value, rowData, rowIndex) {
-					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看电子凭证</a>';
-				}
-			}, {
-				title : '科目',
-				field : 'ccourse',
+				sortable : true
+			}  , {
+				title : '研究开始时间',
+				field : 'cstarttime',
 				width : 150,
 				sortable : true
 			}, {
-				title : '负责人',
-				field : 'cprojectid',
+				title : '研究结束时间',
+				field : 'cendtime',
+				width : 150,
+				sortable : true
+			} , {
+				title : '关键词',
+				field : 'ckeywords',
+				width : 150,
+				sortable : true
+			}, {
+				title : '摘要',
+				field : 'csummary',
+				formatter : function(value, rowData, rowIndex) {
+					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
+				},
+				width : 150
+			}, {
+				title : '联系方式',
+				field : 'cphone',
+				width : 150,
+				sortable : true
+			}, {
+				title : '录入人',
+				field : 'ctypeman',
+				width : 150,
+				sortable : true
+			}, {
+				title : '提交时间',
+				field : 'ctypetime',
 				width : 150,
 				sortable : true
 			}] ],
@@ -118,8 +129,8 @@
 			searchForm.find('input').val('');
 		}
 		
-		kemuAddForm = $('#kemuAddForm').form({
-			url : 'kemuAction!add.action',
+		keytechAddForm = $('#keytechAddForm').form({
+			url : 'keytechAction!add.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -128,7 +139,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					kemuAddDialog.dialog('close');
+					keytechAddDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -138,21 +149,21 @@
 			}
 		});
 
-		kemuAddDialog = $('#kemuAddDialog').show().dialog({
-			title : '添加科目支出',
+		keytechAddDialog = $('#keytechAddDialog').show().dialog({
+			title : '添加关键技术信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '添加',
 				handler : function() {
-					kemuAddForm.submit();
+					keytechAddForm.submit();
 				}
 			}]
 		});
 
-		kemuEditForm = $('#kemuEditForm').form({
-			url : 'kemuAction!edit.action',
+		keytechEditForm = $('#keytechEditForm').form({
+			url : 'keytechAction!edit.action',
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -161,7 +172,7 @@
 						msg : json.msg
 					});
 					datagrid.datagrid('reload');
-					kemuEditDialog.dialog('close');
+					keytechEditDialog.dialog('close');
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -171,15 +182,15 @@
 			}
 		});
 
-		kemuEditDialog = $('#kemuEditDialog').show().dialog({
-			title : '编辑科目支出',
+		keytechEditDialog = $('#keytechEditDialog').show().dialog({
+			title : '编辑关键技术信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
 			buttons : [ {
 				text : '编辑',
 				handler : function() {
-					kemuEditForm.submit();
+					keytechEditForm.submit();
 				}
 			} ]
 		});
@@ -188,9 +199,9 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'kemuAction!upload.action',
+			upLinkUrl : 'keytechAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'kemuAction!upload.action',
+			upImgUrl : 'keytechAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 		
@@ -198,14 +209,14 @@
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
-			upLinkUrl : 'kemuAction!upload.action',
+			upLinkUrl : 'keytechAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
-			upImgUrl : 'kemuAction!upload.action',
+			upImgUrl : 'keytechAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
 
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '电子凭证',
+			title : '摘要',
 			modal : true,
 			closed : true,
 			maximizable : true
@@ -214,9 +225,9 @@
 	});
 
 	function add() {
-		kemuAddForm.find('input,textarea').val('');
+		keytechAddForm.find('input,textarea').val('');
 		$('div.validatebox-tip').remove();
-		kemuAddDialog.dialog('open');
+		keytechAddDialog.dialog('open');
 	}
 	function del() {
 		var rows = datagrid.datagrid('getSelections');
@@ -228,7 +239,7 @@
 						ids.push(rows[i].cid);
 					}
 					$.ajax({
-						url : 'kemuAction!delete.action',
+						url : 'keytechAction!delete.action',
 						data : {
 							ids : ids.join(',')
 						},
@@ -256,16 +267,16 @@
 				interval : 100
 			});
 			$.ajax({
-				url : 'kemuAction!showDesc.action',
+				url : 'keytechAction!showDesc.action',
 				data : {
 					cid : rows[0].cid
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(response) {
-					kemuEditForm.form('load', response);
+					keytechEditForm.form('load', response);
 					$('div.validatebox-tip').remove();
-					kemuEditDialog.dialog('open');
+					keytechEditDialog.dialog('open');
 					$.messager.progress('close');
 				}
 			});
@@ -281,15 +292,15 @@
 			interval : 100
 		});
 		$.ajax({
-			url : 'kemuAction!showDesc.action',
+			url : 'keytechAction!showDesc.action',
 			data : {
 				cid : row.cid
 			},
 			dataType : 'json',
 			cache : false,
 			success : function(response) {
-				if (response && response.cdatei) {
-					showCdescDialog.find('div[name=cdatei]').html(response.cdatei);
+				if (response && response.csummary) {
+					showCdescDialog.find('div[name=csummary]').html(response.csummary);
 					showCdescDialog.dialog('open');
 				} else {
 					$.messager.alert('提示', '没有电子凭证 ！', 'error');
@@ -326,103 +337,85 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="kemuAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
-		<form id="kemuAddForm" method="post">
+	<div id="keytechAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="keytechAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>科目支出摘要</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写科目支出摘要" /></td>					
+					<th>关键技术名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写关键技术名称" /></td>				
 				
-					<th>金额</th>
-					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写科目支出金额" /></td>
+					<th>负责人</th>
+					<td><input name="cresponser" class="easyui-validatebox" required="true" missingMessage="请填写负责人" /></td>
 				</tr>
 				<tr>
-					<th>会计凭证号</th>
-					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
-				
-					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>
+					<th>提交单位</th>
+					<td><input name="ccompany" class="easyui-validatebox" required="true"   missingMessage="请填写提交单位" /></td>				
+					<th>关键词</th>
+					<td><input name="ckeywords" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>
 				</tr>
 				<tr>
-					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>	
-				
-					<th>科目</th>
-					<td>
-						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
-						   <option value="试制设备费">试制设备费</option>
-						   <option value="设备改造与租赁费">设备改造与租赁费</option>
-						   <option value="材料费">材料费</option>
-						   <option value="测试化验加工费">测试化验加工费</option>
-						   <option value="燃料动力费">燃料动力费</option>
-						   <option value="差旅费">差旅费</option>
-						   <option value="会议费">会议费</option>
-						   <option value="国际合作与交流费">国际合作与交流费</option>
-						   <option value="出版费等">出版费等</option>
-						   <option value="专家咨询费">专家咨询费</option>
-						   <option value="其他支出">其他支出</option>
-						   <option value="间接费用">间接费用</option>
-						   <option value="绩效支出">绩效支出</option>
-						</select>
-					</td>					
+					<th>研究开始时间</th>
+					<td><input name="cstarttime" class="easyui-datebox" editable="false" style="width: 155px;"  /></td>				
+					<th>研究结束时间</th>
+					<td><input name="cendtime" class="easyui-datebox" editable="false" style="width: 155px;"  /></td>
 				</tr>
 				<tr>
-					<th>电子凭证</th>
-					<td colspan="3">
-					<textarea id="cdescAdd" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
+					<th>录入人</th>
+					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
+					<th>联系方式</th>
+					<td><input name="cphone" class="easyui-validatebox" required="true"   missingMessage="请填写联系方式" /></td>
+				</tr>				
+				<tr>
+					<th>录入时间</th>
+					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+				</tr>				
+				<tr>
+					<th>摘要</th>
+					<td colspan="4">
+					<textarea id="cdescAdd" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 
-	<div id="kemuEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
-		<form id="kemuEditForm" method="post">
+	<div id="keytechEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
+		<form id="keytechEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>科目支出摘要</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写科目支出摘要" /></td>					
+					<th>关键技术名称</th>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写关键技术名称" /></td>				
 				
-					<th>金额</th>
-					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写科目支出金额" /></td>
+					<th>负责人</th>
+					<td><input name="cresponser" class="easyui-validatebox" required="true" missingMessage="请填写负责人" /></td>
 				</tr>
 				<tr>
-					<th>会计凭证号</th>
-					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
-				
-					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+					<th>提交单位</th>
+					<td><input name="ccompany" class="easyui-validatebox" required="true"   missingMessage="请填写提交单位" /></td>				
+					<th>关键词</th>
+					<td><input name="ckeywords" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>
 				</tr>
 				<tr>
-					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>	
-				
-					<th>科目</th>
-					<td>
-						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
-						   <option value="试制设备费">试制设备费</option>
-						   <option value="设备改造与租赁费">设备改造与租赁费</option>
-						   <option value="材料费">材料费</option>
-						   <option value="测试化验加工费">测试化验加工费</option>
-						   <option value="燃料动力费">燃料动力费</option>
-						   <option value="差旅费">差旅费</option>
-						   <option value="会议费">会议费</option>
-						   <option value="国际合作与交流费">国际合作与交流费</option>
-						   <option value="出版费等">出版费等</option>
-						   <option value="专家咨询费">专家咨询费</option>
-						   <option value="其他支出">其他支出</option>
-						   <option value="间接费用">间接费用</option>
-						   <option value="绩效支出">绩效支出</option>
-						</select>
-					</td>					
+					<th>研究开始时间</th>
+					<td><input name="cstarttime" class="easyui-datebox" editable="false" style="width: 155px;"  /></td>				
+					<th>研究结束时间</th>
+					<td><input name="cendtime" class="easyui-datebox" editable="false" style="width: 155px;"  /></td>
 				</tr>
 				<tr>
-					<th>电子凭证</th>
-					<td colspan="3">
-					<textarea id="cdescEdit" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
+					<th>录入人</th>
+					<td><input name="ctypeman" class="easyui-validatebox" required="true"   missingMessage="请填写录入人" /></td>
+					<th>联系方式</th>
+					<td><input name="cphone" class="easyui-validatebox" required="true"   missingMessage="请填写联系方式" /></td>
+				</tr>				
+				<tr>
+					<th>录入时间</th>
+					<td><input name="ctypetime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
+				</tr>				
+				<tr>
+					<th>摘要</th>
+					<td colspan="4">
+					<textarea id="cdescEdit" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>
@@ -430,7 +423,7 @@
 	</div>
 
 	<div id="showCdescDialog" style="display: none;overflow: auto;width: 500px;height: 400px;">
-		<div name="cdatei"></div>
+		<div name="csummary"></div>
 	</div>
 
 </body>

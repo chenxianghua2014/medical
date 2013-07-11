@@ -22,61 +22,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Pulication;
+import sy.service.PulicationServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
+@Action(value = "pulicationAction", results = { @Result(name = "pulication", location = "/admin/pulication.jsp") })
+public class PulicationAction extends BaseAction implements ModelDriven<Pulication>{
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+	private static final Logger logger = Logger.getLogger(PulicationAction.class);
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private PulicationServiceI pulicationService;
 
-	private KemuServiceI kemuService;
+	private Pulication pulication = new Pulication();
 
-	private Kemu kemu = new Kemu();
-
-	public Kemu getModel() {
-		return kemu;
+	public Pulication getModel() {
+		return pulication;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public PulicationServiceI getpulicationService() {
+		return pulicationService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setpulicationService(PulicationServiceI pulicationService) {
+		this.pulicationService = pulicationService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到pulication管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String pulication() {
+		return "pulication";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(pulicationService.get(pulication));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得pulication数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(pulicationService.datagrid(pulication));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个pulication
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			pulicationService.add(pulication);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +86,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑pulication
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			pulicationService.update(pulication);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +102,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除pulication
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		pulicationService.delete(pulication.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}

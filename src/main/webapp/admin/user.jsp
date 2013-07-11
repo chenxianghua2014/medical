@@ -19,7 +19,7 @@
 
 		datagrid = $('#datagrid').datagrid({
 			url : 'userAction!datagrid.action',
-			title : '用户列表(admin拥有所有权限，不需要更改角色)',
+			title : '用户列表',
 			iconCls : 'icon-save',
 			striped : true,
 			pagination : true,
@@ -82,7 +82,7 @@
 				title : '所属角色',
 				field : 'roleIds',
 				width : 150,
-				formatter : function(value, rowData, rowIndex) {
+			    formatter : function(value, rowData, rowIndex) {
 					if (rowData.roleNames) {
 						return sy.fs('<span title="{0}">{1}</span>', rowData.roleNames, rowData.roleNames);
 					}
@@ -91,6 +91,7 @@
 					type : 'multiplecombobox',
 					options : {
 						url : 'roleAction!roleCombobox.action',
+						//url : 'projectAction!myProjectCombobox.action',
 						valueField : 'cid',
 						textField : 'cname'
 					}

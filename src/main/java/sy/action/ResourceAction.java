@@ -22,61 +22,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
-import sy.pageModel.Kemu;
-import sy.service.KemuServiceI;
+import sy.pageModel.Resource;
+import sy.service.ResourceServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
+@Action(value = "resourceAction", results = { @Result(name = "resource", location = "/admin/resource.jsp") })
+public class ResourceAction extends BaseAction implements ModelDriven<Resource>{
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
-public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
+	private static final Logger logger = Logger.getLogger(ResourceAction.class);
 
-	private static final Logger logger = Logger.getLogger(KemuAction.class);
+	private ResourceServiceI resourceService;
 
-	private KemuServiceI kemuService;
+	private Resource resource = new Resource();
 
-	private Kemu kemu = new Kemu();
-
-	public Kemu getModel() {
-		return kemu;
+	public Resource getModel() {
+		return resource;
 	}
 
-	public KemuServiceI getkemuService() {
-		return kemuService;
+	public ResourceServiceI getresourceService() {
+		return resourceService;
 	}
 
 	@Autowired
-	public void setkemuService(KemuServiceI kemuService) {
-		this.kemuService = kemuService;
+	public void setresourceService(ResourceServiceI resourceService) {
+		this.resourceService = resourceService;
 	}
 	
 	/**
-	 * 跳转到kemu管理页面
+	 * 跳转到resource管理页面
 	 * 
 	 * @return
 	 */
-	public String kemu() {
-		return "kemu";
+	public String resource() {
+		return "resource";
 	}
 
 	public void showDesc() {
-		writeJson(kemuService.get(kemu));
+		writeJson(resourceService.get(resource));
 	}
 	/**
-	 * 获得kemu数据表格
+	 * 获得resource数据表格
 	 */
 	public void datagrid() {		
-		writeJson(kemuService.datagrid(kemu));
+		writeJson(resourceService.datagrid(resource));
 	}
 
 	/**
-	 * 添加一个kemu
+	 * 添加一个resource
 	 */
 	public void add() {
 		Json j = new Json();
 		try {
-			kemuService.add(kemu);
+			resourceService.add(resource);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -87,12 +86,12 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 	
 	/**
-	 * 编辑kemu
+	 * 编辑resource
 	 */
 	public void edit() {
 		Json j = new Json();
 		try {
-			kemuService.update(kemu);
+			resourceService.update(resource);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -103,11 +102,11 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	}
 
 	/**
-	 * 删除kemu
+	 * 删除resource
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		resourceService.delete(resource.getIds());
 		j.setSuccess(true);
 		writeJson(j);
 	}
