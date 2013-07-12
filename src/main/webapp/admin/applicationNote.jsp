@@ -43,7 +43,8 @@
 				field : 'cname',
 				width : 200,
 				sortable : true
-			},{
+			}] ],
+			columns : [ [ {
 				title : '关键技术适用对象',
 				field : 'csuitableid',
 				width : 200,
@@ -53,8 +54,7 @@
 				field : 'cnote',
 				width : 200,
 				sortable : true
-			}] ],
-			columns : [ [ {
+			},{
 				title : '疗效评价',
 				field : 'cevaluation',
 				width : 100,

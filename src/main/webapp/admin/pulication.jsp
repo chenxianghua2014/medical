@@ -48,18 +48,18 @@
 				field : 'cauthor',
 				width : 200,
 				sortable : true
-			} ,{
+			} ] ],
+			columns : [ [ {
 				title : '中文关键词',
 				field : 'cckeyword',
-				width : 200,
+				width : 150,
 				sortable : true
 			},{
 				title : '英文关键词',
 				field : 'cekeyword',
-				width : 200,
+				width : 150,
 				sortable : true
-			}] ],
-			columns : [ [ {
+			},{
 				title : '出版社',
 				field : 'cpublishhous',
 				width : 100,
@@ -93,7 +93,7 @@
 				formatter : function(value, rowData, rowIndex) {
 					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
 				},
-				width : 300
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',

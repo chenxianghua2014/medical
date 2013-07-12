@@ -379,13 +379,7 @@
 			var row = {
 				cid : sy.UUID()
 			};
-			/*datagrid.datagrid('insertRow', {
-				index : 0,
-				row : row
-			});
-			editRow = 0;
-			datagrid.datagrid('selectRow', editRow);
-			datagrid.datagrid('beginEdit', editRow);*/
+			
 			datagrid.datagrid('appendRow', row);
 			editRow = datagrid.datagrid('getRows').length - 1;
 			datagrid.datagrid('selectRow', editRow);
@@ -462,7 +456,9 @@
 				</tr>
 				<tr>
 					<th>最后修改时间</th>
-					<td><input name="cmodifydatetimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />至<input name="cmodifydatetimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td>
+					<td><input name="cmodifydatetimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />
+					至<input name="cmodifydatetimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">
+					过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td>
 				</tr>
 			</table>
 		</form>

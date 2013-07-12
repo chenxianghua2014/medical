@@ -228,10 +228,10 @@
 					value = value*100;
 					value.toFixed(2);
 					//value2=value+"%";
-					var s = '<div style="width:100%;border:1px solid #ccc">' +
-                        '<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+					 var s = '<div style="width:100%;border:1px solid #ccc">' +
+                        '<div style="width:' + value + '%;background:#20C9FF;color:#ggg">' + value + '%' + '</div>'
                         '</div>';
-              		return s;
+              		return s; 
 					//return sy.fs('<center> <table bgcolor=#F1FEDD width=60> <td height="12px" cellspacing="20" cellpadding="20" bgcolor=green style="width:{0}%;"></td><td>{1}</td></table></center>',value,value2);
 					}
 				else {

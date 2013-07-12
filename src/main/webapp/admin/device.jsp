@@ -88,7 +88,7 @@
 				formatter : function(value, rowData, rowIndex) {
 					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看功能说明</a>';
 				},
-				width : 150
+				width : 100
 			},{
 				title : '仪器设备所属单位',
 				field : 'cunit',

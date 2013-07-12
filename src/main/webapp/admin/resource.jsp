@@ -43,7 +43,8 @@
 				field : 'cname',
 				width : 200,
 				sortable : true
-			} ,{
+			} ] ],
+			columns : [ [ {
 				title : '实物资源分类',
 				field : 'cclassify',
 				width : 200,
@@ -53,8 +54,7 @@
 				field : 'cinformation',           
 				width : 200,
 				sortable : true
-			}] ],
-			columns : [ [ {
+			},{
 				title : '实物资源数量',
 				field : 'cmount',
 				width : 100,

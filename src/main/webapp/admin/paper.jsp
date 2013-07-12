@@ -4,6 +4,7 @@
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
+    var searchForm;
 	var datagrid;
 	var paperAddDialog;
 	var paperAddForm;
@@ -13,6 +14,9 @@
 	var cdescAdd;
 	var showCdescDialog;
 	$(function() {
+	
+		searchForm = $('#searchForm').form();
+		
 	    datagrid = $('#datagrid').datagrid({
 			url : 'paperAction!datagrid.action',
 			title : '论文列表',
@@ -58,7 +62,7 @@
 				formatter : function(value, rowData, rowIndex) {
 					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
 				},
-				width : 300
+				width : 100
 			} ,{
 				title : '语种',
 				field : 'clanguage',
@@ -67,11 +71,11 @@
 			},{
 				title : '第一作者',
 				field : 'cfcontactid',
-				width : 150
+				width : 100
 			},{
 				title : '通讯作者',
 				field : 'cccontactid',
-				width : 150,
+				width : 100,
 				sortable : true
 			}  , {
 				title : '期卷名称',
@@ -339,12 +343,12 @@
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
-					<th>负责人</th>
-					<td><input name="cprojectid" style="width:315px;" /></td>
+					<th>论文名称</th>
+					<td><input name="cname" style="width:315px;" /></td>
 				</tr>
 				<tr>
-					<th>记账时间</th>
-					<td><input name="ccountTimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />至<input name="ccountTimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td></td>
+					<th>第一作者</th>
+					<td><input name="cfcontactid" style="width:315px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td></td>
 				</tr>				
 			</table>
 		</form>
@@ -408,7 +412,7 @@
 				<tr>
 					<th>摘要</th>
 					<td colspan="4">
-					<textarea id="cdescAdd" name="ccsummary"  rows="12" cols="80" style="width: 80%"></textarea>
+					<textarea id="cdescAdd" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>			
 			</table>
@@ -465,7 +469,7 @@
 				<tr>
 					<th>摘要</th>
 					<td colspan="4">
-					<textarea id="cdescEdit" name="ccsummary"  rows="12" cols="80" style="width: 80%"></textarea>
+					<textarea id="cdescEdit" name="csummary"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>

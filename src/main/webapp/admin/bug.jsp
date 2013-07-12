@@ -15,7 +15,7 @@
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
 			url : 'bugAction!datagrid.action',
-			title : 'BUG列表(弹窗修改模式)',
+			title : 'BUG列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',

@@ -48,13 +48,13 @@
 				field : 'cname',
 				width : 200,
 				sortable : true
-			},{
+			}] ],
+			columns : [ [ {
 				title : '数据集语种',
 				field : 'clanguage',
 				width : 200,
 				sortable : true
-			}] ],
-			columns : [ [ {
+			},{
 				title : '关键词',
 				field : 'cckeyword',
 				width : 200,
@@ -96,7 +96,7 @@
 				formatter : function(value, rowData, rowIndex) {
 					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
 				},
-				width : 200
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',

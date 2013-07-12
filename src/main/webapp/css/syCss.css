@@ -20,7 +20,7 @@
 }
 
 .tableCss th {
-	font: bold 14px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font: bold 20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 	color: #4f6b72;
 	border-right: 1px solid #E2F5BC;
 	border-bottom: 1px solid #E2F5BC;
@@ -36,7 +36,7 @@
 	border-right: 1px solid #E2F5BC;
 	border-bottom: 1px solid #E2F5BC;
 	background: #F8FBFB;
-	font-size: 16px;
+	font-size: 50px;
 	padding: 6px 6px 6px 12px;
 	color: #4f6b72;
 }
