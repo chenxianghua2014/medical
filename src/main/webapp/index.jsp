@@ -1,9 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mysql.jdbc.Driver" %>
-
 <%@ page import="java.sql.*" %>
-
-
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -22,43 +19,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 {
  margin:0;
  padding:0;
+
 }
 
+body{
+}
 .quanju{
-
  width:1200px;
- height:1500px;
+ height:1000px;
  margin-left:100px;
 border:2px solid #000;
-
+overflow:hidden;
 }
 
 .title_nav{
  width:1200px;
  height:134px;
-text-align:center;
-display:table-cell;
-vertical-align:middle;
  background:url(fimages/img04.jpg);
+ text-align:center;
  
 }
 
 .title_nav h1 {
-	
-	margin:0 auto;
+        margin:0 auto;
 	line-height: normal;
 	text-transform: lowercase;
-	font-weight: normal;
+	font-family:"楷体";
+	font-weight: bold;
+	font-size:45px;
 	color: #FFFFFF;
+        vertical-align:middle;
+        line-height:120px;
+
 }
 
 .menu {
+position:relative;
 font-family: arial, sans-serif; 
 width:1200px;
 height:35px;
 background:#000; 
 margin:0; 
 margin:0px 0;
+z-index:100;
+
 }
 /* remove the bullets and set the margin and padding to zero for the unordered list */
 .menu ul {
@@ -107,7 +111,6 @@ line-height:30px;
 /* make the dropdown ul invisible */
 .menu ul li ul {
 display: none;
-z-index:1000;
 
 }
 /* specific to non IE browsers */
@@ -145,17 +148,24 @@ width:130px;
 {
 width:1200px;
 
-
 }
 
 
 
 #demo{overflow:auto; }
+#demo1 h2{
+font-size:20px;
+
+}
 #yingyong_demo{overflow:auto; }
 #demo li{text-align: left;line-height:1.5em; padding-left:0;background: #FFFFFF no-repeat 0 50%;display: block;margin-bottom: 1px; }
 #yingyong_demo li{text-align: left;line-height:1.5em; padding-left:0;background: #FFFFFF no-repeat 0 50%;display: block;margin-bottom: 1px; }
-#demo{overflow:hidden; width: 300px;height: 300px; background:#FFFFFF; margin:auto;float: left;display: inline;border:1px solid #2d90cc;}
-#yingyong_demo{overflow:hidden; width: 300px;height: 300px; background:#FFFFFF; margin:auto;float: left;display: inline;border:1px solid #2d90cc;}
+#demo{overflow:hidden; width: 300px;height: 500px; background:#FFFFFF; margin:auto;float: left;display: inline;border:1px solid #2d90cc;}
+#yingyong_demo{overflow:hidden; width: 300px;height: 500px; background:#FFFFFF; margin:auto;float: left;display: inline;border:1px solid #2d90cc;}
+.guanjianjishushow{
+position:relative;
+z-index:10;
+}
 .guanjianjishushow h1
 {width:195px; background:url(info_show_js/images/header_bg2012.gif) no-repeat;
 height:32px; background-position:0 -128px;
@@ -177,7 +187,7 @@ color:#fff; line-height:20px;
 
 .xinweizhuanqu h4{ width:528px; background:url(info_show_js/images/sf_centerbg01.jpg) no-repeat; height:26px; line-height:26px; color:#fff; padding-left:15px; font-size:14px; border-bottom:2px solid #2491bd;}
 
- .l{width:540px;border:1px solid red;border-top:none;height:550px;}
+ .l{width:540px;border:1px solid red;border-top:none;height:635px;}
 /* 焦点图 */
 .focus img{border:none;}
 .focus{margin-left:50px;width:426px;height:240px;border:1px solid #EEE;position:relative;margin-top:6px;float:left}
@@ -214,7 +224,17 @@ color:#666666;
 font-weight:lighter;
 text-decoration:none
 }
-
+ 
+.news .jishuhang
+{
+color:#2Eb0FF;
+font-family:"仿宋体";
+}
+.news .oushuhang
+{
+color:#1C86EE;
+font-family:"仿宋体";
+}
 .news h2 a:hover,span a:hover{
 text-decoration: underline;
 }
@@ -237,6 +257,32 @@ text-decoration: underline;
 	border-bottom-style: dotted;
 	border-left-style: none;
 	border-bottom-color: #a8a8a8;
+}
+
+
+/* Footer */
+
+#footer {
+	width: 920px;
+	height: 49px;
+	margin: 0 auto;
+	padding-top: 25px;
+}
+
+#footer-bgcontent {
+	margin: 0px;
+	padding: 0px;
+	height: 60px;
+	background: #394144;
+}
+
+#footer p {
+	margin: 0;
+	text-align: center;
+	line-height: normal;
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #FFFFFF;
 }
 </style>
 <!--[if lte IE 6]>
@@ -362,9 +408,9 @@ color:#000;
 <!-- clear the floats if required -->
 <div class="clear"> </div>
 </div><!--men结束  <!-->
-<div class="main" style="margin-top:20px;width:1200px;height:1300px;"><!--men begin   <!-->
+<div class="main" style="margin-top:20px;width:1200px;height:730px;"><!--men begin   <!-->
 
-<div class="main_left" style="width:300px;height:1300px;margin-left:15px;float:left;">
+<div class="main_left" style="width:300px;height:700px;margin-left:15px;float:left;">
 
 <div class="guanjianjishushow" style="width:300px;height:500px;">
 
@@ -373,47 +419,91 @@ color:#000;
 
 <div id="demo" style="width:300px;position:relative;overflow:scroll;overflow-y:hidden;overflow-x:hidden;margin-top:-8px;">
 <div id="demo1">
-    <h4>关键技术1</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="http://www.yzb.bupt.cn/"></A>描述内容</FONT></P>
+    <h2>关键技术一:农村常见病规范化诊疗和临床路径</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村高血压规范诊疗关键技术</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村心房颤动规范诊疗关键技术</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村冠心病规范诊疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村支气管哮喘诊疗的关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村血脂异常规范诊疗关键技术</A></FONT></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
 
  </li>
-    <h4>关键技术2</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
-<P>&nbsp;</P>
-<P>&nbsp;</P>
+
+    <h2>关键技术二:农村急诊救治关键技术集成与应用示范研究</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村急性ST段抬高型心肌梗死诊断与治疗关键技术</A></FONT></P>
  </li>
-     <h4>关键技术3</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
-<P>&nbsp;</P>
-<P>&nbsp;</P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村非ST段抬高急性冠脉综合征诊断与治疗关键技术</A></FONT></P>
  </li>
-     <h4>关键技术4</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村高血压危象诊断与治疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村急性缺血性脑卒中诊断与治疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村常见中毒救治关键技术</A></FONT></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
+
  </li>
-     <h4>关键技术5</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
-<P>&nbsp;</P>
-<P>&nbsp;</P>
+     <h2>关键技术三:农村慢性病控制关键技术集成与应用示范研究</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">肾脏病：慢性肾脏病、慢性肾衰竭</A></FONT></P>
  </li>
-      <h4>关键技术6</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
-<P>&nbsp;</P>
-<P>&nbsp;</P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">呼吸系统：慢性支气管炎、哮喘</A></FONT></P>
  </li>
-      <h4>关键技术7</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">消化系统：慢性胃炎、胃溃疡</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">血液系统：缺铁性贫血、营养不良性巨幼细胞性贫血</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">内分泌系统：糖尿病、甲亢、甲减</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">免疫系统：系统性红斑狼疮、系统性血管炎</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">感染性疾病：慢性乙型肝炎</A></FONT></P></li>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
+     <h2>关键技术四:农村心脑血管病防治关键技术集成与应用示范</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村脑血管病二级预防诊疗规范及诊疗路径</A></FONT></P>
  </li>
-       <h4>关键技术8</h4>
-    <li><P><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;</FONT><FONT color=#000000>&nbsp;&nbsp;&nbsp;&nbsp; 关键技术描述<A href="#"></A>描述内容</FONT></P>
-<P>&nbsp;</P>
-<P>&nbsp;</P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村高血压防治诊疗规范及诊疗路径</A></FONT></P>
  </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村血脂异常防治诊疗规范及诊疗路径</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村冠心病防治关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村心律失常防治关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村心脑血管病防治-健康生活方式</A></FONT></P></li>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+     <h2>关键技术五:农村肿瘤筛查与防治关键技术集成与应用示范研究</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村肿瘤早期筛查关键技术</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村肿瘤化学治疗及放化疗不良反应防治关键技术</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村恶性肿瘤晚期常见并发症治疗关键技术</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村居民防癌科普宣教及基层肿瘤专科人才培训关键技术</A></FONT></P></li>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+      <h2>关键技术六:农村数字医疗仪器应用关键技术研究</h2>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村数字医疗仪器应用关键技术研究</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村数字医疗仪器质量标准检测体系关键技术</A></FONT></P></li>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+      <h2>关键技术七:农村重点人群营养健康关键技术集成与应用示范研究</h2>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村妇女营养不良性消瘦筛查规范及改善路径</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村孕妇叶酸营养水平快速检验技术及补充计划</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村老年人血脂异常患者健康干预模式</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村残疾人蛋白质-热能营养不良综合防治措施</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村精神病患者防治路径</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村儿童营养保健关键技术集成与应用</A></FONT></P>
+ </li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">西北地区农村留守儿童心理行为问题干预</A></FONT></P></li>
+
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">心理健康教育评估标准</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">关键技术使用说明</A></FONT></P></li>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
     </div>
 <div id="demo2"> </div>
 <script type="text/javascript">
@@ -438,7 +528,7 @@ color:#000;
 </div>
 </div>
    
-<div class="main_middle" style="width:550px;height:1300px;margin-left:15px;float:left;">
+<div class="main_middle" style="width:550px;height:700px;margin-left:15px;float:left;">
 
 <div class="xinweizhuanqu" style="width:540px;">
 
@@ -498,7 +588,7 @@ Class.forName("com.mysql.jdbc.Driver").newInstance();
 Connection connection=DriverManager.getConnection(url);
 
 Statement statement = connection.createStatement();
-String sql = "select * from Tnews order by CCREATEDATETIME desc limit 0,4";
+String sql = "select * from Tnews order by CCREATEDATETIME desc limit 0,5";
 //String sql = "select * from Tnews where rownum<=2";
 //String sql="select * from Tnews order by CCREATEDATETIME desc limit 3 ";
 
@@ -509,24 +599,48 @@ ResultSet rs = statement.executeQuery(sql);
 ResultSetMetaData rmeta = rs.getMetaData();
 //确定数据集的列数，亦字段数
 
-int numColumns=rmeta.getColumnCount();
+int numColumn = 1;
 
 // 输出每一个数据值
-while(rs.next()) {%>
+while(rs.next()) {
+if(numColumn %2 == 1){
+%>
 
 <table width="515" height="22" border="0" cellpadding="0" cellspacing="0" class="bk-1">
 
 					<tr>
 					  <td width="13" align="left" valign="middle"><img src="info_show_js/images/home_70.gif" width="3" height="5" /></td>
-					  <td width="405" align="left" valign="middle"><a href="newsdetail.jsp?id=<%= rs.getString(1) %>" target="_blank" title=''><%= 
-rs.getString(4)%></a></td>
+					  <td width="405" align="left" valign="middle" ><b><a href="newsdetail.jsp?id=<%= rs.getString(1) %>" class="jishuhang" target="_blank"   title=''><%= 
+rs.getString(4)%></a></b></td>
 					  <td width="97" align="left" valign="middle"><span class="STYLE2"><%= 
-rs.getString(2)%></span></td>
+rs.getString(2).substring(0,10)%></span></td>
 					</tr>
-					</table>
+					<tr style="height:10px"></tr>
 
+					</table>
+<%
+}
+else {
+%>
+<table width="515" height="22" border="0" cellpadding="0" cellspacing="0" class="bk-1">
+
+					<tr>
+					  <td width="13" align="left" valign="middle"><img src="info_show_js/images/home_70.gif" width="3" height="5" /></td>
+					  <td width="405" align="left" valign="middle" ><b><a href="newsdetail.jsp?id=<%= rs.getString(1) %>" class="oushuhang" target="_blank"   title=''><%= 
+rs.getString(4)%></a></b></td>
+					  <td width="97" align="left" valign="middle"><span class="STYLE2"><%= 
+rs.getString(2).substring(0,10)%></span></td>
+					</tr>
+					<tr style="height:10px"></tr>
+
+					</table>
+<%
+}
+
+ %>
 
 <% 
+numColumn++;
 }
 
 
@@ -539,29 +653,13 @@ connection.close();
 
 %> 
  </div> 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-   
+
 </div>
 </div>
 </div>
 
 
-<div class="main_right"style="width:300px;height:1300px;margin-left:10px;float:left;">
+<div class="main_right"style="width:300px;height:700px;margin-left:10px;float:left;">
 
 <div class="yingyongshifan" style="width:300px;height:500px;">
 <h1>应用示范</h1>
@@ -634,8 +732,18 @@ connection.close();
 
 </div>
 </div>
-</div><!--men end   <!-->
 
+
+
+
+</div><!--men end   <!-->
+		<div id="footer-bgcontent" align="center">
+			<div id="footer">
+				<p>
+					Copyright (c) 2012 教育部科技司、中国人民解放军总医院 . Design by 中国人民解放军总医院.
+				</p>
+			</div>
+		</div>
 </div> <!--全局div结束    !-->
 
 
