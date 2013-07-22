@@ -1,50 +1,58 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mysql.jdbc.Driver" %>
-
 <%@ page import="java.sql.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'news_show.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-    <style type="text/css">
-*{
-  margin:0;
-  padding:0;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>农村基本医疗卫生关键技术研究与示范协同研究工作平台</title>
+
+<style type="text/css">
+/* common styling */
+/* set up the overall width of the menu div, the font and the margins */
+*
+{
+ margin:0;
+ padding:0;
+
 }
-    
- .title_nav{
- width:1450px;
+
+body{
+
+ 
+}
+.quanju{
+
+ width:1200px;
+ margin-left:100px;
+border:2px solid #000;
+overflow:hidden;
+}
+
+.title_nav{
+ width:1200px;
  height:134px;
-text-align:center;
-display:table-cell;
-vertical-align:middle;
  background:url(fimages/img04.jpg);
+ text-align:center;
  
 }
 
 .title_nav h1 {
-	
-	margin:0 auto;
+        margin:0 auto;
 	line-height: normal;
 	text-transform: lowercase;
-	font-weight: normal;
+	font-family:"楷体";
+	font-weight: bold;
+	font-size:45px;
 	color: #FFFFFF;
+        vertical-align:middle;
+        line-height:120px;
+
 }
 
 .menu {
@@ -102,7 +110,7 @@ line-height:30px;
 /* make the dropdown ul invisible */
 .menu ul li ul {
 display: none;
-z-index:100;
+z-index:1500;
 
 }
 /* specific to non IE browsers */
@@ -134,24 +142,26 @@ background:#FFE7BA;
 color:#000;
 width:130px;
 }
-   
+
+
  #only{margin-top:20px}
 
-.zhandianditu{width:1000px;height:40px;line-height:40px;margin:0 auto;margin-top:20px;}
-.zhandianditu p{color:#303030}
-.zhandianditu p a{color:#303030}
-.liebiao{width:1000px;height:1170px;margin:0 auto;}
-.liebiaoleft{width:740px;height:1170px;float:left;border:1px solid #c5c5c5;}
-.liebiaoleftyiceng1{width:700px;height:115px;margin-left:20px;border-bottom:1px dashed #c6c6c6;}
-.liebiaoleftyiceng1 h3{font-size:16px;color:#333; width:700px; height:20px;}
-.liebiaoleftyiceng1 h3 a{ float:left; clear:both;text-decoration:none;color:#333}
-.liebiaoleftyiceng1 h3 a:hover{text-decoration:underline;}
-.liebiaoleftyiceng1 h3 span{font-size:12px;font-weight:lighter;color:#333; float:right; margin-right:5px;}
-.liebiaoleftyiceng2{width:700px;height:60px;margin-top:15px }
-.liebiaoleftyiceng2 .p1{margin-left:105px;line-height:20px;color:#666}
-.liebiaoleftyiceng2 .p2{line-height:20px;color:#666}
-/*.liebiaoleftyiceng2img{width:85px;height:55px;background: url(/images/Index1Imgs/pic_13.jpg) no-repeat;display:block;float:left;clear:both}*/
-.liebiaoleftyiceng2img{width:85px;height:55px;display:block;float:left;clear:both}
+
+
+.liebiao{width:100%;height:1170px;}
+.liebiaoleft{float:left;width:100px;height:1100px;}
+.liebiaomiddle{width:750px;height:1170px;float:left;border:1px solid #c5c5c5;margin-left:100px;}
+
+.liebiaomiddleyiceng1{width:700px;height:115px;margin-left:20px;border-bottom:1px dashed #c6c6c6;}
+.liebiaomiddleyiceng1 h3{font-size:16px;color:#333; width:700px; height:20px;}
+.liebiaomiddleyiceng1 h3 a{ float:left; clear:both;text-decoration:none;color:#333}
+.liebiaomiddleyiceng1 h3 a:hover{text-decoration:underline;}
+.liebiaomiddleyiceng1 h3 span{font-size:12px;font-weight:lighter;color:#333; float:right; margin-right:5px;}
+.liebiaomiddleyiceng2{width:700px;height:60px;margin-top:15px }
+.liebiaomiddleyiceng2 .p1{margin-left:105px;line-height:20px;color:#666}
+.liebiaomiddleyiceng2 .p2{line-height:20px;color:#666}
+/*.liebiaomiddleyiceng2img{width:85px;height:55px;background: url(/images/Index1Imgs/pic_13.jpg) no-repeat;display:block;float:left;clear:both}*/
+.liebiaomiddleyiceng2img{width:85px;height:55px;display:block;float:left;clear:both}
 .xiamianxiangqing{ float:right; margin-right:5px;}
 .xiamianxiangqing a{
  text-decoration:none;
@@ -168,22 +178,95 @@ width:130px;
 	 .pageS2{border:1px solid #ccc; padding:3px 2px 0px 2px ;height:21px; width:36px;}
 	 .pageS0{border:0;padding:3px 5px 3px 5px; font-weight:bold;}    
 	 .text{width:36px;height:19px;border:1px solid #ccc;}
-	 .submit{width:45px;height:5;}   
-	 
-    </style>
-  </head>
-  
-  <body>
-  
-   <div class="title_nav"><!--title_nva开始   <!-->
-<h1>
-农村基本医疗卫生关键技术研究与示范协同研究工作平台
-</h1>
-</div><!--title_nav结束  <!--> 
-    
- <div class="menu"><!--menu开始  <!-->
+	 .submit{width:45px;height:5;}  
+
+/* Footer */
+
+#footer {
+	width: 920px;
+	height: 49px;
+	margin: 0 auto;
+	padding-top: 25px;
+}
+
+#footer-bgcontent {
+	margin: 0px;
+	padding: 0px;
+	height: 60px;
+	background: #394144;
+}
+
+#footer p {
+	margin: 0;
+	text-align: center;
+	line-height: normal;
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #FFFFFF;
+}
+</style>
+<!--[if lte IE 6]>
+<style type="text/css">
+/* styling specific to Internet Explorer IE5.5 and IE6. Yet to see if IE7 handles li:hover */
+/* Get rid of any default table style */
+table {
+border-collapse:collapse;
+margin:0; 
+padding:0;
+}
+/* ignore the link used by 'other browsers' */
+.menu ul li a.hide, .menu ul li a:visited.hide {
+display:none;
+}
+/* set the background and foreground color of the main menu link on hover */
+.menu ul li a:hover {
+color:#fff; 
+background:#b3ab79;
+}
+/* make the sub menu ul visible and position it beneath the main menu list item */
+.menu ul li a:hover ul {
+display:block; 
+position:absolute; 
+top:32px; 
+left:0; 
+width:105px;
+}
+/* style the background and foreground color of the submenu links */
+.menu ul li a:hover ul li a {
+background:#faeec7; 
+color:#000;
+}
+/* style the background and forground colors of the links on hover */
+.menu ul li a:hover ul li a:hover {
+background:#dfc184; 
+color:#000;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript" src="js/jquery.js">
+</script>
+<script type="text/javascript" src="js/lrtk.js"></script>
+
+<script type="text/javascript" src="<%=basePath%>/info_show_js/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath%>/info_show_js/lrtk.js" charset="utf-8"></script>
+
+</head>
+<body>
+
+<div class="quanju"><!--全局div开始   <!-->
+
+<div class="title_nav"><!--title_nva开始   <!-->
+	<h1>
+					农村基本医疗卫生关键技术研究与示范协同研究工作平台 
+	</h1>
+</div><!--title_nav结束  <!-->
+
+
+
+<div class="menu"><!--menu开始  <!-->
 <ul>
-<li><a class="hide" href="#">首页</a></li>
+<li><a class="hide" href="index.jsp">首页</a></li>
 <li><a class="hide" href="#">平台介绍</a>
 <!--[if lte IE 6]>
 <a href="../menu/index.html">DEMOS
@@ -215,7 +298,7 @@ width:130px;
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="#">项目管理</a></li>
+<li><a class="hide" href="xiangmuguanli.jsp">项目管理</a></li>
 <li><a class="hide" href="#">数据服务</a></li>
 <li><a class="hide" style="width:120px" href="#">关键技术集成与应用示范</a>
 <!--[if lte IE 6]>
@@ -243,23 +326,21 @@ width:130px;
 <li><a class="hide" href="#">联系我们</a></li>
 </ul>
 <!-- clear the floats if required -->
-<div class="clear"> </div>
-</div><!--men结束  <!-->   
-  
-  <div style="clear:both">
-  
-  </div>
- <div class="zhandianditu">
-    <p>
+</div><!--men结束  <!-->
+<div style="clear:both;"></div>
+<div style="margin-top:20px">
+ <p>
         <span id="NavigationWUC1_lbMap">首页&nbsp;&nbsp;&lt;&lt;&nbsp;&nbsp;最新资讯</span>
     </p>
 </div>
 
-        <!--列表部分-->
+
+ <!--列表部分-->
         <div class="liebiao">
             <!--列表左侧-->
-            <div class="liebiaoleft">
-                <div class="liebiaoleftyiceng">
+            <div class="liebiaoleft"></div>
+            <div class="liebiaomiddle">
+                <div class="liebiaomiddleyiceng">
                     <table id="dlNewsList" cellspacing="0" style="border-collapse:collapse;">
 	<%
 
@@ -328,17 +409,17 @@ while(rs.next()) {%>
 	
 	<tr>
 		<td>
-                        <div class="liebiaoleftyiceng1" id="only">
+                        <div class="liebiaomiddleyiceng1" id="only">
                             <h3>
                                 <a href='/newsinfo/leads/TitleLead.aspx?t_id=<%=rs.getString(1)%>' title='2013年度项目启动会暨2012年度项目经验交流会预通知' target="_blank"
                                     style=" white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width:550px;">
                                 <%=rs.getString(4)%></a>
 
-                                <span>发表于:<%=rs.getString(2)%></span></h3>
-                            <div class="liebiaoleftyiceng2"  style=" overflow: hidden;">
+                                <span>发表于:<%=rs.getString(2).substring(0,10)%></span></h3>
+                            <div class="liebiaomiddleyiceng2"  style=" overflow: hidden;">
                                 <p class="p2"><%=rs.getString(4)%></p>
                             </div>
-                            <span class="xiamianxiangqing"><a href="/newsinfo/leads/TitleLead.aspx?t_id=1973" target="_blank" >查看详情&gt;&gt;</a></span>
+                            <span class="xiamianxiangqing"><a href="newsdetail.jsp?id=<%= rs.getString(1) %>" target="_blank" >查看详情&gt;&gt;</a></span>
                         </div>
                     </td>
 	</tr>
@@ -438,13 +519,12 @@ connection.close();
                          </span>
                    <% 
                    }    
-                   %>
-            
-        
-                     
+                   %>    
                  
                 </div>
             </div>  
-</div>
+        </div>
+<div style="clear:both"></div>
+    </div>
   </body>
 </html>
