@@ -420,87 +420,87 @@ color:#000;
 <div id="demo" style="width:300px;position:relative;overflow:scroll;overflow-y:hidden;overflow-x:hidden;margin-top:-8px;">
 <div id="demo1">
     <h2>关键技术一:农村常见病规范化诊疗和临床路径</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村高血压规范诊疗关键技术</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_1/1.pps" style="text-decoration:none;">农村高血压规范诊疗关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村心房颤动规范诊疗关键技术</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_1/2.pps" style="text-decoration:none;">农村心房颤动规范诊疗关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村冠心病规范诊疗关键技术</A></FONT></P>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村支气管哮喘诊疗的关键技术</A></FONT></P>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村血脂异常规范诊疗关键技术</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_1/3.pps" style="text-decoration:none;">农村冠心病规范诊疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_1/4.pps" style="text-decoration:none;">农村支气管哮喘诊疗的关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_1/5.pps" style="text-decoration:none;">农村血脂异常规范诊疗关键技术</A></FONT></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
 
  </li>
 
     <h2>关键技术二:农村急诊救治关键技术集成与应用示范研究</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村急性ST段抬高型心肌梗死诊断与治疗关键技术</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_2/1.pps" style="text-decoration:none;">农村急性ST段抬高型心肌梗死诊断与治疗关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村非ST段抬高急性冠脉综合征诊断与治疗关键技术</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_2/2.pps" style="text-decoration:none;">农村非ST段抬高急性冠脉综合征诊断与治疗关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村高血压危象诊断与治疗关键技术</A></FONT></P>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村急性缺血性脑卒中诊断与治疗关键技术</A></FONT></P>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/2.pps" style="text-decoration:none;">农村常见中毒救治关键技术</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_2/3.pps" style="text-decoration:none;">农村高血压危象诊断与治疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_2/4.pps" style="text-decoration:none;">农村急性缺血性脑卒中诊断与治疗关键技术</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_2/5.pps" style="text-decoration:none;">农村常见中毒救治关键技术</A></FONT></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
 
  </li>
      <h2>关键技术三:农村慢性病控制关键技术集成与应用示范研究</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">肾脏病：慢性肾脏病、慢性肾衰竭</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/1.pdf" style="text-decoration:none;">肾脏病：慢性肾脏病、慢性肾衰竭</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">呼吸系统：慢性支气管炎、哮喘</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">呼吸系统：慢性支气管炎、哮喘</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">消化系统：慢性胃炎、胃溃疡</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">消化系统：慢性胃炎、胃溃疡</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">血液系统：缺铁性贫血、营养不良性巨幼细胞性贫血</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">内分泌系统：糖尿病、甲亢、甲减</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">免疫系统：系统性红斑狼疮、系统性血管炎</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">感染性疾病：慢性乙型肝炎</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">血液系统：缺铁性贫血、营养不良性巨幼细胞性贫血</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">内分泌系统：糖尿病、甲亢、甲减</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">免疫系统：系统性红斑狼疮、系统性血管炎</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_3/2.pps" style="text-decoration:none;">感染性疾病：慢性乙型肝炎</A></FONT></P></li>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
      <h2>关键技术四:农村心脑血管病防治关键技术集成与应用示范</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村脑血管病二级预防诊疗规范及诊疗路径</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/1.pps" style="text-decoration:none;">农村脑血管病二级预防诊疗规范及诊疗路径</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村高血压防治诊疗规范及诊疗路径</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/2.pps" style="text-decoration:none;">农村高血压防治诊疗规范及诊疗路径</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村血脂异常防治诊疗规范及诊疗路径</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/3.pps" style="text-decoration:none;">农村血脂异常防治诊疗规范及诊疗路径</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村冠心病防治关键技术</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村心律失常防治关键技术</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村心脑血管病防治-健康生活方式</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/4.pps" style="text-decoration:none;">农村冠心病防治关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/5.pps" style="text-decoration:none;">农村心律失常防治关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_4/6.pdf" style="text-decoration:none;">农村心脑血管病防治-健康生活方式</A></FONT></P></li>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
      <h2>关键技术五:农村肿瘤筛查与防治关键技术集成与应用示范研究</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村肿瘤早期筛查关键技术</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_5/1.pps" style="text-decoration:none;">农村肿瘤早期筛查关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村肿瘤化学治疗及放化疗不良反应防治关键技术</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_5/2.pps" style="text-decoration:none;">农村肿瘤化学治疗及放化疗不良反应防治关键技术</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村恶性肿瘤晚期常见并发症治疗关键技术</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_5/3.pps" style="text-decoration:none;">农村恶性肿瘤晚期常见并发症治疗关键技术</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村居民防癌科普宣教及基层肿瘤专科人才培训关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_5/4.pps" style="text-decoration:none;">农村居民防癌科普宣教及基层肿瘤专科人才培训关键技术</A></FONT></P></li>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
       <h2>关键技术六:农村数字医疗仪器应用关键技术研究</h2>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村数字医疗仪器应用关键技术研究</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_6/1.pps" style="text-decoration:none;">农村数字医疗仪器应用关键技术研究</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村数字医疗仪器质量标准检测体系关键技术</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_6/2.pps" style="text-decoration:none;">农村数字医疗仪器质量标准检测体系关键技术</A></FONT></P></li>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
       <h2>关键技术七:农村重点人群营养健康关键技术集成与应用示范研究</h2>
-    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村妇女营养不良性消瘦筛查规范及改善路径</A></FONT></P>
+    <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/1.pps" style="text-decoration:none;">农村妇女营养不良性消瘦筛查规范及改善路径</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村孕妇叶酸营养水平快速检验技术及补充计划</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/2.pps" style="text-decoration:none;">农村孕妇叶酸营养水平快速检验技术及补充计划</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村老年人血脂异常患者健康干预模式</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/3.pps" style="text-decoration:none;">农村老年人血脂异常患者健康干预模式</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村残疾人蛋白质-热能营养不良综合防治措施</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村精神病患者防治路径</A></FONT></P>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/4.pps" style="text-decoration:none;">农村残疾人蛋白质-热能营养不良综合防治措施</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/5.pps" style="text-decoration:none;">农村精神病患者防治路径</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">农村儿童营养保健关键技术集成与应用</A></FONT></P>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/6.pps" style="text-decoration:none;">农村儿童营养保健关键技术集成与应用</A></FONT></P>
  </li>
-     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">西北地区农村留守儿童心理行为问题干预</A></FONT></P></li>
+     <li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/7.pps" style="text-decoration:none;">西北地区农村留守儿童心理行为问题干预</A></FONT></P></li>
 
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">心理健康教育评估标准</A></FONT></P></li>
-<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp<A href="http://www.yzb.bupt.cn/" style="text-decoration:none;">关键技术使用说明</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp;<A href="newsinfo/key_Tecl_7/8.pdf" style="text-decoration:none;">心理健康教育评估标准</A></FONT></P></li>
+<li style="font-size:14px"><P><FONT color=#ff0000></FONT><FONT color=#000000>&nbsp;&nbsp<A href="newsinfo/key_Tecl_7/9.pps" style="text-decoration:none;">关键技术使用说明</A></FONT></P></li>
 
 <P>&nbsp;</P>
 <P>&nbsp;</P>
