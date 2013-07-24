@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mysql.jdbc.Driver" %>
 <%@ page import="java.sql.*" %>
 <%
@@ -541,10 +541,18 @@ color:#000;
 
 <div class="focus">
     <ul class="rslides f426x240">
-        <li><a href="http://www.lanrentuku.com/" target="_blank"><img src="info_show_js/images/news_1.png" alt="懒人图库全新改版" /></a></li>
-        <li><a href="http://www.lanrentuku.com/js/" target="_blank"><img src="info_show_js/images/news_2.png" alt="JS代码" /></a></li>
-        <li><a href="http://www.lanrentuku.com/zt/book/" target="_blank"><img src="info_show_js/images/news_3.png" alt="读。书。" /></a></li>
-        <li><a href="http://www.lanrentuku.com/bg/" target="_blank"><img src="info_show_js/images/news_4.png" alt="网页背景" /></a></li>
+        <li><a href="http://www.lanrentuku.com/" target="_blank"><img src="info_show_js/news_image/news_1.JPG"  /></a></li>
+        <li><a href="http://www.lanrentuku.com/js/" target="_blank"><img src="info_show_js/news_image/news_2.JPG"/></a></li>
+        <li><a href="http://www.lanrentuku.com/zt/book/" target="_blank"><img src="info_show_js/news_image/news_3.JPG"  /></a></li>
+        <li><a href="http://www.lanrentuku.com/bg/" target="_blank"><img src="info_show_js/news_image/news_4.JPG"  /></a></li>
+        <li><a href="http://www.lanrentuku.com/" target="_blank"><img src="info_show_js/news_image/news_5.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/js/" target="_blank"><img src="info_show_js/news_image/news_6.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/zt/book/" target="_blank"><img src="info_show_js/news_image/news_7.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/bg/" target="_blank"><img src="info_show_js/news_image/news_8.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/" target="_blank"><img src="info_show_js/news_image/news_9.JPG"  /></a></li>
+        <li><a href="http://www.lanrentuku.com/js/" target="_blank"><img src="info_show_js/news_image/news_10.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/zt/book/" target="_blank"><img src="info_show_js/news_image/news_11.JPG" /></a></li>
+        <li><a href="http://www.lanrentuku.com/bg/" target="_blank"><img src="info_show_js/news_image/news_12.jpg"/></a></li>
     </ul>
 </div>
 
