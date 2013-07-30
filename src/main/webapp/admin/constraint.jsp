@@ -67,7 +67,7 @@
 		} ];
 
 		treegrid = $('#treegrid').treegrid({
-			url : 'projectAction!treegrid.action',
+			url : 'constraintAction!treegrid.action',
 			rowStyler:function(index,row){     
 			    if (index%2==0){     
 			            return 'background-color:#EFEFEF;';     
@@ -245,7 +245,7 @@
 					}
 				}						
 					
-			},{
+			}/* ,{
 				field : 'cstarttime',
 				title : '开始时间',
 				width : 150,
@@ -271,7 +271,7 @@
 				editor : {
 					type : 'datebox'
 				}
-			} ,{
+			}  */,{
 				field : 'cresponsecompany',
 				title : '负责单位',
 				width : 150,
@@ -283,7 +283,7 @@
 						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			},{
+			} ,{
 				field : 'cresponser',
 				title : '负责人',
 				width : 150,
@@ -292,7 +292,7 @@
 						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			} /*  ,{
+			} /* ,{
 				field : 'cuid',
 				title : '负责人',
 				width : 150,
@@ -310,33 +310,7 @@
 						textField : 'cname'
 					}
 				}
-			} */,{
-				field : '123',                                   //添加任务状态 拖期、进行中、已完成
-				title : '任务状态',
-				width : 150,
-				formatter : function(value, rowData, rowIndex) {
-				value=rowData.cendtime;
-				id=rowData.cid;
-				var time2012="2012-12-31";
-				var time2013="2013-12-31";
-				var time2014="2014-12-31"; 
-				if ((id>54)&&(value==time2012))
-				{
-					return sy.fs('<font size="3" color="red">拖期</font>');
-				}
-				if ((id>54)&&(value==time2013))
-				{
-					return sy.fs('<font size="3">进行中</font>');
-				}
-				if ((id>54)&&(value==time2014))
-				{
-					
-					return sy.fs('<font size="3" color="green">未开展</font>');
-				}
-				}
-					
-			}
-			] ],
+			} */] ],
 			onDblClickRow : function(row) {
 				if (editRow != undefined) {
 					treegrid.treegrid('endEdit', editRow.cid);
@@ -358,10 +332,10 @@
 
 				var url = '';
 				if (editType == 'add') {
-					url = 'projectAction!add.action';
+					url = 'constraintAction!add.action';
 				}
 				if (editType == 'edit') {
-					url = 'projectAction!edit.action';
+					url = 'constraintAction!edit.action';
 				}
 
 				$.ajax({
@@ -448,7 +422,7 @@
 					function(b) {
 						if (b) {
 							$.ajax({
-								url : 'projectAction!changeStatus.action',
+								url : 'constraintAction!changeStatus.action',
 								data : node,
 								cache : false,
 								dataType : "json",
@@ -509,7 +483,7 @@
 					function(b) {
 						if (b) {
 							$.ajax({
-								url : 'projectAction!delete.action',
+								url : 'constraintAction!delete.action',
 								data : {
 									cid : node.cid
 								},
