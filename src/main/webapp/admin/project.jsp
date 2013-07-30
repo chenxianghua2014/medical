@@ -224,6 +224,9 @@
 				title : '进度',
 				align : 'center',
 				width : 100,
+				editor : {
+					type : 'text'
+				},
 				formatter : function(value) {
 				if (value!=0) {
 				
@@ -476,7 +479,7 @@
 	}
 	function append() {
 
-	/* if (editRow != undefined) {
+		if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -484,9 +487,10 @@
 			var node = treegrid.treegrid('getSelected');
 			var row = [ {
 				cid : sy.UUID(),
-				cname : '菜单名称',
+				cname : '',
 				curl : '',
-				cseq : 10,
+				cseq : '',
+				cprogress : '',
 				cpid : node == null ? '' : node.cid
 			} ];
 			treegrid.treegrid('append', {
@@ -498,8 +502,7 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		} */
-		alert("hello");
+		};
 			
 	}
 	function remove() {

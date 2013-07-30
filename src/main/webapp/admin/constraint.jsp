@@ -450,7 +450,7 @@
 	}
 	function append() {
 
-	/* if (editRow != undefined) {
+	    if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -458,9 +458,9 @@
 			var node = treegrid.treegrid('getSelected');
 			var row = [ {
 				cid : sy.UUID(),
-				cname : '菜单名称',
+				cname : '名称',
 				curl : '',
-				cseq : 10,
+				cseq : '',
 				cpid : node == null ? '' : node.cid
 			} ];
 			treegrid.treegrid('append', {
@@ -472,8 +472,7 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		} */
-		alert("hello");
+		} ;
 			
 	}
 	function remove() {

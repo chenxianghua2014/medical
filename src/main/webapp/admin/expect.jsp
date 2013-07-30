@@ -432,7 +432,7 @@
 	}
 	function append() {
 
-	/* if (editRow != undefined) {
+	    if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -454,8 +454,7 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		} */
-		alert("hello");
+		} ;
 			
 	}
 	function remove() {
