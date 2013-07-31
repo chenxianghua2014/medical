@@ -38,6 +38,7 @@
 				title : '新闻主题',
 				field : 'cname',
 				width : 150,
+				height: 60,
 				sortable : true
 			} ] ],
 			columns : [ [ {
@@ -46,12 +47,12 @@
 				sortable : true,
 				width : 150
 			}, {
-				title : '新闻图片名字',
+				title : '新闻摘要',
 				field : 'cpname',
 				sortable : true,
 				width : 150
 			}, {
-				title : '新闻内容',
+				title : '新闻文件',
 				field : 'cdesc',
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
@@ -148,7 +149,7 @@
 		});
 		
 		bugEditDialog = $('#bugEditDialog').show().dialog({
-			title : '编辑BUG',
+			title : '编辑新闻',
 			modal : true,
 			closed : true,
 			maximizable : true,
@@ -161,29 +162,29 @@
 		});
 		
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '新闻内容',
+			title : '新闻文件',
 			modal : true,
 			closed : true,
 			maximizable : true
 		});
 		
 		
-		cdescAdd = $('#cdescAdd').xheditor({
+      $("#cdescAdd").xheditor({
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
 			upLinkUrl : 'newsAction!upload.action',
-			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
+			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx,pdf',
 			upImgUrl : 'newsAction!upload.action',
-			upImgExt : 'jpg,jpeg,gif,png'
-		});
-
+			upImgExt : 'jpg,jpeg,gif,png' 
+    }); 
+    
 		cdescEdit = $('#cdescEdit').xheditor({
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
 			upLinkUrl : 'newsAction!upload.action',
-			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx',
+			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx,pdf',
 			upImgUrl : 'newsAction!upload.action',
 			upImgExt : 'jpg,jpeg,gif,png'
 		});
@@ -269,7 +270,7 @@
 					showCdescDialog.find('div[name=cdesc]').html(response.cdesc);
 					showCdescDialog.dialog('open');
 				} else {
-					$.messager.alert('提示', '没有BUG描述！', 'error');
+					$.messager.alert('提示', '没有新闻描述！', 'error');
 				}
 				$.messager.progress('close');
 			}
@@ -302,12 +303,12 @@
 				</tr>
 
                <tr>
-               <th>新闻图片名字</th>
+               <th>新闻摘要</th>
 					<td><input name="cpname" class="easyui-validatebox" required="true"/>
 					</td>
 					</tr>
 				<tr>
-					<th>新闻内容</th>
+					<th>新闻上传文件</th>
 					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
 				</tr>
 			</table>
@@ -328,13 +329,13 @@
 				</tr>
 
                <tr>
-               <th>新闻图片名字</th>
+               <th>新闻摘要</th>
 					<td><input name="cpname" class="easyui-validatebox" required="true"/>
 					</td>
 					</tr>
 				<tr>
-					<th>新闻内容</th>
-					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
+					<th>新闻上传文件</th>
+					<td colspan="3"><textarea name="cdesc" id="cdescEdit"></textarea></td>
 				</tr>
 			</table>
 		</form>
