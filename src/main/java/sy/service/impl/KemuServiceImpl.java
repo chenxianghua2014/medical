@@ -161,7 +161,9 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		String hql3="update Tpay tpay set tpay.ccost=" +sum+
 				" where tpay.cfuid=" +cfuid+
 				" and tpay.cname=" +ccourse;
+		String hql3_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
 		payDao.executeHql(hql3);
+		payDao.executeHql(hql3_1);
 		/*String hql3="update Tpay tpay set tpay.ccost=?  where tpay.cfuid= ? and tpay.cname=?";
 		payDao.executeHql(hql3,new Object[] {sum,cfuid,ccourse});*/
 		//获取上级节点编号
@@ -179,6 +181,8 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 			String hql="update Tpay tpay set tpay.ccost=" +sum1 +
 					"  where tpay.cid= "+ cfpid;			
 			payDao.executeHql(hql);//更新上级支出总额
+			String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+			payDao.executeHql(hql_1);
 			String hql6="select new Tpay(t.cfpid) from Tpay t where cid=" +cfpid;
 			List<Tpay> tpl1 = payDao.find(hql6);
 			Tpay tp1 = tpl1.get(0);
