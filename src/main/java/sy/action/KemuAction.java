@@ -94,7 +94,7 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 		Json j = new Json();
 		try {
 			kemuService.update(kemu);
-			//kemuService.updatepay(kemu);
+			kemuService.updatepay(kemu);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
