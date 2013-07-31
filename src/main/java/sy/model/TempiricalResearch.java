@@ -26,12 +26,15 @@ public class TempiricalResearch implements java.io.Serializable {
 	private String cinformation;
 	private String cnote;
 	private String cstorage;
-	private Integer cyear;
+	private String cyear;
 	private String cunit;
 	private String ccontactid;
 	private String ctypeman;
 	private Date ctypetime;
+	
+	private String cflag;
 
+	
 	// Constructors
 
 	/** default constructor */
@@ -46,8 +49,8 @@ public class TempiricalResearch implements java.io.Serializable {
 	/** full constructor */
 	public TempiricalResearch(String cid, String cclassify, String cname,
 			String clanguage, String cckeyword, String cekeyword,
-			String cinformation, String cnote, String cstorage, Integer cyear,
-			String cunit, String ccontactid, String ctypeman, Date ctypetime) {
+			String cinformation, String cnote, String cstorage, String cyear,
+			String cunit, String ccontactid, String ctypeman, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.cclassify = cclassify;
 		this.cname = cname;
@@ -62,6 +65,7 @@ public class TempiricalResearch implements java.io.Serializable {
 		this.ccontactid = ccontactid;
 		this.ctypeman = ctypeman;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -148,11 +152,11 @@ public class TempiricalResearch implements java.io.Serializable {
 	}
 
 	@Column(name = "cyear")
-	public Integer getCyear() {
+	public String getCyear() {
 		return this.cyear;
 	}
 
-	public void setCyear(Integer cyear) {
+	public void setCyear(String cyear) {
 		this.cyear = cyear;
 	}
 
@@ -192,5 +196,12 @@ public class TempiricalResearch implements java.io.Serializable {
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
 	}
-
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 }

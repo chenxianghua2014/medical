@@ -115,11 +115,21 @@
 			border : false,
 			idField : 'cid',
 			treeField : 'cname',
-			frozenColumns : [ [/*  {
+			frozenColumns : [ [  {
 				title : 'cid',
 				field : 'cid',
-				width : 50
-			}, */ {
+				width : 50,
+				checkbox :true
+			},{
+				field : 'cseq',
+				title : '课题编号',
+				width : 120,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span title="{0}" style="font-size:14px">{1}</span>', value, value);
+					}
+				}
+			}, {
 				field : 'cname',
 				title : '项目名称',
 				width : 400,
@@ -140,7 +150,10 @@
 				align : 'right',
 				width : 150,
 				formatter : function(value) {
-						return '￥'+value+'万';					
+				    value=value/10000;
+				    value=value.toFixed(2);
+				    value = '￥'+value+'万';
+					return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 				}
 			} ,{
 				field : 'cmoney',
@@ -148,7 +161,10 @@
 				align : 'right',
 				width : 150,
 				formatter : function(value) {
-					return '￥'+value+'万';
+					value=value/10000;
+				    value=value.toFixed(2);
+				    value = '￥'+value+'万';
+					return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 				}
 			} ,{
 				field : 'ccost',
@@ -156,7 +172,15 @@
 				align : 'right',
 				width : 150,
 				formatter : function(value) {
-					return '￥'+value+'万';
+					if (value==null){
+						value=0.00;
+					}
+					else{
+						value=value/10000;
+				    	value=value.toFixed(2);
+					}
+				    value = '￥'+value+'万';
+					return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 				}
 			},{
 				field : 'cbalance',
@@ -164,7 +188,15 @@
 				align : 'right',
 				width : 150,
 				formatter : function(value) {
-					return '￥'+value+'万';
+					if (value==null){
+						value=0.00;
+					}
+					else{
+						value=value/10000;
+				    	value=value.toFixed(2);
+					}
+				    value = '￥'+value+'万';
+					return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 				}
 			} ,{
 				field : 'cresponser',
@@ -172,7 +204,7 @@
 				width : 150,
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			} ] ],				
