@@ -77,6 +77,7 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 		Json j = new Json();
 		try {
 			kemuService.add(kemu);
+			kemuService.updatepay(kemu);//汇总支出总金额
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -93,6 +94,7 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 		Json j = new Json();
 		try {
 			kemuService.update(kemu);
+			//kemuService.updatepay(kemu);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {
@@ -107,7 +109,7 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	 */
 	public void delete() {
 		Json j = new Json();
-		kemuService.delete(kemu.getIds());
+		kemuService.delete(kemu.getIds());		
 		j.setSuccess(true);
 		writeJson(j);
 	}

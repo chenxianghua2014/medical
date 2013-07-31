@@ -157,25 +157,33 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		Double sum = list.get(0);			
 		cfuid = "'" + cfuid +"'";
 		ccourse = "'" + ccourse +"'";
-		
+		//更新科目支出总额
 		String hql3="update Tpay tpay set tpay.ccost=" +sum+
 				" where tpay.cfuid=" +cfuid+
 				" and tpay.cname=" +ccourse;
 		payDao.executeHql(hql3);
 		/*String hql3="update Tpay tpay set tpay.ccost=?  where tpay.cfuid= ? and tpay.cname=?";
 		payDao.executeHql(hql3,new Object[] {sum,cfuid,ccourse});*/
-		/*String hql4="select t.cfpid from Tpay t where cname=? and cfuid=?";
-		List<Tpay> tpl = payDao.find(hql4,new Object[] {ccourse,cfuid});
+		//获取上级节点编号
+		String hql4="select new Tpay(t.cfpid) from Tpay t where cname=" +ccourse+
+				" and cfuid= "+cfuid;
+		List<Tpay> tpl = payDao.find(hql4);
 		String cfpid = " ";
 		Tpay tp = tpl.get(0);
 		cfpid= tp.getCfpid();
-		System.out.println("cfpid"+cfpid);
 		while (cfpid !=null){
-			String hql="update Tpay tpay set tpay.ccost=(select sum(t.ccost) from Tpay t where t.cfpid=?) where tpay.cid=(select t.cfpid from Tpay t where cid=?)";
-			int e=0;
-			e=payDao.executeHql(hql, cfpid,cfpid);
-			System.out.println("e:"+e);			
-		}*/
+			String hql5="select sum(t.ccost) as t from Tpay t where  t.cfpid=?";	
+			List<Double> list1 = kemuDao.finds(hql5, new Object[] {cfpid});
+			Double sum1 = list1.get(0);//获取sum
+			cfpid = "'" + cfpid +"'";
+			String hql="update Tpay tpay set tpay.ccost=" +sum1 +
+					"  where tpay.cid= "+ cfpid;			
+			payDao.executeHql(hql);//更新上级支出总额
+			String hql6="select new Tpay(t.cfpid) from Tpay t where cid=" +cfpid;
+			List<Tpay> tpl1 = payDao.find(hql6);
+			Tpay tp1 = tpl1.get(0);
+			cfpid= tp1.getCfpid();//获取上级节点id
+		}
 		return null;
 	}	
 }
