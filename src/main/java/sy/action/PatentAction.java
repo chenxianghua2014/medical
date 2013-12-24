@@ -268,4 +268,18 @@ public class PatentAction extends BaseAction implements ModelDriven<Patent>{
 		writeJson(m);
 	}
 
+	
+	public void changeFlag() {
+		Json j = new Json();
+		try {
+			patentService.changeFlag(patent);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 }

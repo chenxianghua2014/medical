@@ -49,6 +49,11 @@
 					options : {
 						required : true
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			} ] ],
 			columns : [ [ {
@@ -65,7 +70,7 @@
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -75,7 +80,7 @@
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -95,32 +100,67 @@
 						valueField : 'cid',
 						textField : 'cname'
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			}, {
 				title : '所属角色',
 				field : 'roleNames',
 				width : 150,
-				hidden : true
+				hidden : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '工作单位',
 				field : 'cworkplace',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ,{
 				title : '电子邮件',
 				field : 'cemail',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '通信地址',
 				field : 'caddress',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '联系电话',
 				field : 'ctelphone',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '所属分组',
 				field : 'cgroupid',
 				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
 				/*formatter : function(value, rowData, rowIndex) {
 					return rowData.groupName;
 				}, */

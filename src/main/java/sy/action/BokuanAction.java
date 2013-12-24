@@ -81,6 +81,7 @@ public class BokuanAction extends BaseAction implements ModelDriven<Bokuan> {
 		Json j = new Json();
 		try {
 			bokuanService.add(bokuan);
+			bokuanService.updatepay(bokuan);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
 		} catch (Exception e) {
@@ -97,6 +98,7 @@ public class BokuanAction extends BaseAction implements ModelDriven<Bokuan> {
 		Json j = new Json();
 		try {
 			bokuanService.update(bokuan);
+			bokuanService.updatepay(bokuan);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");
 		} catch (Exception e) {

@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.Tpulication;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Pulication;
 
 public interface PulicationServiceI extends BaseServiceI{
@@ -40,4 +41,6 @@ public interface PulicationServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tpulication get(Pulication pulication);
+	
+	public void changeFlag(Pulication pulication);
 }

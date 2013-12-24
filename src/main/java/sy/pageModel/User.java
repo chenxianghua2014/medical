@@ -27,7 +27,15 @@ public class User implements java.io.Serializable {
 	private String sort;// 排序字段名
 	private String order;// 按什么排序(asc,desc)
 	private String cgroupid;
+	private Integer cno;//通知数
 
+	public Integer getCno() {
+		return cno;
+	}
+
+	public void setCno(Integer cno) {
+		this.cno = cno;
+	}
 
 	public String getQ() {
 		return q;

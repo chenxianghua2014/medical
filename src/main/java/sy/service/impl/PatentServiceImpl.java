@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tpatent;
+import sy.model.Tpatent;
 import sy.model.Tproject;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Patent;
 import sy.pageModel.SessionInfo;
 import sy.service.PatentServiceI;
@@ -54,7 +56,7 @@ public class PatentServiceImpl extends BaseServiceImpl implements PatentServiceI
 	}
 
 	private List<Tpatent> find(Patent patent) {
-		String hql = "select new Tpatent( t.cid, t.ccountry, t.cname, t.cnumber, t.cclassify, t.cinvent, t.cpatentee,t.csummary, t.ctypeman,t.ctypetime) from Tpatent t where 1=1 ";
+		String hql = "select new Tpatent( t.cid, t.ccountry, t.cname, t.cnumber, t.cclassify, t.cinvent, t.cpatentee,t.csummary, t.ctypeman,t.ctypetime, t.cflag) from Tpatent t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(patent, hql, values);
@@ -71,8 +73,19 @@ public class PatentServiceImpl extends BaseServiceImpl implements PatentServiceI
 		hql = addWhere(patent, hql, values);
 		return patentDao.count(hql, values);
 	}
-
+/*
+ * 过滤
+ * 
+ */
 	private String addWhere(Patent patent, String hql, List<Object> values) {
+		if (patent.getCname() != null && !patent.getCname().trim().equals("")) {
+			hql += " and t.cname like ? ";
+			values.add("%%" + patent.getCname().trim() + "%%");
+		}
+		if (patent.getCinvent() != null && !patent.getCinvent().trim().equals("")) {
+			hql += " and t.cinvent like ? ";
+			values.add("%%" + patent.getCinvent().trim() + "%%");
+		}		
 		return hql;
 	}
 
@@ -80,7 +93,7 @@ public class PatentServiceImpl extends BaseServiceImpl implements PatentServiceI
 		if (patent.getCid() == null || patent.getCid().trim().equals("")) {
 			patent.setCid(UUID.randomUUID().toString());
 		}
-		
+		patent.setCflag("1");
 		Tpatent t = new Tpatent();	
 		BeanUtils.copyProperties(patent, t);
 		patentDao.save(t);
@@ -107,5 +120,28 @@ public class PatentServiceImpl extends BaseServiceImpl implements PatentServiceI
 	public Tpatent get(Patent patent) {
 		Tpatent menu = patentDao.get(Tpatent.class, patent.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(Patent patent) {
+		// TODO Auto-generated method stub
+		Tpatent t = patentDao.get(Tpatent.class, patent.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tpatent c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tpatent c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			patentDao.updateStatus(hql,patent.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

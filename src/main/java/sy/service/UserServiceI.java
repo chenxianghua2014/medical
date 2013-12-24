@@ -104,5 +104,7 @@ public interface UserServiceI extends BaseServiceI {
 	 * @param user
 	 */
 	public boolean modifySelfPwd(User user);
+	
+	public void editUserInfo(User user);
 
 }

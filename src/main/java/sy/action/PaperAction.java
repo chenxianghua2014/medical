@@ -267,5 +267,20 @@ public class PaperAction extends BaseAction implements ModelDriven<Paper>{
 		m.put("msg", nm);
 		writeJson(m);
 	}
+	
+	public void changeFlag() {
+		Json j = new Json();
+		System.out.println("action");
+		try {
+			paperService.changeFlag(paper);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 
 }

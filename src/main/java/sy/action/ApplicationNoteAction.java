@@ -269,5 +269,22 @@ public class ApplicationNoteAction extends BaseAction implements ModelDriven<App
 		m.put("msg", nm);
 		writeJson(m);
 	}
+	
+	/**
+	 * 更改状态
+	 * wei
+	 */
+	public void changeFlag() {
+		Json j = new Json();
+		try {
+			applicationNoteService.changeFlag(applicationNote);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 
 }

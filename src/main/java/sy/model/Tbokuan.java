@@ -18,7 +18,7 @@ public class Tbokuan implements java.io.Serializable{
 	// Fields
 	
 	private String cid;
-	private String cuid;//用户id
+	//private String cuid;//用户id
 	private String ctickets;//支出凭证的票据号
 	private String cprojectid;//获得拨款的课题编号
 	private Float cmoney;//拨款金额
@@ -29,10 +29,10 @@ public class Tbokuan implements java.io.Serializable{
 	public Tbokuan() {
 	}
 
-	public Tbokuan(String cid, String cuid, String ctickets, String cprojectid,
+	public Tbokuan(String cid, String ctickets, String cprojectid,
 			Float cmoney, Date ccountTime, String ccountId, String cdatei) {
 		this.cid = cid;
-		this.cuid = cuid;
+		//this.cuid = cuid;
 		this.ctickets = ctickets;
 		this.cprojectid = cprojectid;
 		this.cmoney = cmoney;
@@ -51,14 +51,14 @@ public class Tbokuan implements java.io.Serializable{
 		this.cid = cid;
 	}
 	
-	@Column(name = "CUID", nullable = false, length = 100)
+	/*@Column(name = "CUID", nullable = false, length = 100)
 	public String getCuid() {
 		return cuid;
 	}
 
 	public void setCuid(String cuid) {
 		this.cuid = cuid;
-	}
+	}*/
 	
 	@Column(name = "Ctickets", length = 100)
 	public String getCtickets() {

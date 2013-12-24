@@ -1,28 +1,32 @@
-<%@ page language="java" import="sy.pageModel.*,sy.model.*,sy.util.*,java.util.*" pageEncoding="UTF-8"%>
- <jsp:include page="../inc.jsp"></jsp:include>
- <script type="text/javascript" charset="utf-8">
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<div class="easyui-layout" data-options="fit:true">
 	
-	
-           function loadRemote(){  
-           //alert(1);
-           		$('#userInfoForm').form('load',  
-                	'userAction!userInfo.action'
-         	);
-           }  
-          window.onload=loadRemote();
-</script>
-<body>  
-    <h2>Basic Window</h2>  
-    <div class="demo-info">  
-        <div class="demo-tip icon-tip"></div>  
-        <div>Window can be dragged freely on screen.</div>  
-    </div>  
-    <div style="margin:10px 0;">  
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>  
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>  
-    </div>  
-    <div id="w" class="easyui-window" title="Basic Window" data-options="iconCls:'icon-save'" style="width:500px;height:200px;padding:10px;">  
-        The window content.  
-    </div>  
-</body>  
-</html> 
+	<div data-options="region:'center',title:'个人信息'" style="overflow: hidden;padding: 5px;">
+		<form method="post">
+			<input name="cid" type="hidden" value="${sessionInfo.userId}" />
+			<table class="tableForm">
+				<tr>
+					<th style="width: 75px;">登录名</th>
+					<td><input readonly="readonly" value="${sessionInfo.loginName}" /></td>
+				</tr>
+				<tr>
+					<th>登录IP</th>
+					<td><input readonly="readonly" value="${sessionInfo.ip}" /></td>
+				</tr>
+				<tr>
+					<th>修改密码</th>
+					<td><input name="cpwd" type="password" class="easyui-validatebox" data-options="required:'true',missingMessage:'请填写登录密码'" /></td>
+				</tr>
+				<%-- <tr>
+					<th>所属角色</th>
+					<td><textarea readonly="readonly" style="height: 80px;">${sessionInfo.roleNames}</textarea></td>
+				</tr>
+				<tr style="display: none;">
+					<th>权限ID</th>
+					<td><input name="authIds" value="${sessionInfo.authIds}" /></td>
+				</tr> --%>
+			</table>
+		</form>
+	</div>
+</div>

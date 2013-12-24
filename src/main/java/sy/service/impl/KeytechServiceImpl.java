@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tkeytech;
+import sy.model.Tkeytech;
 import sy.model.Tproject;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Keytech;
 import sy.pageModel.SessionInfo;
 import sy.service.KeytechServiceI;
@@ -55,7 +57,7 @@ public class KeytechServiceImpl extends BaseServiceImpl implements KeytechServic
 	}
 
 	private List<Tkeytech> find(Keytech keytech) {
-		String hql = "select new Tkeytech( t.cid, t.cname, t.cresponser,t.ccompany,t.cstarttime,t.cendtime, t.ckeywords,t.csummary, t.cphone, t.ctypeman,t.ctypetime) from Tkeytech t where 1=1 ";
+		String hql = "select new Tkeytech( t.cid, t.cname, t.cresponser,t.ccompany,t.cstarttime,t.cendtime, t.ckeywords,t.csummary, t.cphone, t.ctypeman,t.ctypetime, t.cflag) from Tkeytech t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(keytech, hql, values);
@@ -81,7 +83,7 @@ public class KeytechServiceImpl extends BaseServiceImpl implements KeytechServic
 		if (keytech.getCid() == null || keytech.getCid().trim().equals("")) {
 			keytech.setCid(UUID.randomUUID().toString());
 		}
-		
+		keytech.setCflag("1");
 		Tkeytech t = new Tkeytech();	
 		BeanUtils.copyProperties(keytech, t);
 		keytechDao.save(t);
@@ -109,5 +111,27 @@ public class KeytechServiceImpl extends BaseServiceImpl implements KeytechServic
 		Tkeytech menu = keytechDao.get(Tkeytech.class, keytech.getCid());
 		return menu;
 	}
-
+	
+	public void changeFlag(Keytech keytech) {
+		// TODO Auto-generated method stub
+		Tkeytech t = keytechDao.get(Tkeytech.class, keytech.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tkeytech c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tkeytech c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			keytechDao.updateStatus(hql,keytech.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+	}
 }

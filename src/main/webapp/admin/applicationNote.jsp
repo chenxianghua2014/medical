@@ -42,42 +42,81 @@
 				title : '关键技术名称',
 				field : 'cname',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			columns : [ [ {
 				title : '关键技术适用对象',
 				field : 'csuitableid',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '关键技术使用说明',
 				field : 'cnote',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '疗效评价',
 				field : 'cevaluation',
 				width : 100,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '成果鉴定',
 				field : 'cidentify',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '知识产权',
 				field : 'crighted',
 				width : 150,
-				sortable : true
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '编写人信息',
 				field : 'ccontactid',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '编写时间信息',
 				field : 'ctypetime',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '关键技术概述',
 				field : 'cinformation',
@@ -85,6 +124,19 @@
 					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
 				},
 				width : 300
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -104,7 +156,13 @@
 				handler : function() {
 					edit();
 				}
-			}, '-' ],
+			}, '-' , {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
+				}
+			}, '-'],
 			onRowContextMenu : function(e, rowIndex, rowData) {
 				e.preventDefault();
 				$(this).datagrid('unselectAll');
@@ -305,10 +363,47 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+		
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'applicationNoteAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+				
+	}
 </script>
 </head>
 <body class="easyui-layout">
-	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+	<!-- <div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
@@ -321,7 +416,7 @@
 				</tr>				
 			</table>
 		</form>
-	</div>
+	</div> -->
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>

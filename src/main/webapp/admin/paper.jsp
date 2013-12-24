@@ -43,19 +43,34 @@
 				title : '论文名称',
 				field : 'cname',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			columns : [ [ 
 			{
 				title : '中文关键词',
 				field : 'cckeyword',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '英文关键词',
 				field : 'cekeyword',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ,{
 				title : '摘要',
 				field : 'csummary',
@@ -67,55 +82,123 @@
 				title : '语种',
 				field : 'clanguage',
 				width : 100,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '第一作者',
 				field : 'cfcontactid',
-				width : 100
+				width : 100,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '通讯作者',
 				field : 'cccontactid',
 				width : 100,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '期卷名称',
 				field : 'cperiodical',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '卷期',
 				field : 'cissue',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '论文发表状态',
 				field : 'cstate',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '论文发表时间',
 				field : 'cpublishtime',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '引文索引类型',
 				field : 'cclassify',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '引文索引号',
 				field : 'cinde',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '数据录入人',
 				field : 'ctypeman',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '数据录入日期',
 				field : 'ctypetime',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -135,6 +218,12 @@
 				handler : function() {
 					edit();
 				}
+			}, '-', {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
+				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
 				e.preventDefault();
@@ -146,14 +235,6 @@
 				});
 			}
 		});
-
-		function _search() {
-			datagrid.datagrid('load', sy.serializeObject(searchForm));
-		}
-		function cleanSearch() {
-			datagrid.datagrid('load', {});
-			searchForm.find('input').val('');
-		}
 		
 		paperAddForm = $('#paperAddForm').form({
 			url : 'paperAction!add.action',
@@ -250,6 +331,14 @@
 
 	});
 
+	function _search() {
+			datagrid.datagrid('load', sy.serializeObject(searchForm));
+		}
+		
+		function cleanSearch() {
+			datagrid.datagrid('load', {});
+			searchForm.find('input').val('');
+		}
 	function add() {
 		paperAddForm.find('input,textarea').val('');
 		$('div.validatebox-tip').remove();
@@ -336,6 +425,44 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+	
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'paperAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+								
+				
+	}
 </script>
 </head>
 <body class="easyui-layout">
@@ -345,8 +472,6 @@
 				<tr>
 					<th>论文名称</th>
 					<td><input name="cname" style="width:315px;" /></td>
-				</tr>
-				<tr>
 					<th>第一作者</th>
 					<td><input name="cfcontactid" style="width:315px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td></td>
 				</tr>				
@@ -393,13 +518,27 @@
 				</tr>
 				<tr>
 					<th>论文发表状态</th>
-					<td><input name="cstate" class="easyui-validatebox" required="true"   missingMessage="请填写论文发表状态" /></td>
+					<td>
+						<select  name="cstate">
+						<option value="已发表">已发表</option>
+						<option value="已录用">已录用</option>
+						<lect>
+					</td>
 					<th>论文发表时间</th>
 					<td><input name="cpublishtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
 					<th>引文索引类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写引文索引类型" /></td>				
+					<td>
+						<select  name="cclassify">
+						<option value="SCI">SCI</option>
+						<option value="SSCI">SSCI</option>
+						<option value="EI">EI</option>
+						<option value="ISTP">ISTP</option>
+						<option value="AHCI">AHCI</option>
+						<option value="其他">其他</option>
+						<lect>
+					</td>
 					<th>引文索引号</th>
 					<td><input name="cinde" class="easyui-validatebox" required="true"   missingMessage="请填写引文索引号" /></td>
 				</tr>
@@ -450,13 +589,27 @@
 				</tr>
 				<tr>
 					<th>论文发表状态</th>
-					<td><input name="cstate" class="easyui-validatebox" required="true"   missingMessage="请填写论文发表状态" /></td>
+					<td>
+						<select  name="cstate">
+						<option value="已发表">已发表</option>
+						<option value="已录用">已录用</option>
+						<lect>
+					</td>
 					<th>论文发表时间</th>
 					<td><input name="cpublishtime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
 					<th>引文索引类型</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true"   missingMessage="请填写引文索引类型" /></td>				
+					<td>
+						<select  name="cclassify">
+						<option value="SCI">SCI</option>
+						<option value="SSCI">SSCI</option>
+						<option value="EI">EI</option>
+						<option value="ISTP">ISTP</option>
+						<option value="AHCI">AHCI</option>
+						<option value="其他">其他</option>
+						<lect>
+					</td>
 					<th>引文索引号</th>
 					<td><input name="cinde" class="easyui-validatebox" required="true"   missingMessage="请填写引文索引号" /></td>
 				</tr>

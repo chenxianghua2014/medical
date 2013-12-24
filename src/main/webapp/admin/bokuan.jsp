@@ -4,6 +4,7 @@
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
+    
 	var datagrid;
 	var bokuanAddDialog;
 	var bokuanAddForm;
@@ -13,14 +14,12 @@
 	var cdescAdd;
 	var showCdescDialog;
 	$(function() {
-		datagrid = $('#datagrid').datagrid({
-			rowStyler:function(index,row){     
-			    if (index%2==0){     
-			            return 'background-color:#EFEFEF;';     
-			        }     
-			    },
+	
+		searchForm = $('#searchForm').form();
+		
+		datagrid = $('#datagrid').datagrid({			
 			url : 'bokuanAction!datagrid.action',
-			title : '经费拨入拨出信息列表',
+			title : '课题经费拨款信息列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -31,6 +30,7 @@
 			nowrap : false,
 			border : false,
 			idField : 'cid',
+			striped : true,
 			sortOrder : 'desc',
 			frozenColumns : [ [ {
 				title : '编号',
@@ -39,32 +39,53 @@
 				sortable : true,
 				checkbox : true
 			}, {
-				title : '拨款单位',
-				field : 'cuid',
-				width : 250
-			} , {
-				title : '金额',
+				title : '拨款金额',
 				field : 'cmoney',
 				align : 'right',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
-				title : '收款单位',
+				title : '接收人',
 				field : 'cprojectid',
-				width : 250
+				width : 250,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			columns : [ [  {
 				title : '会计凭证号',
 				field : 'ccountId',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '记账时间',
 				field : 'ccountTime',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '票据号',
 				field : 'ctickets',
-				width : 150
-			} , {
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
 				title : '电子凭证',
 				field : 'cdatei',
 				width : 150,
@@ -90,12 +111,6 @@
 				handler : function() {
 					edit();
 				}
-			}, '-', {
-				text : '取消选中',
-				iconCls : 'icon-undo',
-				handler : function() {
-					datagrid.datagrid('unselectAll');
-				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
 				e.preventDefault();
@@ -108,13 +123,7 @@
 			}
 		});
 
-		function _search() {
-			datagrid.datagrid('load', sy.serializeObject(searchForm));
-		}
-		function cleanSearch() {
-			datagrid.datagrid('load', {});
-			searchForm.find('input').val('');
-		}
+		
 		
 		bokuanAddForm = $('#bokuanAddForm').form({
 			url : 'bokuanAction!add.action',
@@ -137,7 +146,7 @@
 		});
 
 		bokuanAddDialog = $('#bokuanAddDialog').show().dialog({
-			title : '添加科目支出',
+			title : '添加拨款信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
@@ -150,7 +159,7 @@
 		});
 
 		bokuanEditForm = $('#bokuanEditForm').form({
-			url : 'bokuanAction!edit.action',
+			url : 'bokuanAction!edit.action',			
 			success : function(data) {
 				var json = $.parseJSON(data);
 				if (json && json.success) {
@@ -158,6 +167,7 @@
 						title : '成功',
 						msg : json.msg
 					});
+					alert("sdgh");
 					datagrid.datagrid('reload');
 					bokuanEditDialog.dialog('close');
 				} else {
@@ -170,7 +180,7 @@
 		});
 
 		bokuanEditDialog = $('#bokuanEditDialog').show().dialog({
-			title : '编辑科目支出',
+			title : '编辑拨款信息',
 			modal : true,
 			closed : true,
 			maximizable : true,
@@ -210,6 +220,16 @@
 		});
 
 	});
+	
+	function _search() {
+	        alert(sy.serializeObject(searchForm));
+			//datagrid.datagrid('load', sy.serializeObject(searchForm));
+	}
+		
+	function cleanSearch() {
+			datagrid.datagrid('load', {});
+			searchForm.find('input').val('');
+	}
 
 	function add() {
 		bokuanAddForm.find('input,textarea').val('');
@@ -253,6 +273,7 @@
 				text : '数据加载中....',
 				interval : 100
 			});
+			
 			$.ajax({
 				url : 'bokuanAction!showDesc.action',
 				data : {
@@ -263,7 +284,7 @@
 				success : function(response) {
 					bokuanEditForm.form('load', response);
 					$('div.validatebox-tip').remove();
-					bokuanEditDialog.dialog('open');
+					bokuanEditDialog.dialog('open');	
 					$.messager.progress('close');
 				}
 			});
@@ -299,7 +320,8 @@
 	}
 </script>
 </head>
-<body class="easyui-layout">	
+<body class="easyui-layout">
+	
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>
@@ -310,30 +332,29 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="bokuanAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="bokuanAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="bokuanAddForm" method="post">
 			<table class="tableForm">
 				<tr>
-					<th>拨款单位</th>
-					<td><input name="cuid" class="easyui-validatebox" required="true" missingMessage="请填写拨款单位" /></td>					
-				
-					<th>金额</th>
+					<th>拨款金额</th>
 					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写拨款金额" /></td>
-				</tr>
-				<tr>
-					<th>收款单位</th>
-					<td><input name="cprojectid" class="easyui-validatebox" required="true"   missingMessage="请填写收款单位" /></td>
 				
 					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>						
+					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>					
+
+	
+				
 				</tr>
 				<tr>
 					<th>会计凭证号</th>
 					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
+				
 					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>								
+					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>						
+
+		
 				</tr>
-				<tr>
+				<tr>						
 					<th>电子凭证</th>
 					<td colspan="3">
 					<textarea id="cdescAdd" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
@@ -343,34 +364,27 @@
 		</form>
 	</div>
 
-	<div id="bokuanEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="bokuanEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="bokuanEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
 				<tr>
-					<th>拨款单位</th>
-					<td><input name="cuid" class="easyui-validatebox" required="true" missingMessage="请填写拨款单位" /></td>					
-				
-					<th>金额</th>
+					<th>拨款金额</th>
 					<td><input name="cmoney" class="easyui-validatebox" required="true" missingMessage="请填写拨款金额" /></td>
-				</tr>
-				<tr>
-					<th>收款单位</th>
-					<td><input name="cprojectid" class="easyui-validatebox" required="true"   missingMessage="请填写收款单位" /></td>
 				
 					<th>票据号</th>
-					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>						
+					<td><input name="ctickets" class="easyui-validatebox" required="true" missingMessage="请填写票据号" /></td>									
 				</tr>
 				<tr>
 					<th>会计凭证号</th>
-					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
+					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>				
 					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>								
+					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>			
 				</tr>
 				<tr>
 					<th>电子凭证</th>
 					<td colspan="3">
-					<textarea id="cdescAdd" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
+					<textarea id="cdescEdit" name="cdatei"  rows="12" cols="80" style="width: 80%"></textarea>
 					</td>
 				</tr>
 			</table>

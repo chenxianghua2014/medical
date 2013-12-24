@@ -140,7 +140,7 @@ public class PayServiceImpl  extends BaseServiceImpl implements PayServiceI  {
 			node.setState("closed");
 			if (recursive) {// 递归查询子节点
 				List<Tpay> l = new ArrayList<Tpay>(t.getTpays());
-				Collections.sort(l, new PayComparator());// 排序
+				//Collections.sort(l, new PayComparator());// 排序
 				List<TreeNode> children = new ArrayList<TreeNode>();
 				for (Tpay r : l) {
 					TreeNode tn = tree(r, true);

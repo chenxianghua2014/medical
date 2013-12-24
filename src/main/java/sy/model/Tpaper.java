@@ -33,6 +33,8 @@ public class Tpaper implements java.io.Serializable {
 	private String cinde;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
+
 
 	// Constructors
 
@@ -50,7 +52,7 @@ public class Tpaper implements java.io.Serializable {
 			String csummary, String clanguage, String cfcontactid,
 			String cccontactid, String cperiodical, String cissue,
 			String cstate, Date cpublishtime, String cclassify, String cinde,
-			String ctypeman, Date ctypetime) {
+			String ctypeman, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.cname = cname;
 		this.cckeyword = cckeyword;
@@ -67,6 +69,7 @@ public class Tpaper implements java.io.Serializable {
 		this.cinde = cinde;
 		this.ctypeman = ctypeman;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -215,6 +218,14 @@ public class Tpaper implements java.io.Serializable {
 
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
+	}
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
 	}
 
 }

@@ -22,11 +22,22 @@ public class EmpiricalResearch implements java.io.Serializable{
 	private String cinformation;
 	private String cnote;
 	private String cstorage;
-	private Integer cyear;
+	private String cyear;
 	private String cunit;
 	private String ccontactid;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
+
+	// Constructors
+
+	public String getCflag() {
+		return cflag;
+	}
+
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 	
 	public String getIds() {
 		return ids;
@@ -112,10 +123,10 @@ public class EmpiricalResearch implements java.io.Serializable{
 	public void setCstorage(String cstorage) {
 		this.cstorage = cstorage;
 	}
-	public Integer getCyear() {
+	public String getCyear() {
 		return cyear;
 	}
-	public void setCyear(Integer cyear) {
+	public void setCyear(String cyear) {
 		this.cyear = cyear;
 	}
 	public String getCunit() {

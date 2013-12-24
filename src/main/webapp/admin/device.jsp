@@ -41,47 +41,110 @@
 				title : '仪器设备编号',
 				field : 'cnumber',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '中文名称',
 				field : 'ccname',
-				width : 200
+				width : 200,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '英文名称',
 				field : 'cename',
-				width : 200
+				width : 200,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '仪器来源',
 				field : 'csource',
-				width : 200
+				width : 200,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				width : 100
 			}] ],
 			columns : [ [ {
 				title : '仪器设备负责人',
 				field : 'cbackup1',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '购置(研发)时间',
 				field : 'cresearchtime',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '规格型号',
 				field : 'cversion',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '产地',
 				field : 'cfield',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '生产厂商',
 				field : 'cfactory',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '价格',
 				field : 'cprice',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '功能说明',
 				field : 'cnote',
@@ -92,11 +155,21 @@
 			},{
 				title : '仪器设备所属单位',
 				field : 'cunit',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '联系方式',
 				field : 'ccontactid',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -115,6 +188,12 @@
 				iconCls : 'icon-edit',
 				handler : function() {
 					edit();
+				}
+			}, '-', {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
 				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
@@ -317,10 +396,46 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'deviceAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+				
+	}
 </script>
 </head>
 <body class="easyui-layout">
-	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+	<!-- <div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
@@ -333,7 +448,7 @@
 				</tr>				
 			</table>
 		</form>
-	</div>
+	</div> -->
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>
@@ -351,7 +466,12 @@
 					<th>仪器设备编号</th>
 					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写仪器设备编号" /></td>					
 					<th>仪器来源</th>
-					<td><input name="csource" class="easyui-validatebox" required="true" missingMessage="请填写仪器来源" /></td>
+					<td>
+						<select  name="csource">
+						<option value="自主研发">自主研发</option>
+						<option value="购置">购置</option>
+						<lect>
+					</td>				
 				</tr>
 				<tr>
 					<th>中文名称</th>
@@ -403,7 +523,12 @@
 					<th>仪器设备编号</th>
 					<td><input name="cnumber" class="easyui-validatebox" required="true" missingMessage="请填写仪器设备编号" /></td>					
 					<th>仪器来源</th>
-					<td><input name="csource" class="easyui-validatebox" required="true" missingMessage="请填写仪器来源" /></td>
+					<td>
+						<select  name="csource">
+						<option value="自主研发">自主研发</option>
+						<option value="购置">购置</option>
+						<lect>
+					</td>
 				</tr>
 				<tr>
 					<th>中文名称</th>

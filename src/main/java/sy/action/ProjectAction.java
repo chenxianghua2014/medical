@@ -117,7 +117,7 @@ public class ProjectAction extends BaseAction implements ModelDriven<Project> {
 		try {
 			projectService.add(project);
 			j.setSuccess(true);
-			j.setMsg("添加成功!请手动刷新项目管理页面！");
+			j.setMsg("添加成功!请手动刷新任务管理页面！");
 			j.setObj(project.getCpid());
 		} catch (Exception e) {
 			logger.error(ExceptionUtil.getExceptionMessage(e));
@@ -151,6 +151,24 @@ public class ProjectAction extends BaseAction implements ModelDriven<Project> {
 		String groupId = sessionInfo.getGroupId();
 		logger.info(groupId);
 		writeJson(projectService.combobox(groupId));
+	}
+	
+	/**
+	 * 更改状态
+	 * wei
+	 */
+	public void changeStatus() {
+		Json j = new Json();
+		try {
+			projectService.changeStatus(project);
+			projectService.editProgress(project);	
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新项目管理页面！");
+		} catch (Exception e) {
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
 	}
 	
 }

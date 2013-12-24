@@ -28,7 +28,9 @@ public class Tkeytech implements java.io.Serializable {
 	private String cphone;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
 
+	
 	// Constructors
 
 	/** default constructor */
@@ -43,7 +45,7 @@ public class Tkeytech implements java.io.Serializable {
 	/** full constructor */
 	public Tkeytech(String cid, String cname, String cresponser,
 			String ccompany, Date cstarttime, Date cendtime, String ckeywords,
-			String csummary, String cphone, String ctypeman, Date ctypetime) {
+			String csummary, String cphone, String ctypeman, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.cname = cname;
 		this.cresponser = cresponser;
@@ -55,6 +57,7 @@ public class Tkeytech implements java.io.Serializable {
 		this.cphone = cphone;
 		this.ctypeman = ctypeman;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -159,6 +162,14 @@ public class Tkeytech implements java.io.Serializable {
 
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
+	}
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
 	}
 
 }

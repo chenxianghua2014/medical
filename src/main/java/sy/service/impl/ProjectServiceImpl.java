@@ -235,16 +235,18 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 	}
 	
 	//计算分子/分母的值
-	private void editProgress(Project project)
+	public void editProgress(Project project)
 	{
-
 		String cpid = project.getCpid();
-		String hql2 = "update tproject c set c.cprogress=(select t1.fenzi/t2.fenmu from (SELECT count(*)  fenzi FROM tproject  a where a.cpid=? and a.cstatus=0) t1,(SELECT count(*) fenmu FROM tproject  b where b.cpid=?) t2) where c.cid=?";
+		
+		String hql2 = 
+				"update tproject c set c.cprogress=(select t1.fenzi/t2.fenmu from (SELECT count(*)  fenzi FROM tproject  a where a.cpid=? and a.cstatus=0) t1,(SELECT count(*) fenmu FROM tproject  b where b.cpid=?) t2) where c.cid=?";
 		List<Object> paramProgress = new ArrayList<Object>();
-	
+	     System.out.println(hql2);
 		try {
-			project.getId();
 			project.getCpid();
+			System.out.println(project.getId());
+			System.out.println(project.getCpid());
 			projectDao.updateProgress(hql2,project.getCpid());
 			
 		    } catch (Exception e) {
@@ -321,6 +323,47 @@ public class ProjectServiceImpl extends BaseServiceImpl implements ProjectServic
 	private List<Tuser> findAllTuser(String groupId) {
 		String hql = "from Tuser t where t.cgroupid=?";
 		return userDao.find(hql,new Object[] { groupId });
+	}
+
+	//更改状态
+	public void changeStatus(Project project) {
+		// TODO Auto-generated method stub
+		
+		//Tproject t = projectDao.get(Tproject.class, project.getCid());		
+		String  cstatus = project.getCstatus();
+		String  cid = project.getCid();
+		String hql = " ";
+		
+		///
+		if(Integer.parseInt(cid) < 55){
+			if (Integer.parseInt(cstatus) == 0)
+			{
+				hql = "update tproject c set c.cstatus= 1 where c.cid=?";
+			}else{
+				hql = "update tproject c set c.cstatus= 0 where c.cid=?";
+			}
+		}else{
+			if (Integer.parseInt(cstatus) == 0)
+			{
+				hql = "update tproject c set c.cstatus= 1 where c.cid=?";
+				String hql2 = "update tproject c set c.cprogress= 0 where c.cid=?";
+				projectDao.updateStatus(hql2,project.getCid());
+
+			}else{
+				hql = "update tproject c set c.cstatus= 0 where c.cid=?";
+				String hql2 = "update tproject c set c.cprogress= 1 where c.cid=?";
+				projectDao.updateStatus(hql2,project.getCid());
+			}
+		}
+		
+		 
+	
+		try {
+			projectDao.updateStatus(hql,project.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 	
 }

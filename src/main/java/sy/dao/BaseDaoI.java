@@ -190,4 +190,51 @@ public interface BaseDaoI<T> {
 	 */	
 	public Integer updatestatus(String hql,String cstatus,String id);
 
+	/**
+	 * 
+	 * @author zhang
+	 */	
+	public void updateStatus(String hql,String id);
+	
+	/**
+	 * 执行HQL语句
+	 * 获得sum值
+	 * @param hql
+	 * @param param
+	 * @return
+	 * @author wei
+	 */	
+	public List<Double> getSum(String hql,String username,String course);
+	/**
+	 * 执行HQL语句
+	 * 
+	 * @param hql
+	 * @param param
+	 * @return 响应数目
+	 * @author wei
+	 */
+	public Integer executeHql(String hql, Double  ccost, String  param1);
+	/**
+	 * 执行HQL语句
+	 * 
+	 * @param hql
+	 * @param param
+	 * @return cpid
+	 * @author wei
+	 */
+	public String executeHql(String hql,  String  param1);
+	/**
+	 * 执行HQL语句
+	 * 更新cost
+	 * @param hql
+	 * @param param
+	 * @author wei
+	 */
+	public Integer executeHql(String hql,  String  param0,  String  param1);
+
+	public Integer executeHql1(String hql3, String ccourse, String username,
+			String ccourse2);
+	
+	public List<Double> finds(String hql, Object[] param);
+	public String find1(String hql);
 }

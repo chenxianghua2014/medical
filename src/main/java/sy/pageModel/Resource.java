@@ -23,6 +23,17 @@ public class Resource implements java.io.Serializable{
 	private String ccontactid;
 	private String cbackup1;
 	private String cbackup2;
+	private String cflag;
+
+	// Constructors
+
+	public String getCflag() {
+		return cflag;
+	}
+
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 	
 	public String getIds() {
 		return ids;

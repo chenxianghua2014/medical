@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.mysql.jdbc.Driver" %>
 <%@ page import="java.sql.*" %>
 <%
@@ -28,14 +28,15 @@ body{
 }
 .quanju{
 
- width:1200px;
- margin-left:100px;
+ width:1300px;
+ 
 border:2px solid #000;
 overflow:hidden;
+margin:0 auto;
 }
 
 .title_nav{
- width:1200px;
+ width:1300px;
  height:134px;
 text-align:center;
 display:table-cell;
@@ -57,7 +58,7 @@ vertical-align:middle;
 
 .menu {
 font-family: arial, sans-serif; 
-width:1200px;
+width:1300px;
 height:35px;
 background:#000; 
 margin:0; 
@@ -251,51 +252,96 @@ color:#000;
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="#">关键技术研究</a>
+
+<li><a class="hide" href="/mp/index.jsp">项目管理</a></li>
+<li><a class="hide" href="#">数据服务</a>
 <!--[if lte IE 6]>
 <a href="index.html">MENUS
 <table><tr><td>
 <![endif]-->
     <ul>
-    <li><a href="#" title="changjianbing">常见病</a></li>
-    <li><a href="#" title="jizhengjiuzhi">急诊救治</a></li>
-    <li><a href="#" title="maixingbingkongzhi">慢性病控制</a></li>
-    <li><a href="#" title="xinnaoxieguanfangzhi">心脑血管防治</a></li>
-    <li><a href="#" title="zhongniufangzhi">肿瘤防治</a></li>
-    <li><a href="#" title="shuziyiliaoyiqi">数字医疗仪器</a></li>
-    <li><a href="#" title="yiliaoweishengfuwu">医疗卫生服务</a></li>
-     <li><a href="#" title="yiliaoweishengfuwu">综合示范</a></li>
+<%
+   String ip = request.getHeader("x-forwarded-for");
+   if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		if (ip.indexOf("0:") != -1) {
+			ip = "本地";
+		}
+		
+		System.out.println("the ip is "+ip);
+		String  ipbytes[] = ip.split("\\.");
+		boolean isNeiWangIP = false;
+		if(ipbytes[0].equals("192")&&ipbytes[1].equals("168")&&ipbytes[2].equals("1"))
+		{
+		 isNeiWangIP = true;
+		}
+		if(isNeiWangIP)
+		{
+		
+		%>
+		<li><a href="http://192.168.1.193:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
+                <li><a href="http://192.168.1.195:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+		<% 
+		}
+		else
+		{
+		%>
+		<li><a href="http://219.239.169.12:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
+                <li><a href="http://219.239.169.112:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+		<%
+		}
+  %>
+    
     </ul>
 <!--[if lte IE 6]>
 </td></tr></table>
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="xiangmuguanli.jsp">项目管理</a></li>
-<li><a class="hide" href="#">数据服务</a></li>
-<li><a class="hide" style="width:120px" href="#">关键技术集成与应用示范</a>
+<li><a class="hide" style="width:120px" href="#">远程协作</a>
 <!--[if lte IE 6]>
 <a href="../layouts/index.html">LAYOUTS
 <table><tr><td>
 <![endif]-->
     <ul>
-    <li><a href="#" title="shifan1">应用示范1</a></li>
-    <li><a href="#" title="shifan2">应用示范2</a></li>
-    <li><a href="#" title="shifan3">应用示范3</a></li>
-    <li><a href="#" title="shifan4">应用示范4</a></li>
-    <li><a href="#" title="shifan5">应用示范5</a></li>
-    <li><a href="#" title="shifan3">应用示范6</a></li>
-    <li><a href="#" title="shifan4">应用示范7</a></li>
-    <li><a href="#" title="shifan5">应用示范8</a></li>
+    <li><a href="http://ncmi.tmrcs.com" title="shifan1">远程会诊</a></li>
+    <li><a href="http://video.tmrcs.com" title="shifan2">远程会议</a></li>
+    <li><a href="#" title="shifan3">远程培训</a></li>
     </ul>
 <!--[if lte IE 6]>
 </td></tr></table>
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="#">示范县信息平台</a></li>
-<li><a class="hide" href="#">资源下载</a></li>
-<li><a class="hide" href="#">远程培训</a></li>
+
+<li><a class="hide" style="width:150px" href="#">关键技术集成与示范</a>
+<!--[if lte IE 6]>
+<a href="../layouts/index.html">LAYOUTS
+<table><tr><td>
+<![endif]-->
+    <ul>
+    <li><a href="#" title="shifan1">实证研究基地1</a></li>
+    <li><a href="#" title="shifan2">实证研究基地2</a></li>
+    <li><a href="#" title="shifan3">实证研究基地3</a></li>
+    <li><a href="#" title="shifan4">实证研究基地4</a></li>
+    <li><a href="#" title="shifan5">实证研究基地5</a></li>
+    <li><a href="#" title="shifan3">实证研究基地6</a></li>
+    <li><a href="#" title="shifan4">实证研究基地7</a></li>
+    <li><a href="#" title="shifan5">实证研究基地8</a></li>
+    </ul>
+<!--[if lte IE 6]>
+</td></tr></table>
+</a>
+<![endif]-->
+</li>
+<li><a class="hide" style="width:200px" href="#">示范县信息平台资源下载</a></li>
 <li><a class="hide" href="#">联系我们</a></li>
 </ul>
 <!-- clear the floats if required -->
@@ -322,11 +368,11 @@ color:#000;
 
 //密码
 
-String userPasswd="root";
+String userPasswd="123456";
 
 //数据库名
 
-String dbName="ss";
+String dbName="sp";
 
 //表名
 
@@ -356,26 +402,27 @@ int j = 0;
 content = content.replaceAll("\n", "<br>");
 for(int i = 0 ;i < content.length(); i ++)
 {
-   if(content.substring(i,i+1).equals("\""))
+   if(content.substring(i,i+1).equals("\"")&&j<2)
    {
     System.out.println("the i is "+i);
     ss[j] = i;
     j++;
+    
    }
    
 }
+
 String href = content.substring(ss[0]+1, ss[1]);
+
  %>
- <p align="center" style="font-size:30px"><%=cname %></p>
+ <h2 align="center" style="font-size:25px"><%=cname %></h2>
 <div>
 <br/>
 <br/>
-<div style="text-align:center">
- <img style="vertical-align: middle" src="<%=request.getContextPath()%>/servlet/showImage?filename=<%=filename%>"/>
- </div>
+
  <br/>
  <br/>
- <div>摘要:<%=filename %></div>
+ <div><b>摘要:</b><%=filename %></div>
  <br/>
  <br/>
  <iframe src="<%=href %>" height="700" width="945"></iframe>

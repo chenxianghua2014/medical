@@ -16,6 +16,8 @@ public class SessionInfo implements java.io.Serializable {
 	private String ip;// IP地址
 	private List<Auth> auths;// 用户拥有的权限
 	private String groupId;//用户工作组
+	private String course;//科目跳转 9.12
+	private String ccd;//存放通知数
 
 	public List<Auth> getAuths() {
 		return auths;
@@ -68,6 +70,22 @@ public class SessionInfo implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return loginName;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public String getCcd() {
+		return ccd;
+	}
+
+	public void setCcd(String ccd) {
+		this.ccd = ccd;
 	}
 
 }

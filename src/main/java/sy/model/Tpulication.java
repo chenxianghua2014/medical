@@ -29,6 +29,8 @@ public class Tpulication implements java.io.Serializable {
 	private String csummary;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
+
 
 	// Constructors
 
@@ -45,7 +47,7 @@ public class Tpulication implements java.io.Serializable {
 	public Tpulication(String cid, String cname, String cauthor,
 			String cckeyword, String cekeyword, String cpublishhous,
 			Date cpublishtime, Integer cwords, String cisbn, String csummary,
-			String ctypeman, Date ctypetime) {
+			String ctypeman, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.cname = cname;
 		this.cauthor = cauthor;
@@ -58,6 +60,7 @@ public class Tpulication implements java.io.Serializable {
 		this.csummary = csummary;
 		this.ctypeman = ctypeman;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -171,5 +174,12 @@ public class Tpulication implements java.io.Serializable {
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
 	}
-
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 }

@@ -54,7 +54,7 @@ public class EmpiricalResearchServiceImpl extends BaseServiceImpl implements Emp
 	}
 
 	private List<TempiricalResearch> find(EmpiricalResearch empiricalResearch) {
-		String hql = "select new TempiricalResearch( t.cid, t.cclassify, t.cname,t.clanguage,t.cckeyword,t.cekeyword,t.cinformation, t.cnote, t.cstorage, t.cyear,t.cunit, t.ccontactid, t.ctypeman, t.ctypetime) from TempiricalResearch t where 1=1 ";
+		String hql = "select new TempiricalResearch( t.cid, t.cclassify, t.cname,t.clanguage,t.cckeyword,t.cekeyword,t.cinformation, t.cnote, t.cstorage, t.cyear,t.cunit, t.ccontactid, t.ctypeman, t.ctypetime, t.cflag) from TempiricalResearch t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(empiricalResearch, hql, values);
@@ -80,7 +80,7 @@ public class EmpiricalResearchServiceImpl extends BaseServiceImpl implements Emp
 		if (empiricalResearch.getCid() == null || empiricalResearch.getCid().trim().equals("")) {
 			empiricalResearch.setCid(UUID.randomUUID().toString());
 		}
-		
+		empiricalResearch.setCflag("1");
 		TempiricalResearch t = new TempiricalResearch();	
 		BeanUtils.copyProperties(empiricalResearch, t);
 		empiricalResearchDao.save(t);
@@ -107,5 +107,28 @@ public class EmpiricalResearchServiceImpl extends BaseServiceImpl implements Emp
 	public TempiricalResearch get(EmpiricalResearch empiricalResearch) {
 		TempiricalResearch menu = empiricalResearchDao.get(TempiricalResearch.class, empiricalResearch.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(EmpiricalResearch empiricalResearch) {
+		// TODO Auto-generated method stub
+		TempiricalResearch t = empiricalResearchDao.get(TempiricalResearch.class, empiricalResearch.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tempiricalResearch c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tempiricalResearch c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			empiricalResearchDao.updateStatus(hql,empiricalResearch.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

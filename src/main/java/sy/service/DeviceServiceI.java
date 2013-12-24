@@ -1,6 +1,7 @@
 package sy.service;
 
 import sy.model.Tdevice;
+import sy.pageModel.ApplicationNote;
 import sy.pageModel.DataGrid;
 import sy.pageModel.Device;
 
@@ -40,4 +41,6 @@ public interface DeviceServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tdevice get(Device device);
+	
+	public void changeFlag(Device device);
 }

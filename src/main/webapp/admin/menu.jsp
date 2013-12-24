@@ -202,7 +202,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -215,6 +215,11 @@
 						min : 0,
 						max : 999,
 						required : true
+					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {

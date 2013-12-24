@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tdevice;
+import sy.model.Tdevice;
+import sy.pageModel.ApplicationNote;
 import sy.pageModel.DataGrid;
 import sy.pageModel.Device;
 import sy.service.DeviceServiceI;
@@ -50,7 +52,7 @@ public class DeviceServiceImpl extends BaseServiceImpl implements DeviceServiceI
 	}
 
 	private List<Tdevice> find(Device device) {
-		String hql = "select new Tdevice( t.cid, t.cnumber, t.csource, t.ccname,t.cename, t.cresearchtime, t.cversion, t.cfield,t.cfactory, t.cprice, t.cnote, t.cunit,t.ccontactid, t.cbackup1, t.cbackup2) from Tdevice t where 1=1 ";
+		String hql = "from Tdevice t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(device, hql, values);
@@ -76,7 +78,7 @@ public class DeviceServiceImpl extends BaseServiceImpl implements DeviceServiceI
 		if (device.getCid() == null || device.getCid().trim().equals("")) {
 			device.setCid(UUID.randomUUID().toString());
 		}
-		
+		device.setCflag("1");
 		Tdevice t = new Tdevice();	
 		BeanUtils.copyProperties(device, t);
 		deviceDao.save(t);
@@ -103,5 +105,28 @@ public class DeviceServiceImpl extends BaseServiceImpl implements DeviceServiceI
 	public Tdevice get(Device device) {
 		Tdevice menu = deviceDao.get(Tdevice.class, device.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(Device device) {
+		// TODO Auto-generated method stub
+		Tdevice t = deviceDao.get(Tdevice.class, device.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tdevice c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tdevice c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			deviceDao.updateStatus(hql,device.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

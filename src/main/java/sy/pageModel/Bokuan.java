@@ -34,7 +34,7 @@ public class Bokuan implements java.io.Serializable{
 	
 	
 	private String cid;
-	private String cuid;//用户id
+	//private String cuid;//用户id
 	private String ctickets;//支出凭证的票据号
 	private String cprojectid;//获得拨款的课题编号
 	private Float cmoney;//拨款金额
@@ -77,12 +77,12 @@ public class Bokuan implements java.io.Serializable{
 	public void setCid(String cid) {
 		this.cid = cid;
 	}
-	public String getCuid() {
+	/*public String getCuid() {
 		return cuid;
 	}
 	public void setCuid(String cuid) {
 		this.cuid = cuid;
-	}
+	}*/
 	public String getCtickets() {
 		return ctickets;
 	}

@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.Tresource;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Resource;
 
 public interface ResourceServiceI extends BaseServiceI{
@@ -40,5 +41,7 @@ public interface ResourceServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tresource get(Resource resource);
+	
+	public void changeFlag(Resource resource);
 }
 

@@ -1,6 +1,5 @@
 package sy.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,23 +26,31 @@ public class Tpay implements java.io.Serializable {
 	private String cid;
 	private Tpay tpay;
 	private Tuser tuser;
-	private String cname;
-	private BigDecimal cseq;
-	private String cresponser;
-	private Float cbudget;
-	private Float ccost;
-	private Float cbalance;
+	private String cname;//项目名称
+	private String cseq;//项目编号
+	private String cresponser;//项目负责人
+	private Float cbudget;//预算
+	private Double ccost;//支出
+	private Float cbalance;//结余
 	private Float cmoney;//已到款
+	private String cfuid;//项目负责人编号	
+	private String cfpid;//项目上级编号
 		
 	private Set<Tpay> tpays = new HashSet<Tpay>(0);//递归饱包含子课题；	
 	
 	public Tpay() {
 	}
 
+	/** 
+	 * @Author wei
+	 * minimal constructor */
+	public Tpay(String cfpid) {
+		this.cfpid = cfpid;
+	} 
 	
-	public Tpay(String cid, Tpay tpay, Tuser tuser, String cname,
-			BigDecimal cseq, String cresponser, Float cbudget, Float ccost,
-			Float cbalance, Float cmoney, Set<Tpay> tpays) {
+	public Tpay(String cid, Tpay tpay, Tuser tuser, String cname,String cfpid,
+			String cseq, String cresponser, Float cbudget, Double ccost,
+			Float cbalance, Float cmoney, Set<Tpay> tpays,String cfuid) {
 		this.cid = cid;
 		this.tpay = tpay;
 		this.tuser = tuser;
@@ -55,6 +62,8 @@ public class Tpay implements java.io.Serializable {
 		this.cbalance = cbalance;
 		this.cmoney = cmoney;
 		this.tpays = tpays;
+		this.cfuid =cfuid;
+		this.cfpid =cfpid;
 	}
 
 	@Id
@@ -97,11 +106,11 @@ public class Tpay implements java.io.Serializable {
 	}
 	
 	@Column(name = "CSEQ", precision = 22, scale = 0)
-	public BigDecimal getCseq() {
+	public String getCseq() {
 		return cseq;
 	}
 
-	public void setCseq(BigDecimal cseq) {
+	public void setCseq(String cseq) {
 		this.cseq = cseq;
 	}
 
@@ -124,12 +133,12 @@ public class Tpay implements java.io.Serializable {
 	}
 	
 	@Column(name = "CCOST", precision = 12, scale = 0)
-	public Float getCcost() {
+	public Double getCcost() {
 		return ccost;
 	}
 
 
-	public void setCcost(Float ccost) {
+	public void setCcost(Double ccost) {
 		this.ccost = ccost;
 	}
 
@@ -162,5 +171,23 @@ public class Tpay implements java.io.Serializable {
 		this.tpays = tpays;
 	}
 
+
+	@Column(name = "cfuid", length = 36)
+	public String getCfuid() {
+		return cfuid;
+	}
+
+	public void setCfuid(String cfuid) {
+		this.cfuid = cfuid;
+	}
+	
+	@Column(name = "cfpid", length = 36)
+	public String getCfpid() {
+		return cfpid;
+	}
+
+	public void setCfpid(String cfpid) {
+		this.cfpid = cfpid;
+	}
 
 }

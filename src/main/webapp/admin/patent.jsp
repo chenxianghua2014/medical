@@ -4,6 +4,8 @@
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
+	var searchForm;
+
 	var datagrid;
 	var patentAddDialog;
 	var patentAddForm;
@@ -13,6 +15,8 @@
 	var cdescAdd;
 	var showCdescDialog;
 	$(function() {
+	
+		searchForm = $('#searchForm').form();
 		datagrid = $('#datagrid').datagrid({
 			rowStyler:function(index,row){     
 			    if (index%2==0){     
@@ -42,32 +46,62 @@
 				title : '专利名称',
 				field : 'cname',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
-				title : '授权国',
+				title : '发明单位',
 				field : 'ccountry',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			columns : [ [  {
 				title : '专利编号',
 				field : 'cnumber',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '专利类型',
 				field : 'cclassify',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '发明设计人',
 				field : 'cinvent',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '专利权人',
 				field : 'cpatentee',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '摘要',
 				field : 'csummary',
@@ -79,12 +113,35 @@
 				title : '录入人',
 				field : 'ctypeman',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '录入时间',
 				field : 'ctypetime',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -104,6 +161,12 @@
 				handler : function() {
 					edit();
 				}
+			}, '-', {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
+				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
 				e.preventDefault();
@@ -116,13 +179,7 @@
 			}
 		});
 
-		function _search() {
-			datagrid.datagrid('load', sy.serializeObject(searchForm));
-		}
-		function cleanSearch() {
-			datagrid.datagrid('load', {});
-			searchForm.find('input').val('');
-		}
+		
 		
 		patentAddForm = $('#patentAddForm').form({
 			url : 'patentAction!add.action',
@@ -305,6 +362,51 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+	
+	function _search() {
+			datagrid.datagrid('load', sy.serializeObject(searchForm));
+		}
+	function cleanSearch() {
+			datagrid.datagrid('load', {});
+			searchForm.find('input').val('');
+		}
+		
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'patentAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+				
+	}
 </script>
 </head>
 <body class="easyui-layout">
@@ -312,16 +414,17 @@
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
-					<th>负责人</th>
-					<td><input name="cprojectid" style="width:315px;" /></td>
-				</tr>
-				<tr>
-					<th>记账时间</th>
-					<td><input name="ccountTimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />至<input name="ccountTimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td></td>
-				</tr>				
+					<th>专利名称</th>
+					<td><input name="cname" style="width:315px;" />
+					<th>专利发明人</th>
+					<td><input name="cinvent" style="width:315px;" />
+					<a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a>
+					</td>
+				</tr>								
 			</table>
 		</form>
-	</div>
+	</div> 
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>

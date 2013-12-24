@@ -32,7 +32,7 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 	private BaseDaoI<Tproject> projectDao;
 	private BaseDaoI<Tuser> userDao;
 	private BaseDaoI<Tpay> payDao;
-	
+
 	public BaseDaoI<Tkemu> getKemuDao() {
 		return kemuDao;
 	}
@@ -45,17 +45,17 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 	public void setkemuDao(BaseDaoI<Tkemu> kemuDao) {
 		this.kemuDao = kemuDao;
 	}
-	
+
 	@Autowired
 	public void setProjectDao(BaseDaoI<Tproject> projectDao) {
 		this.projectDao = projectDao;
 	}
-	
+
 	@Autowired
 	public void setUserDao(BaseDaoI<Tuser> userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	@Autowired
 	public void setPayDao(BaseDaoI<Tpay> payDao) {
 		this.payDao = payDao;
@@ -67,6 +67,11 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		DataGrid j = new DataGrid();
 		j.setRows(getKemusFromTkemus(find(kemu)));
 		j.setTotal(total(kemu));
+		////跳转
+		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
+		if (sessionInfo.getCourse()!=null){
+			sessionInfo.setCourse(null);
+		}
 		return j;
 	}
 	private List<Kemu> getKemusFromTkemus(List<Tkemu> tkemus) {
@@ -82,7 +87,19 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 	}
 
 	private List<Tkemu> find(Kemu kemu) {
-		String hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cprojectid) from Tkemu t where 1=1 ";
+		
+		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
+		String cprojectid  = sessionInfo.getLoginName();
+		cprojectid = "'"+cprojectid +"'";
+		/////跳转过滤 
+		String hql=" ";
+		if(sessionInfo.getCourse()!=null){
+			hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cprojectid) from Tkemu t where cprojectid= "+cprojectid+" and t.ccourse= "+"'"+sessionInfo.getCourse()+"'";
+		}
+		else{
+			hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cprojectid) from Tkemu t where cprojectid= "+cprojectid;			
+		}
+		//String hql = "select new Tkemu(	t.cid,t.cname,t.ccountId,t.ccountTime,t.ccourse,t.cmoney,t.ctickets,t.cprojectid) from Tkemu t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(kemu, hql, values);
@@ -101,6 +118,23 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 	}
 
 	private String addWhere(Kemu kemu, String hql, List<Object> values) {
+		if (kemu.getCprojectid() != null && !kemu.getCprojectid().trim().equals("")) {
+			hql += " and t.cprojectid like ? ";
+			values.add("%%" + kemu.getCprojectid().trim() + "%%");
+		}
+		if (kemu.getCcourse() != null && !kemu.getCcourse().trim().equals("")) {
+			hql += " and t.ccourse like ? ";
+			values.add("%%" + kemu.getCcourse().trim() + "%%");
+		}
+		if (kemu.getCcountTimeStart() != null) {
+			hql += " and t.ccountTime>=? ";
+			values.add(kemu.getCcountTimeStart());
+		}
+		//System.out.println(kemu.getCcountTimeStart());
+		if (kemu.getCcountTimeEnd() != null) {
+			hql += " and t.ccountTime<=? ";
+			values.add(kemu.getCcountTimeEnd());
+		}
 		return hql;
 	}
 
@@ -150,9 +184,8 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 					String hql3="update Tpay tpay set tpay.ccost=" +sum+
 							" where tpay.cfuid=" +cfuid+
 							" and tpay.cname=" +ccourse;
-					String hql3_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+					
 					payDao.executeHql(hql3);
-					payDao.executeHql(hql3_1);
 					/*String hql3="update Tpay tpay set tpay.ccost=?  where tpay.cfuid= ? and tpay.cname=?";
 					payDao.executeHql(hql3,new Object[] {sum,cfuid,ccourse});*/
 					//获取上级节点编号
@@ -170,13 +203,15 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 						String hql="update Tpay tpay set tpay.ccost=" +sum1 +
 								"  where tpay.cid= "+ cfpid;			
 						payDao.executeHql(hql);//更新上级支出总额
-						String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
-						payDao.executeHql(hql_1);
+						/*String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+						payDao.executeHql(hql_1);*/
 						String hql6="select new Tpay(t.cfpid) from Tpay t where cid=" +cfpid;
 						List<Tpay> tpl1 = payDao.find(hql6);
 						Tpay tp1 = tpl1.get(0);
 						cfpid= tp1.getCfpid();//获取上级节点id
 					}
+					String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+					payDao.executeHql(hql_1);
 				}
 			}			
 		}
@@ -198,7 +233,7 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		List<Tuser> t = userDao.find(hql1,new Object[] {username});
 		String cfuid = " ";
 		Tuser tu = t.get(0);
-		cfuid= tu.getCid();
+		cfuid= tu.getCid();	
 	    
 		String hql2="select sum(t.cmoney) as t from Tkemu t where cprojectid=? and ccourse=?";//获取sum	
 		List<Double> list = kemuDao.finds(hql2, new Object[] {username,ccourse});
@@ -209,9 +244,9 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 		String hql3="update Tpay tpay set tpay.ccost=" +sum+
 				" where tpay.cfuid=" +cfuid+
 				" and tpay.cname=" +ccourse;
-		String hql3_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+		//String hql3_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
 		payDao.executeHql(hql3);
-		payDao.executeHql(hql3_1);
+		//payDao.executeHql(hql3_1);
 		/*String hql3="update Tpay tpay set tpay.ccost=?  where tpay.cfuid= ? and tpay.cname=?";
 		payDao.executeHql(hql3,new Object[] {sum,cfuid,ccourse});*/
 		//获取上级节点编号
@@ -228,14 +263,14 @@ public class KemuServiceImpl extends BaseServiceImpl implements KemuServiceI {
 			cfpid = "'" + cfpid +"'";
 			String hql="update Tpay tpay set tpay.ccost=" +sum1 +
 					"  where tpay.cid= "+ cfpid;			
-			payDao.executeHql(hql);//更新上级支出总额
-			String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
-			payDao.executeHql(hql_1);
+			payDao.executeHql(hql);//更新上级支出总额			
 			String hql6="select new Tpay(t.cfpid) from Tpay t where cid=" +cfpid;
 			List<Tpay> tpl1 = payDao.find(hql6);
 			Tpay tp1 = tpl1.get(0);
 			cfpid= tp1.getCfpid();//获取上级节点id
 		}
+		String hql_1 = "update Tpay tpay set tpay.cbalance= tpay.cmoney-tpay.ccost";
+		payDao.executeHql(hql_1);
 		return null;
 	}	
 }

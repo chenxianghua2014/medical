@@ -23,6 +23,18 @@ public class ApplicationNote implements java.io.Serializable{
 	private String crighted;
 	private String ccontactid;
 	private Date ctypetime;
+	private String cflag;
+
+	// Constructors
+
+	public String getCflag() {
+		return cflag;
+	}
+
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
+	
 	public String getIds() {
 		return ids;
 	}

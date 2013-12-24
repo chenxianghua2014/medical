@@ -6,35 +6,49 @@
 		
 		panels = [ {
 			id : 'p1',
-			title : 'about',
-			height : 200,
+			title : '系统概述',
+			height : 150,
 			collapsible : true,
+			collapsed : false,
+			size :50,
 			href:'layout/portal/about.jsp'
 		}, {
 			id : 'p2',
-			title : 'link',
-			height : 200,
+			title : '项目管理专业化',
+			height : 150,
 			collapsible : true,
+			collapsed : false,
 			href:'layout/portal/link.jsp'
 		}, {
 			id : 'p3',
-			title : '修复数据库',
-			height : 200,
+			title : '信息发布及时化',
+			height : 120,
 			collapsible : true,
+			collapsed : false,
 			href:'layout/portal/repair.jsp'
 		}, {
 			id : 'p4',
-			title : '说明',
+			title : '成果汇交高效化',
 			height : 200,
 			collapsible : true,
-			content : '<h1>可以拖动面板的顺序，他会记住的，下次打开的时候，还是你之前调节过的顺序哦</h1>'
+			collapsed : false,
+			//成果汇交高效化
+			content : '<b><font size="5" face="仿宋"  color=#006699>&nbsp;&nbsp;&nbsp;&nbsp;将资源汇交与课题关键技术集成相结合，与关键技术实证研究和再评价研究相结合。要求汇交的关键技术、实证研究和再评价研究数据真实，结果可靠，确保科技资源质量。</font></b>'
 		}, {
 			id : 'p5',
-			title : '说明2',
+			title : '专项经费管理严格化',
 			height : 200,
 			collapsible : true,
+			collapsed : false,
 			href:'layout/portal/about2.jsp'
-		} ];
+		} /* , {
+			id : 'p6',
+			title : '我的通知',
+			height : 200,
+			collapsible : true,
+			collapsed : false,
+			href:'layout/portal/notice_wei.jsp'
+		} */];
 
 		portal = $('#portal').portal({
 			border : false,
@@ -47,7 +61,7 @@
 		});
 		var state = $.cookie('portal-state');
 		if (!state) {
-			state = 'p1,p2,p3:p4,p5,p6';/*冒号代表列，逗号代表行*/
+			state = 'p1,p2,p3:p4,p5';/*冒号代表列，逗号代表行*/
 		}
 		addPanels(state);
 		portal.portal('resize');

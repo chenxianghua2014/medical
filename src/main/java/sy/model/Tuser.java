@@ -37,6 +37,7 @@ public class Tuser implements java.io.Serializable {
 	private String cgender;
 	private String caddress;
 	private String ccity;
+	private Integer cno;//通知数
 	private Set<Tusertrole> tusertroles = new HashSet<Tusertrole>(0);
 
 	// Constructors
@@ -45,6 +46,12 @@ public class Tuser implements java.io.Serializable {
 	public Tuser() {
 	}
 
+	/** 
+	 * @Author wei
+	 * minimal constructor */
+	public Tuser(String cid) {
+		this.cid = cid;
+	} 
 	/** minimal constructor */
 	public Tuser(String cid, String cname, String cpwd) {
 		this.cid = cid;
@@ -191,6 +198,15 @@ public class Tuser implements java.io.Serializable {
 
 	public void setTusertroles(Set<Tusertrole> tusertroles) {
 		this.tusertroles = tusertroles;
+	}
+	
+	@Column(name = "CNO")
+	public Integer getCno() {
+		return this.cno;
+	}
+
+	public void setCno(Integer cno) {
+		this.cno = cno;
 	}
 
 }

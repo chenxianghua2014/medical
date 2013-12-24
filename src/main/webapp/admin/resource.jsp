@@ -42,23 +42,43 @@
 				title : '实物资源名称',
 				field : 'cname',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			columns : [ [ {
 				title : '实物资源分类',
 				field : 'cclassify',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ,{
 				title : '关键词',
 				field : 'cinformation',           
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '实物资源数量',
 				field : 'cmount',
 				width : 100,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '实物资源描述',
 				field : 'csummary',
@@ -70,21 +90,54 @@
 				title : '储存方式',
 				field : 'cstorage',
 				width : 100,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '所在单位名称',
 				field : 'cunit',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '负责人',
 				field : 'cprinciple',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '管理员联系方式',
 				field : 'ccontactid',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				width : 100
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -103,6 +156,12 @@
 				iconCls : 'icon-edit',
 				handler : function() {
 					edit();
+				}
+			}, '-', {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
 				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
@@ -305,10 +364,47 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+	
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'resourceAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+				
+	}
 </script>
 </head>
 <body class="easyui-layout">
-	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+	<!-- <div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
@@ -321,7 +417,7 @@
 				</tr>				
 			</table>
 		</form>
-	</div>
+	</div> -->
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>
@@ -339,7 +435,16 @@
 					<th>实物资源名称</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写实物资源名称" /></td>					
 					<th>实物资源分类</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实物资源分类" /></td>
+					<td>
+						<select  name="cclassify">
+						<option value="实验动物">实验动物</option>
+						<option value="基因">基因</option>
+						<option value="血清">血清</option>
+						<option value="病理标本">病理标本</option>
+						<option value="微生物">微生物</option>
+						<option value="其他">其他</option>
+						<select>
+					</td>	
 				</tr>
 				<tr>
 					<th>关键词</th>
@@ -377,7 +482,16 @@
 					<th>实物资源名称</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写实物资源名称" /></td>					
 					<th>实物资源分类</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实物资源分类" /></td>
+					<td>
+						<select  name="cclassify">
+						<option value="实验动物">实验动物</option>
+						<option value="基因">基因</option>
+						<option value="血清">血清</option>
+						<option value="病理标本">病理标本</option>
+						<option value="微生物">微生物</option>
+						<option value="其他">其他</option>
+						<select>
+					</td>
 				</tr>
 				<tr>
 					<th>关键词</th>

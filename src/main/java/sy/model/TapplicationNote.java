@@ -27,9 +27,12 @@ public class TapplicationNote implements java.io.Serializable {
 	private String crighted;
 	private String ccontactid;
 	private Date ctypetime;
+	
+	private String cflag;
 
 	// Constructors
 
+	
 	/** default constructor */
 	public TapplicationNote() {
 	}
@@ -42,7 +45,7 @@ public class TapplicationNote implements java.io.Serializable {
 	/** full constructor */
 	public TapplicationNote(String cid, String cname, String csuitableid,
 			String cinformation, String cnote, String cevaluation,
-			String cidentify, String crighted, String ccontactid, Date ctypetime) {
+			String cidentify, String crighted, String ccontactid, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.cname = cname;
 		this.csuitableid = csuitableid;
@@ -53,6 +56,7 @@ public class TapplicationNote implements java.io.Serializable {
 		this.crighted = crighted;
 		this.ccontactid = ccontactid;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -146,6 +150,15 @@ public class TapplicationNote implements java.io.Serializable {
 
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
+	}
+
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
 	}
 
 }

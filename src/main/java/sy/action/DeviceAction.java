@@ -267,5 +267,19 @@ public class DeviceAction extends BaseAction implements ModelDriven<Device>{
 		m.put("msg", nm);
 		writeJson(m);
 	}
+	
+	public void changeFlag() {
+		Json j = new Json();
+		try {
+			deviceService.changeFlag(device);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 
 }

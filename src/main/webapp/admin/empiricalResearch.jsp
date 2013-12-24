@@ -36,65 +36,132 @@
 				title : '编号',
 				field : 'cid',
 				width : 150,
-				sortable : true,
 				checkbox : true
 			},{
 				title : '实证研究分类',
 				field : 'cclassify',
-				width : 200,
-				sortable : true
+				width : 120,
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '名称',
 				field : 'cname',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			columns : [ [ {
 				title : '数据集语种',
 				field : 'clanguage',
-				width : 200,
-				sortable : true
+				width : 150,
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '关键词',
 				field : 'cckeyword',
 				width : 200,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '实证研究质量说明',
 				field : 'cnote',
-				width : 150
+				width : 200,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
-				title : '实证研究数据存储状态',
+				title : '数据存储状态',
 				field : 'cstorage',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '实证研究保护期限',
 				field : 'cyear',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
-				title : '实证研究单位',
+				title : '研究单位',
 				field : 'cunit',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '联系方式',
 				field : 'ccontactid',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '数据录入人',
 				field : 'ctypeman',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '数据提交时间',
 				field : 'ctypetime',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
-				title : '实证研究描述信息',
+				title : '实证研究描述',
 				field : 'cinformation',
 				formatter : function(value, rowData, rowIndex) {
-					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看摘要</a>';
+					return '<span class="icon-search" style="display:inline-block;vertical-align:middle;width:16px;height:16px;"></span><a href="javascript:void(0);" onclick="showCdesc(' + rowIndex + ');">查看信息</a>';
+				},
+				width : 100
+			},{
+				title : '审核状态',
+				field : 'cflag',
+				formatter : function(value) {
+					if (value == 1) {
+						value = '未审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}else{
+						value = '通过审核';
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				},
 				width : 100
 			}] ],
@@ -115,6 +182,12 @@
 				iconCls : 'icon-edit',
 				handler : function() {
 					edit();
+				}
+			}, '-', {
+				text : '更改审核状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
 				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
@@ -317,10 +390,48 @@
 		});
 		datagrid.datagrid('unselectAll');
 	}
+	
+	function changeStatus() {
+		var node = datagrid.datagrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改审核的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'empiricalResearchAction!changeFlag.action',
+								data : {
+									cid : node.cid,
+									cstatus : node.cflag
+								},
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										datagrid.datagrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+				
+	}
+	
 </script>
 </head>
 <body class="easyui-layout">
-	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+	<!-- <div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
 		<form id="searchForm">
 			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
 				<tr>
@@ -333,7 +444,7 @@
 				</tr>				
 			</table>
 		</form>
-	</div>
+	</div> -->
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>
@@ -349,13 +460,34 @@
 			<table class="tableForm">
 				<tr>
 					<th>实证研究分类</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实证研究分类" /></td>					
-					<th>名称</th>
+					<td>
+						<select  name="cclassify">
+						<option value="常见病">常见病</option>
+						<option value="慢性病">慢性病</option>
+						<option value="心脑血管病">心脑血管病</option>
+						<option value="肿瘤">肿瘤</option>
+						<option value="营养">营养</option>
+						<option value="医疗仪器">医疗仪器</option>
+						<option value="综合集成示范">综合集成示范</option>
+						<lect>
+					</td>
+				<th>名称</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写名称" /></td>
 				</tr>
 				<tr>
 					<th>数据集语种</th>
-					<td><input name="clanguage" class="easyui-validatebox" required="true"   missingMessage="请填写数据集语种" /></td>				
+					<td>
+						<select  name="clanguage">
+						<option value="zh-CN(中文计算机默认)">zh-CN(中文计算机默认)</option>
+						<option value="En(英语)">En(英语)</option>
+						<option value="zh-HK(中文-香港)">zh-HK(中文-香港)</option>
+						<option value="zh-MO(中文-澳门)">zh-MO(中文-澳门)</option>
+						<option value="zh-CHS(中文)">zh-CHS(中文)</option>
+						<option value="zh-SG(中文-新加坡)">zh-SG(中文-新加坡)</option>
+						<option value="zh-TW(中文-台湾)">zh-TW(中文-台湾)</option>
+						<option value="zh-CHT(中文繁体)">zh-CHT(中文繁体)</option>
+						<lect>
+					</td>
 					<th>关键词</th>
 					<td><input name="cckeyword" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>
 				</tr>				
@@ -363,11 +495,28 @@
 					<th>实证研究质量说明</th>
 					<td><input name="cnote" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究质量说明" /></td>				
 					<th>实证研究数据存储状态</th>
-					<td><input name="cstorage" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究数据存储状态" /></td>
+					<td>
+						<select  name="cstorage">
+						<option value="纸质">纸质</option>
+						<option value="光盘">光盘</option>
+						<option value="胶片">胶片</option>
+						<option value="磁带">磁带</option>
+						<option value="计算机">计算机</option>
+						<option value="其他">其他</option>
+						<lect>
+					</td>
 				</tr>
 				<tr>
 					<th>实证研究保护期限</th>
-					<td><input name="cyear" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究保护期限" /></td>				
+					<td>
+						<select  name="cyear">
+						<option value="0">0</option>
+						<option value="1年">1年</option>
+						<option value="2年">2年</option>
+						<option value="3年">3年</option>
+						<option value="4年">4年</option>
+						<lect>
+					</td>
 					<th>实证研究单位</th>
 					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究单位" /></td>
 				</tr>
@@ -379,7 +528,7 @@
 				</tr>
 				<tr>
 					<th>数据提交时间</th>
-					<td><input name="ctypeman" class="easyui-datebox" required="true"   missingMessage="请填写数据提交时间" /></td>
+					<td><input name="ctypetime" class="easyui-datebox" required="true"   missingMessage="请填写数据提交时间" /></td>
 				</tr>
 				<tr>
 					<th>实证研究描述信息</th>
@@ -397,13 +546,34 @@
 			<table class="tableForm">
 				<tr>
 					<th>实证研究分类</th>
-					<td><input name="cclassify" class="easyui-validatebox" required="true" missingMessage="请填写实证研究分类" /></td>					
-					<th>名称</th>
+					<td>
+						<select  name="cclassify">
+						<option value="常见病">常见病</option>
+						<option value="慢性病">慢性病</option>
+						<option value="心脑血管病">心脑血管病</option>
+						<option value="肿瘤">肿瘤</option>
+						<option value="营养">营养</option>
+						<option value="医疗仪器">医疗仪器</option>
+						<option value="综合集成示范">综合集成示范</option>
+						<lect>
+					</td>
+				<th>名称</th>
 					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写名称" /></td>
 				</tr>
 				<tr>
 					<th>数据集语种</th>
-					<td><input name="clanguage" class="easyui-validatebox" required="true"   missingMessage="请填写数据集语种" /></td>				
+					<td>
+						<select  name="clanguage">
+						<option value="zh-CN(中文计算机默认)">zh-CN(中文计算机默认)</option>
+						<option value="En(英语)">En(英语)</option>
+						<option value="zh-HK(中文-香港)">zh-HK(中文-香港)</option>
+						<option value="zh-MO(中文-澳门)">zh-MO(中文-澳门)</option>
+						<option value="zh-CHS(中文)">zh-CHS(中文)</option>
+						<option value="zh-SG(中文-新加坡)">zh-SG(中文-新加坡)</option>
+						<option value="zh-TW(中文-台湾)">zh-TW(中文-台湾)</option>
+						<option value="zh-CHT(中文繁体)">zh-CHT(中文繁体)</option>
+						<lect>
+					</td>
 					<th>关键词</th>
 					<td><input name="cckeyword" class="easyui-validatebox" required="true"   missingMessage="请填写关键词" /></td>
 				</tr>				
@@ -411,11 +581,28 @@
 					<th>实证研究质量说明</th>
 					<td><input name="cnote" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究质量说明" /></td>				
 					<th>实证研究数据存储状态</th>
-					<td><input name="cstorage" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究数据存储状态" /></td>
+					<td>
+						<select  name="cstorage">
+						<option value="纸质">纸质</option>
+						<option value="光盘">光盘</option>
+						<option value="胶片">胶片</option>
+						<option value="磁带">磁带</option>
+						<option value="计算机">计算机</option>
+						<option value="其他">其他</option>
+						<lect>
+					</td>
 				</tr>
 				<tr>
 					<th>实证研究保护期限</th>
-					<td><input name="cyear" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究保护期限" /></td>				
+					<td>
+						<select  name="cyear">
+						<option value="0">0</option>
+						<option value="1年">1年</option>
+						<option value="2年">2年</option>
+						<option value="3年">3年</option>
+						<option value="4年">4年</option>
+						<lect>
+					</td>
 					<th>实证研究单位</th>
 					<td><input name="cunit" class="easyui-validatebox" required="true"   missingMessage="请填写实证研究单位" /></td>
 				</tr>

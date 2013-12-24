@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tresource;
+import sy.model.Tresource;
 import sy.model.Tproject;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Resource;
 import sy.pageModel.SessionInfo;
 import sy.service.ResourceServiceI;
@@ -54,7 +56,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 	}
 
 	private List<Tresource> find(Resource resource) {
-		String hql = "select new Tresource( t.cid, t.cname, t.cclassify,t.csummary,t.cmount, t.cinformation,t.cstorage, t.cunit, t.cprinciple,t.ccontactid, t.cbackup1, t.cbackup2) from Tresource t where 1=1 ";
+		String hql = "select new Tresource( t.cid, t.cname, t.cclassify,t.csummary,t.cmount, t.cinformation,t.cstorage, t.cunit, t.cprinciple,t.ccontactid, t.cbackup1, t.cbackup2, t.cflag) from Tresource t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(resource, hql, values);
@@ -80,7 +82,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 		if (resource.getCid() == null || resource.getCid().trim().equals("")) {
 			resource.setCid(UUID.randomUUID().toString());
 		}
-		
+		resource.setCflag("1");
 		Tresource t = new Tresource();	
 		BeanUtils.copyProperties(resource, t);
 		resourceDao.save(t);
@@ -107,5 +109,28 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 	public Tresource get(Resource resource) {
 		Tresource menu = resourceDao.get(Tresource.class, resource.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(Resource resource) {
+		// TODO Auto-generated method stub
+		Tresource t = resourceDao.get(Tresource.class, resource.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tresource c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tresource c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			resourceDao.updateStatus(hql,resource.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

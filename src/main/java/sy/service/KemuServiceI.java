@@ -40,4 +40,11 @@ public interface KemuServiceI extends BaseServiceI {
 	 * @return
 	 */
 	public Tkemu get(Kemu kemu);
+	/**
+	 * 获得
+	 * 
+	 * @param 更新汇总表
+	 * @return
+	 */
+	public Tkemu updatepay(Kemu kemu);
 }

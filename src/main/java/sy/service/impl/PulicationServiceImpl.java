@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tpulication;
+import sy.model.Tpulication;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Pulication;
 import sy.service.PulicationServiceI;
 
@@ -50,7 +52,7 @@ public class PulicationServiceImpl extends BaseServiceImpl implements Pulication
 	}
 
 	private List<Tpulication> find(Pulication pulication) {
-		String hql = "select new Tpulication( t.cid, t.cname, t.cauthor,t.cckeyword, t.cekeyword, t.cpublishhous,t.cpublishtime, t.cwords, t.cisbn, t.csummary,t.ctypeman, t.ctypetime) from Tpulication t where 1=1 ";
+		String hql = "select new Tpulication( t.cid, t.cname, t.cauthor,t.cckeyword, t.cekeyword, t.cpublishhous,t.cpublishtime, t.cwords, t.cisbn, t.csummary,t.ctypeman, t.ctypetime, t.cflag) from Tpulication t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(pulication, hql, values);
@@ -76,7 +78,7 @@ public class PulicationServiceImpl extends BaseServiceImpl implements Pulication
 		if (pulication.getCid() == null || pulication.getCid().trim().equals("")) {
 			pulication.setCid(UUID.randomUUID().toString());
 		}
-		
+		pulication.setCflag("1");
 		Tpulication t = new Tpulication();	
 		BeanUtils.copyProperties(pulication, t);
 		pulicationDao.save(t);
@@ -103,5 +105,28 @@ public class PulicationServiceImpl extends BaseServiceImpl implements Pulication
 	public Tpulication get(Pulication pulication) {
 		Tpulication menu = pulicationDao.get(Tpulication.class, pulication.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(Pulication pulication) {
+		// TODO Auto-generated method stub
+		Tpulication t = pulicationDao.get(Tpulication.class, pulication.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tpulication c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tpulication c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			pulicationDao.updateStatus(hql,pulication.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

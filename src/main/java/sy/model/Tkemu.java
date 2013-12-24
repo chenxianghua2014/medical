@@ -52,7 +52,6 @@ public class Tkemu implements java.io.Serializable {
 		return cid;
 	}
 
-
 	public void setCid(String cid) {
 		this.cid = cid;
 	}

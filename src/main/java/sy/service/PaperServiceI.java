@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.Tpaper;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Paper;
 
 public interface PaperServiceI extends BaseServiceI{
@@ -40,4 +41,6 @@ public interface PaperServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tpaper get(Paper paper);
+	
+	public void changeFlag(Paper paper);
 }

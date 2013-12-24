@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.TapplicationNote;
+import sy.model.TapplicationNote;
 import sy.pageModel.DataGrid;
 import sy.pageModel.ApplicationNote;
 import sy.service.ApplicationNoteServiceI;
@@ -50,7 +51,7 @@ public class ApplicationNoteServiceImpl  extends BaseServiceImpl implements Appl
 	}
 
 	private List<TapplicationNote> find(ApplicationNote applicationNote) {
-		String hql = "select new TapplicationNote( t.cid, t.cname, t.csuitableid,t.cinformation, t.cnote, t.cevaluation,t.cidentify, t.crighted, t.ccontactid, t.ctypetime) from TapplicationNote t where 1=1 ";
+		String hql = "select new TapplicationNote( t.cid, t.cname, t.csuitableid,t.cinformation, t.cnote, t.cevaluation,t.cidentify, t.crighted, t.ccontactid, t.ctypetime, t.cflag) from TapplicationNote t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(applicationNote, hql, values);
@@ -76,7 +77,7 @@ public class ApplicationNoteServiceImpl  extends BaseServiceImpl implements Appl
 		if (applicationNote.getCid() == null || applicationNote.getCid().trim().equals("")) {
 			applicationNote.setCid(UUID.randomUUID().toString());
 		}
-		
+		applicationNote.setCflag("1");
 		TapplicationNote t = new TapplicationNote();	
 		BeanUtils.copyProperties(applicationNote, t);
 		applicationNoteDao.save(t);
@@ -103,5 +104,28 @@ public class ApplicationNoteServiceImpl  extends BaseServiceImpl implements Appl
 	public TapplicationNote get(ApplicationNote applicationNote) {
 		TapplicationNote menu = applicationNoteDao.get(TapplicationNote.class, applicationNote.getCid());
 		return menu;
+	}
+
+	public void changeFlag(ApplicationNote applicationNote) {
+		// TODO Auto-generated method stub
+		TapplicationNote t = applicationNoteDao.get(TapplicationNote.class, applicationNote.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tapplicationNote c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tapplicationNote c set c.cflag= 0 where c.cid=?";
+		}
+		 
+	
+		try {
+			applicationNoteDao.updateStatus(hql,applicationNote.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

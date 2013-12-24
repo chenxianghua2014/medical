@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.mysql.jdbc.Driver" %>
 <%@ page import="java.sql.*" %>
 <%
@@ -27,15 +27,14 @@ body{
  
 }
 .quanju{
-
- width:1200px;
- margin-left:100px;
++
+ margin-left:20px;
 border:2px solid #000;
 overflow:hidden;
+
 }
 
 .title_nav{
- width:1200px;
  height:134px;
  background:url(fimages/img04.jpg);
  text-align:center;
@@ -44,6 +43,7 @@ overflow:hidden;
 
 .title_nav h1 {
         margin:0 auto;
+        width:1200px;
 	line-height: normal;
 	text-transform: lowercase;
 	font-family:"楷体";
@@ -56,17 +56,20 @@ overflow:hidden;
 }
 
 .menu {
+position:relative;
 font-family: arial, sans-serif; 
-width:1200px;
 height:35px;
 background:#000; 
 margin:0; 
 margin:0px 0;
+z-index:100;
+
 }
 /* remove the bullets and set the margin and padding to zero for the unordered list */
 .menu ul {
 padding:0; 
 margin:0;
+width:1300px;
 list-style-type: none;
 
 }
@@ -148,8 +151,8 @@ width:130px;
 
 
 
-.liebiao{width:100%;height:1170px;}
-.liebiaoleft{float:left;width:100px;height:1100px;}
+.liebiao{}
+
 .liebiaomiddle{width:750px;height:1170px;float:left;border:1px solid #c5c5c5;margin-left:100px;}
 
 .liebiaomiddleyiceng1{width:700px;height:115px;margin-left:20px;border-bottom:1px dashed #c6c6c6;}
@@ -171,7 +174,7 @@ width:130px;
 .shangxiaye{width:740px;height:40px;}
 
 
-.leibiao{height:44px;padding-top:24px;text-align:right;padding-right:29px;}
+.leibiao{padding-top:24px;text-align:right;padding-right:29px;}
 .leibiao a{text-decoration:none; }
 .leibaio a:hover{text-decoration:underline; }
 	 .pageS1{border:1px solid #ccc; padding:5px 5px 0px 5px;height:19px; margin:2px; }
@@ -278,54 +281,100 @@ color:#000;
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="#">关键技术研究</a>
+
+<li><a class="hide" href="/mp/index.jsp">项目管理</a></li>
+<li><a class="hide" href="#">数据服务</a>
 <!--[if lte IE 6]>
 <a href="index.html">MENUS
 <table><tr><td>
 <![endif]-->
     <ul>
-    <li><a href="#" title="changjianbing">常见病</a></li>
-    <li><a href="#" title="jizhengjiuzhi">急诊救治</a></li>
-    <li><a href="#" title="maixingbingkongzhi">慢性病控制</a></li>
-    <li><a href="#" title="xinnaoxieguanfangzhi">心脑血管防治</a></li>
-    <li><a href="#" title="zhongniufangzhi">肿瘤防治</a></li>
-    <li><a href="#" title="shuziyiliaoyiqi">数字医疗仪器</a></li>
-    <li><a href="#" title="yiliaoweishengfuwu">医疗卫生服务</a></li>
-     <li><a href="#" title="yiliaoweishengfuwu">综合示范</a></li>
+<%
+   String ip = request.getHeader("x-forwarded-for");
+   if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		if (ip.indexOf("0:") != -1) {
+			ip = "本地";
+		}
+		
+		System.out.println("the ip is "+ip);
+		String  ipbytes[] = ip.split("\\.");
+		boolean isNeiWangIP = false;
+		if(ipbytes[0].equals("192")&&ipbytes[1].equals("168")&&ipbytes[2].equals("1"))
+		{
+		 isNeiWangIP = true;
+		}
+		if(isNeiWangIP)
+		{
+		
+		%>
+		<li><a href="http://192.168.1.193:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
+                <li><a href="http://192.168.1.195:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+		<% 
+		}
+		else
+		{
+		%>
+		<li><a href="http://219.239.169.12:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
+                <li><a href="http://219.239.169.112:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+		<%
+		}
+  %>
+    
     </ul>
 <!--[if lte IE 6]>
 </td></tr></table>
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="xiangmuguanli.jsp">项目管理</a></li>
-<li><a class="hide" href="#">数据服务</a></li>
-<li><a class="hide" style="width:120px" href="#">关键技术集成与应用示范</a>
+<li><a class="hide" style="width:120px" href="#">远程协作</a>
 <!--[if lte IE 6]>
 <a href="../layouts/index.html">LAYOUTS
 <table><tr><td>
 <![endif]-->
     <ul>
-    <li><a href="#" title="shifan1">应用示范1</a></li>
-    <li><a href="#" title="shifan2">应用示范2</a></li>
-    <li><a href="#" title="shifan3">应用示范3</a></li>
-    <li><a href="#" title="shifan4">应用示范4</a></li>
-    <li><a href="#" title="shifan5">应用示范5</a></li>
-    <li><a href="#" title="shifan3">应用示范6</a></li>
-    <li><a href="#" title="shifan4">应用示范7</a></li>
-    <li><a href="#" title="shifan5">应用示范8</a></li>
+    <li><a href="http://ncmi.tmrcs.com" title="shifan1">远程会诊</a></li>
+    <li><a href="http://video.tmrcs.com" title="shifan2">远程会议</a></li>
+    <li><a href="#" title="shifan3">远程培训</a></li>
     </ul>
 <!--[if lte IE 6]>
 </td></tr></table>
 </a>
 <![endif]-->
 </li>
-<li><a class="hide" href="#">示范县信息平台</a></li>
-<li><a class="hide" href="#">资源下载</a></li>
-<li><a class="hide" href="#">远程培训</a></li>
+
+<li><a class="hide" style="width:150px" href="#">关键技术集成与示范</a>
+<!--[if lte IE 6]>
+<a href="../layouts/index.html">LAYOUTS
+<table><tr><td>
+<![endif]-->
+    <ul>
+    <li><a href="#" title="shifan1">实证研究基地1</a></li>
+    <li><a href="#" title="shifan2">实证研究基地2</a></li>
+    <li><a href="#" title="shifan3">实证研究基地3</a></li>
+    <li><a href="#" title="shifan4">实证研究基地4</a></li>
+    <li><a href="#" title="shifan5">实证研究基地5</a></li>
+    <li><a href="#" title="shifan3">实证研究基地6</a></li>
+    <li><a href="#" title="shifan4">实证研究基地7</a></li>
+    <li><a href="#" title="shifan5">实证研究基地8</a></li>
+    </ul>
+<!--[if lte IE 6]>
+</td></tr></table>
+</a>
+<![endif]-->
+</li>
+<li><a class="hide" style="width:200px" href="#">示范县信息平台资源下载</a></li>
 <li><a class="hide" href="#">联系我们</a></li>
 </ul>
 <!-- clear the floats if required -->
+<div class="clear"> </div>
 </div><!--men结束  <!-->
 <div style="clear:both;"></div>
 <div style="margin-top:20px">
@@ -336,7 +385,7 @@ color:#000;
 
 
  <!--列表部分-->
-        <div class="liebiao">
+        <div class="liebiao" style="">
             <!--列表左侧-->
             <div class="liebiaoleft"></div>
             <div class="liebiaomiddle">
@@ -354,11 +403,11 @@ String userName="root";
 
 //密码
 
-String userPasswd="root";
+String userPasswd="123456";
 
 //数据库名
 
-String dbName="ss";
+String dbName="sp";
 
 //表名
 

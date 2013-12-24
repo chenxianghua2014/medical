@@ -1,6 +1,7 @@
 package sy.dao.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import sy.dao.BaseDaoI;
-
 /**
  * 基础数据库操作实现类
  * 
@@ -194,7 +194,7 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 			int d=0;
 			try {
 				 d=q.executeUpdate();
-				 
+				 System.out.println("progress:"+d);
 				// this.getCurrentSession().clear();
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -226,6 +226,84 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 			}
 			
 			return d;
-		}	
+		}
+		/*
+		 * author wei
+		 * 更新状态
+		 */
+		public void updateStatus(String hql,String id) {
+			// TODO Auto-generated method stub
 
+			Query q = this.getCurrentSession().createSQLQuery(hql);
+
+		    q.setParameter(0, id);
+			int d=0;
+			try {
+				 d=q.executeUpdate();
+				 
+				// this.getCurrentSession().clear();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			System.out.println("status:"+d);
+			
+		}
+
+		public List<Double> getSum(String hql, String username, String course) {
+			// TODO Auto-generated method stub
+			Query q = this.getCurrentSession().createSQLQuery(hql);
+		    q.setParameter(0, username);
+			q.setParameter(1, course);
+						
+			return q.list();
+		}
+
+		public Integer executeHql(String hql, Double param0, String param1) {
+			Query q = this.getCurrentSession().createQuery(hql);			
+			q.setParameter(0, param0);
+			q.setParameter(1, param1);
+			return q.executeUpdate();
+			
+		}
+
+		public String executeHql(String hql, String param0) {
+			Query q = this.getCurrentSession().createQuery(hql);			
+			q.setParameter(0, param0);
+			return (String) q.uniqueResult();
+		}
+
+		public Integer executeHql(String hql, String param0, String param1) {
+			Query q = this.getCurrentSession().createQuery(hql);			
+			q.setParameter(0, param0);
+			q.setParameter(1, param1);
+			return q.executeUpdate();
+		}
+
+		public Integer executeHql1(String hql3, String ccourse, String username,
+				String cfuid) {
+			Query q = this.getCurrentSession().createQuery(hql3);			
+			q.setParameter(0, username);
+			q.setParameter(1, ccourse);
+			q.setParameter(2, cfuid);
+			q.setParameter(3, ccourse);
+			return q.executeUpdate();
+		}
+
+		public List<Double> finds(String hql, Object[] param) {
+			Query q = this.getCurrentSession().createQuery(hql);
+			if (param != null && param.length > 0) {
+				for (int i = 0; i < param.length; i++) {
+					q.setParameter(i, param[i]);
+				}
+			}
+			return q.list();
+		}
+
+		public String find1(String hql) {
+			
+			return (String) this.getCurrentSession().createQuery(hql).uniqueResult();
+		}
+		
 }

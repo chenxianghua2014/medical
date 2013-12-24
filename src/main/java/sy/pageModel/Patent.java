@@ -22,6 +22,18 @@ public class Patent implements java.io.Serializable{
 	private String csummary;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
+
+	// Constructors
+
+	public String getCflag() {
+		return cflag;
+	}
+
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
+	
 	public String getIds() {
 		return ids;
 	}

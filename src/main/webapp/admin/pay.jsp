@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page import="sy.pageModel.SessionInfo"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@page import="sy.util.ResourceUtil"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +118,7 @@
 			border : false,
 			idField : 'cid',
 			treeField : 'cname',
-			frozenColumns : [ [  {
+			columns : [ [  {
 				title : 'cid',
 				field : 'cid',
 				width : 50,
@@ -140,7 +143,10 @@
 					}
 				},
 				formatter : function(value) {
-					if (value) {
+					if (value.indexOf("费")>=0||value.indexOf("支出")>=0) {					   
+						return '<a href="${pageContext.request.contextPath}/kemuAction!kemu.action?ccourse='+value+'">'+value+'</a>';					    
+					}
+					else {
 						return sy.fs('<span title="{0}">{1}</span>', value, value);
 					}
 				}
@@ -161,8 +167,13 @@
 				align : 'right',
 				width : 150,
 				formatter : function(value) {
-					value=value/10000;
-				    value=value.toFixed(2);
+					if (value==null){
+						value=0.00;
+					}
+					else{
+						value=value/10000;
+				    	value=value.toFixed(2);
+					}
 				    value = '￥'+value+'万';
 					return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 				}
@@ -236,18 +247,18 @@
 		});
 
 	});
-
+	
 </script>
 </head>
 <body class="easyui-layout" fit="true">
 	<div region="center" border="false" style="overflow: hidden;">
 		<table id="treegrid"></table>
-	</div>
-
+	</div><%--
+	
 	<div id="menu" class="easyui-menu" style="width:120px;display: none;">
 		<div onclick="append();" iconCls="icon-add">增加</div>
 		<div onclick="remove();" iconCls="icon-remove">删除</div>
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
-</body>
+--%></body>
 </html>

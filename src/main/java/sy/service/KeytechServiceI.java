@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.Tkeytech;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Keytech;
 
 public interface KeytechServiceI extends BaseServiceI{
@@ -39,4 +40,6 @@ public interface KeytechServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tkeytech get(Keytech keytech);
+	
+	public void changeFlag(Keytech keytech);
 }

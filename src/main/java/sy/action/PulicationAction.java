@@ -267,5 +267,19 @@ public class PulicationAction extends BaseAction implements ModelDriven<Pulicati
 		m.put("msg", nm);
 		writeJson(m);
 	}
+	
+	public void changeFlag() {
+		Json j = new Json();
+		try {
+			pulicationService.changeFlag(pulication);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 
 }

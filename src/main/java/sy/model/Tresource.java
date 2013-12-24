@@ -26,6 +26,7 @@ public class Tresource implements java.io.Serializable {
 	private String ccontactid;
 	private String cbackup1;
 	private String cbackup2;
+	private String cflag;
 
 	// Constructors
 
@@ -42,7 +43,7 @@ public class Tresource implements java.io.Serializable {
 	public Tresource(String cid, String cname, String cclassify,
 			String csummary, Integer cmount, String cinformation,
 			String cstorage, String cunit, String cprinciple,
-			String ccontactid, String cbackup1, String cbackup2) {
+			String ccontactid, String cbackup1, String cbackup2, String cflag) {
 		this.cid = cid;
 		this.cname = cname;
 		this.cclassify = cclassify;
@@ -55,6 +56,7 @@ public class Tresource implements java.io.Serializable {
 		this.ccontactid = ccontactid;
 		this.cbackup1 = cbackup1;
 		this.cbackup2 = cbackup2;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -167,4 +169,12 @@ public class Tresource implements java.io.Serializable {
 		this.cbackup2 = cbackup2;
 	}
 
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 }

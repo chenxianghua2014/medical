@@ -5,7 +5,21 @@ import java.util.Date;
 public class Kemu implements java.io.Serializable {
 
 	// 自己添加的属性
+	private Date ccountTimeStart;//记账时间
+	private Date ccountTimeEnd;//记账时间
 	private String ids;
+	public Date getCcountTimeStart() {
+		return ccountTimeStart;
+	}
+	public void setCcountTimeStart(Date ccountTimeStart) {
+		this.ccountTimeStart = ccountTimeStart;
+	}
+	public Date getCcountTimeEnd() {
+		return ccountTimeEnd;
+	}
+	public void setCcountTimeEnd(Date ccountTimeEnd) {
+		this.ccountTimeEnd = ccountTimeEnd;
+	}
 	private int page;// 当前页
 	private int rows;// 每页显示记录数
 	private String sort;// 排序字段名

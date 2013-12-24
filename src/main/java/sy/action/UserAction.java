@@ -2,6 +2,8 @@ package sy.action;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +14,10 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import sy.pageModel.Json;
+import sy.pageModel.Log;
 import sy.pageModel.SessionInfo;
 import sy.pageModel.User;
+import sy.service.LogServiceI;
 import sy.service.UserServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.IpUtil;
@@ -27,13 +31,15 @@ import com.opensymphony.xwork2.ModelDriven;
  * @author 
  * 
  */
-@Action(value = "userAction", results = { @Result(name = "user", location = "/admin/user.jsp"),@Result(name = "loginsuccess", location = "/loginIn.jsp"), @Result(name = "showUserInfo", location = "/user/userInfo.jsp") })
+@Action(value = "userAction", results = { @Result(name = "user", location = "/admin/user.jsp"), @Result(name = "showUserInfo", location = "/user/userInfo.jsp") })
 public class UserAction extends BaseAction implements ModelDriven<User> {
 
 	private static final Logger logger = Logger.getLogger(UserAction.class);
 
 	private User user = new User();
 	private UserServiceI userService;
+	private Log log = new Log();
+	private LogServiceI logService;
 	
 	public UserServiceI getUserService() {
 		return userService;
@@ -43,6 +49,14 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	public void setUserService(UserServiceI userService) {
 		this.userService = userService;
 	}
+	public LogServiceI getLogService() {
+		return logService;
+	}
+
+	@Autowired
+	public void setLogService(LogServiceI logService) {
+		this.logService = logService;
+	}
 
 	public User getModel() {
 		return user;
@@ -50,8 +64,9 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 
 	/**
 	 * 用户登录
-	 */
-	public String login() {
+	 */	
+	/*public String login() {
+		
 		Json j = new Json();
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("utf-8");
@@ -61,7 +76,6 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		}
 		String name = ServletActionContext.getRequest().getParameter("cname");
 		user.setCname(name);
-		System.out.println("the yonghuming is "+user.getCname());
 		User u = userService.login(user);
 		
 		if (u != null) {
@@ -76,6 +90,26 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 			writeJson(j);
 			return "";
 		}
+		
+	}*/
+	public void login() {
+		Json j = new Json();
+		User u = userService.login(user);
+		if (u != null) {
+			SessionInfo sessionInfo = saveSessionInfo(u);
+			log.setCid(UUID.randomUUID().toString());
+			log.setCip(IpUtil.getIpAddr(ServletActionContext.getRequest()));
+			log.setClogintime(new Date());
+			log.setCname(u.getCname());
+			logService.add(log);
+			j.setSuccess(true);
+			j.setMsg("用户登录成功！");
+			j.setObj(sessionInfo);
+			changeUserAuths(u);
+		} else {
+			j.setMsg("用户名或密码错误!");
+		}
+		writeJson(j);
 	}
 
 	/**
@@ -102,6 +136,8 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		sessionInfo.setLoginPassword(user.getCpwd());
 		sessionInfo.setIp(IpUtil.getIpAddr(ServletActionContext.getRequest()));
 		sessionInfo.setGroupId(u.getCgroupid());
+		sessionInfo.setCcd(String.valueOf(u.getCno()));
+		
 		ServletActionContext.getRequest().getSession().setAttribute(ResourceUtil.getSessionInfoName(), sessionInfo);
 		return sessionInfo;
 	}
@@ -203,10 +239,23 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		}
 		writeJson(j);
 	}
-
+//
+	public void editUserInfo() {
+		Json j = new Json();
+		try {
+			userService.editUserInfo(user);
+			j.setSuccess(true);
+			j.setMsg("修改成功！");
+		} catch (Exception e) {
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("修改失败！");
+		}
+		super.writeJson(j);
+	}
+	
 	/**
 	 * 编辑一个用户
-	 */
+	 */	
 	public void edit() {
 		Json j = new Json();
 		try {

@@ -26,6 +26,8 @@ public class Tpatent implements java.io.Serializable {
 	private String csummary;
 	private String ctypeman;
 	private Date ctypetime;
+	private String cflag;
+
 
 	// Constructors
 
@@ -41,7 +43,7 @@ public class Tpatent implements java.io.Serializable {
 	/** full constructor */
 	public Tpatent(String cid, String ccountry, String cname, String cnumber,
 			String cclassify, String cinvent, String cpatentee,
-			String csummary, String ctypeman, Date ctypetime) {
+			String csummary, String ctypeman, Date ctypetime, String cflag) {
 		this.cid = cid;
 		this.ccountry = ccountry;
 		this.cname = cname;
@@ -52,6 +54,7 @@ public class Tpatent implements java.io.Serializable {
 		this.csummary = csummary;
 		this.ctypeman = ctypeman;
 		this.ctypetime = ctypetime;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -144,6 +147,15 @@ public class Tpatent implements java.io.Serializable {
 
 	public void setCtypetime(Date ctypetime) {
 		this.ctypetime = ctypetime;
+	}
+	
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
 	}
 
 }

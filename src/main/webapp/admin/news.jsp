@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,21 +38,35 @@
 				title : '新闻主题',
 				field : 'cname',
 				width : 150,
-				height: 60,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			columns : [ [ {
 				title : '新闻创建时间',
 				field : 'ccreatedatetime',
 				sortable : true,
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '新闻摘要',
 				field : 'cpname',
 				sortable : true,
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
-				title : '新闻文件',
+				title : '新闻内容',
 				field : 'cdesc',
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
@@ -136,7 +150,7 @@
 		});
 
 		bugAddDialog = $('#bugAddDialog').show().dialog({
-			title : '添加BUG',
+			title : '添加新闻',
 			modal : true,
 			closed : true,
 			maximizable : true,
@@ -162,23 +176,23 @@
 		});
 		
 		showCdescDialog = $('#showCdescDialog').show().dialog({
-			title : '新闻文件',
+			title : '新闻内容',
 			modal : true,
 			closed : true,
 			maximizable : true
 		});
 		
 		
-      $("#cdescAdd").xheditor({
+		cdescAdd = $('#cdescAdd').xheditor({
 			tools : 'mini',
 			html5Upload : true,
 			upMultiple : 4,
 			upLinkUrl : 'newsAction!upload.action',
 			upLinkExt : 'zip,rar,txt,doc,docx,xls,xlsx,pdf',
 			upImgUrl : 'newsAction!upload.action',
-			upImgExt : 'jpg,jpeg,gif,png' 
-    }); 
-    
+			upImgExt : 'jpg,jpeg,gif,png'
+		});
+
 		cdescEdit = $('#cdescEdit').xheditor({
 			tools : 'mini',
 			html5Upload : true,
@@ -295,7 +309,7 @@
 			<table class="tableForm">
 				<tr>
 					<th>新闻主题</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写BUG名称" /></td>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写新闻名称" /></td>
 					<th>创建时间</th>
 					<td><input name="ccreatedatetime" class="easyui-datetimebox" editable="false" style="width: 155px;" />
 					</td>
@@ -308,7 +322,7 @@
 					</td>
 					</tr>
 				<tr>
-					<th>新闻上传文件</th>
+					<th>新闻内容</th>
 					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
 				</tr>
 			</table>
@@ -321,7 +335,7 @@
 			<table class="tableForm">
 				<tr>
 					<th>新闻主题</th>
-					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写BUG名称" /></td>
+					<td><input name="cname" class="easyui-validatebox" required="true" missingMessage="请填写新闻名称" /></td>
 					<th>创建时间</th>
 					<td><input name="ccreatedatetime" class="easyui-datetimebox" editable="false" style="width: 155px;" />
 					</td>
@@ -334,7 +348,7 @@
 					</td>
 					</tr>
 				<tr>
-					<th>新闻上传文件</th>
+					<th>新闻内容</th>
 					<td colspan="3"><textarea name="cdesc" id="cdescEdit"></textarea></td>
 				</tr>
 			</table>

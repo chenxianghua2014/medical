@@ -269,5 +269,19 @@ public class EmpiricalResearchAction extends BaseAction implements ModelDriven<E
 		m.put("msg", nm);
 		writeJson(m);
 	}
+	
+	public void changeFlag() {
+		Json j = new Json();
+		try {
+			empiricalResearchService.changeFlag(empiricalResearch);
+			j.setSuccess(true);
+			j.setMsg("更改状态成功!请手动刷新页面！");
+		} catch (Exception e) {
+			
+			logger.error(ExceptionUtil.getExceptionMessage(e));
+			j.setMsg("编辑失败！");
+		}
+		writeJson(j);
+	}
 
 }

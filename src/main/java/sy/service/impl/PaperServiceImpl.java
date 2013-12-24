@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sy.dao.BaseDaoI;
 import sy.model.Tpaper;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Paper;
 import sy.service.PaperServiceI;
 
@@ -50,7 +51,7 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperServiceI{
 	}
 
 	private List<Tpaper> find(Paper paper) {
-		String hql = "select new Tpaper( t.cid, t.cname,t.cckeyword, t.cekeyword,t.csummary, t.clanguage, t.cfcontactid,t.cccontactid, t.cperiodical, t.cissue,t.cstate, t.cpublishtime, t.cclassify, t.cinde,t.ctypeman, t.ctypetime) from Tpaper t where 1=1 ";
+		String hql = "select new Tpaper( t.cid, t.cname,t.cckeyword, t.cekeyword,t.csummary, t.clanguage, t.cfcontactid,t.cccontactid, t.cperiodical, t.cissue,t.cstate, t.cpublishtime, t.cclassify, t.cinde,t.ctypeman, t.ctypetime, t.cflag) from Tpaper t where 1=1 ";
 
 		List<Object> values = new ArrayList<Object>();
 		hql = addWhere(paper, hql, values);
@@ -69,6 +70,14 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperServiceI{
 	}
 
 	private String addWhere(Paper paper, String hql, List<Object> values) {
+		if (paper.getCname() != null && !paper.getCname().trim().equals("")) {
+			hql += " and t.cname like ? ";
+			values.add("%%" + paper.getCname().trim() + "%%");
+		}
+		if (paper.getCfcontactid() != null) {
+			hql += " and t.cfcontactid like ? ";
+			values.add("%%" + paper.getCfcontactid().trim() + "%%");
+		}
 		return hql;
 	}
 
@@ -76,7 +85,7 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperServiceI{
 		if (paper.getCid() == null || paper.getCid().trim().equals("")) {
 			paper.setCid(UUID.randomUUID().toString());
 		}
-		
+		paper.setCflag("1");
 		Tpaper t = new Tpaper();	
 		BeanUtils.copyProperties(paper, t);
 		paperDao.save(t);
@@ -103,5 +112,27 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperServiceI{
 	public Tpaper get(Paper paper) {
 		Tpaper menu = paperDao.get(Tpaper.class, paper.getCid());
 		return menu;
+	}
+	
+	public void changeFlag(Paper paper) {
+		// TODO Auto-generated method stub
+		Tpaper t = paperDao.get(Tpaper.class, paper.getCid());
+		String  cstatus = t.getCflag();
+		String hql = " ";
+		///
+		if (Integer.parseInt(cstatus) == 0)
+		{
+			hql = "update tpaper c set c.cflag= 1 where c.cid=?";
+		}else{
+			hql = "update tpaper c set c.cflag= 0 where c.cid=?";
+		}
+		 System.out.println(hql);
+	
+		try {
+			paperDao.updateStatus(hql,paper.getCid());
+			
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
 	}
 }

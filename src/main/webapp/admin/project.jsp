@@ -130,8 +130,9 @@
 						treegrid.treegrid('reload');
 					}
 				}
-			}, '-', {
+			}, '-'/* , {
 				text : '取消编辑',
+				id :'123',
 				iconCls : 'icon-undo',
 				handler : function() {
 					if (editRow) {
@@ -152,7 +153,7 @@
 				handler : function() {
 					treegrid.treegrid('unselectAll');
 				}
-			}, '-', {
+			}, '-' */, {
 				text : '更改状态',
 				iconCls : 'icon-undo',
 				handler : function() {
@@ -206,6 +207,42 @@
 			} ] ],
 			columns : [ [ 
 			{
+				field : '123',                                   //添加任务状态 拖期、进行中、已完成
+				title : '任务状态',
+				width : 150,
+				align : 'right',
+				formatter : function(value, rowData, rowIndex) {
+				value=rowData.cendtime;
+				status=rowData.cstatus;
+				id=rowData.cid;
+				var time2012="2012-12-31";
+				var time2013="2013-12-31";
+				var time2014="2014-12-31"; 
+				if ((id>54)&&(value==time2012)&&(status==1))
+				{
+					return sy.fs('<font size="3" color="red">拖期</font>');
+				}
+				if ((id>54)&&(value==time2013)&&(status==1))
+				{
+					return sy.fs('<font size="3">进行中</font>');
+				}
+				if ((id>54)&&(value==time2014)&&(status==1))
+				{
+					
+					return sy.fs('<font size="3" color="green">未开展</font>');
+				}
+				if (status==0)
+				{
+				    return sy.fs('<font size="3">完成</font>');
+				}
+				if(id<55)
+				{
+					return sy.fs('<font size="3">进行中</font>');
+				}
+				}
+					
+			},
+			/*{
 				field : 'cstatus',
 				title : '状态',
 				align : 'right',
@@ -219,7 +256,7 @@
 						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			} ,{
+			} ,*/{
 				field : 'cprogress',
 				title : '进度',
 				align : 'center',
@@ -286,16 +323,7 @@
 						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			},{
-				field : 'cresponser',
-				title : '负责人',
-				width : 150,
-				formatter : function(value) {
-					if (value) {
-						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
-					}
-				}
-			} /*  ,{
+			}  ,{
 				field : 'cuid',
 				title : '负责人',
 				width : 150,
@@ -313,31 +341,6 @@
 						textField : 'cname'
 					}
 				}
-			} */,{
-				field : '123',                                   //添加任务状态 拖期、进行中、已完成
-				title : '任务状态',
-				width : 150,
-				formatter : function(value, rowData, rowIndex) {
-				value=rowData.cendtime;
-				id=rowData.cid;
-				var time2012="2012-12-31";
-				var time2013="2013-12-31";
-				var time2014="2014-12-31"; 
-				if ((id>54)&&(value==time2012))
-				{
-					return sy.fs('<font size="3" color="red">拖期</font>');
-				}
-				if ((id>54)&&(value==time2013))
-				{
-					return sy.fs('<font size="3">进行中</font>');
-				}
-				if ((id>54)&&(value==time2014))
-				{
-					
-					return sy.fs('<font size="3" color="green">未开展</font>');
-				}
-				}
-					
 			}
 			] ],
 			onDblClickRow : function(row) {
@@ -479,7 +482,7 @@
 	}
 	function append() {
 
-		if (editRow != undefined) {
+	    if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -487,10 +490,9 @@
 			var node = treegrid.treegrid('getSelected');
 			var row = [ {
 				cid : sy.UUID(),
-				cname : '',
+				cname : '菜单名称',
 				curl : '',
-				cseq : '',
-				cprogress : '',
+				cseq : 10,
 				cpid : node == null ? '' : node.cid
 			} ];
 			treegrid.treegrid('append', {
@@ -502,7 +504,7 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		};
+		} ;
 			
 	}
 	function remove() {

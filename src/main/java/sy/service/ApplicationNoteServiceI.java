@@ -3,6 +3,7 @@ package sy.service;
 import sy.model.TapplicationNote;
 import sy.pageModel.DataGrid;
 import sy.pageModel.ApplicationNote;
+import sy.pageModel.Project;
 
 public interface ApplicationNoteServiceI extends BaseServiceI {
 
@@ -40,5 +41,14 @@ public interface ApplicationNoteServiceI extends BaseServiceI {
 	 * @return
 	 */
 	public TapplicationNote get(ApplicationNote applicationNote);
+	
+	/**
+	 * 获得
+	 * 
+	 * @param applicationNote
+	 * @return
+	 */
+	public void changeFlag(ApplicationNote applicationNote);
+	
 }
 

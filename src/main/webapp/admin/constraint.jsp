@@ -130,7 +130,7 @@
 						treegrid.treegrid('reload');
 					}
 				}
-			}, '-', {
+			}, '-'/* , {
 				text : '取消编辑',
 				iconCls : 'icon-undo',
 				handler : function() {
@@ -152,7 +152,7 @@
 				handler : function() {
 					treegrid.treegrid('unselectAll');
 				}
-			}, '-', {
+			}, '-' */, {
 				text : '更改状态',
 				iconCls : 'icon-undo',
 				handler : function() {

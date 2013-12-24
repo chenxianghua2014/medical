@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,6 +13,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -23,13 +26,14 @@ import org.springframework.util.FileCopyUtils;
 
 import sy.pageModel.Json;
 import sy.pageModel.Kemu;
+import sy.pageModel.SessionInfo;
 import sy.service.KemuServiceI;
 import sy.util.ExceptionUtil;
 import sy.util.ResourceUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 
-@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp") })
+@Action(value = "kemuAction", results = { @Result(name = "kemu", location = "/admin/kemu.jsp")})
 public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 
 	private static final Logger logger = Logger.getLogger(KemuAction.class);
@@ -55,8 +59,19 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 	 * 跳转到kemu管理页面
 	 * 
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String kemu() {
+	/*public String kemu(){
+				
+		return "kemu";
+	}*/
+	public String kemu() throws UnsupportedEncodingException {
+		if(kemu.getCcourse()!=null){
+			SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
+			String s=kemu.getCcourse();
+			String str=new String(s.trim().getBytes("ISO-8859-1"), "utf-8");
+			sessionInfo.setCourse(str);
+		}
 		return "kemu";
 	}
 
@@ -70,6 +85,21 @@ public class KemuAction extends BaseAction implements ModelDriven<Kemu> {
 		writeJson(kemuService.datagrid(kemu));
 	}
 
+	/**
+	 * 获得制定科目明细
+	 *//*
+	public String kemu1(Kemu kemu) {
+		SessionInfo sessionInfo = (SessionInfo) ServletActionContext.getRequest().getSession().getAttribute(ResourceUtil.getSessionInfoName());
+		System.out.println(kemu.getCcourse());
+		sessionInfo.setCourse(kemu.getCcourse());
+		return "kemu1";
+	}*/
+	
+	/*public void datagrid1() {		
+		System.out.println(kemu.getCcourse());
+		writeJson(kemuService.datagrid(kemu));
+	}*/
+	
 	/**
 	 * 添加一个kemu
 	 */

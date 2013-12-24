@@ -1,6 +1,5 @@
 package sy.pageModel;
 
-import java.math.BigDecimal;
 
 import sy.model.Tpay;
 import sy.model.Tuser;
@@ -60,13 +59,15 @@ public class Pay implements java.io.Serializable {
 	
 	private String cid;
 	private Tpay tpay;
-	private BigDecimal cseq;
+	private String cseq;
 	private String cname;
 	private String cresponser;
 	private Float cbudget;
-	private Float ccost;
-	private Float cbalance;
+	private Double ccost;
+	private Float cbalance;	
 	private Float cmoney;
+	private String cfuid;
+	private String cfpid;
 	
 	public String getCid() {
 		return cid;
@@ -80,10 +81,10 @@ public class Pay implements java.io.Serializable {
 	public void setTpay(Tpay tpay) {
 		this.tpay = tpay;
 	}
-	public BigDecimal getCseq() {
+	public String getCseq() {
 		return cseq;
 	}
-	public void setCseq(BigDecimal cseq) {
+	public void setCseq(String cseq) {
 		this.cseq = cseq;
 	}
 	public String getCname() {
@@ -98,10 +99,10 @@ public class Pay implements java.io.Serializable {
 	public void setCresponser(String cresponser) {
 		this.cresponser = cresponser;
 	}	
-	public Float getCcost() {
+	public Double getCcost() {
 		return ccost;
 	}
-	public void setCcost(Float ccost) {
+	public void setCcost(Double ccost) {
 		this.ccost = ccost;
 	}
 	public Float getCbalance() {
@@ -123,4 +124,17 @@ public class Pay implements java.io.Serializable {
 		this.cmoney = cmoney;
 	}
 	
+	public String getCfuid() {
+		return cfuid;
+	}
+	public void setCfuid(String cfuid) {
+		this.cfuid = cfuid;
+	}
+	public String getCfpid() {
+		return cfpid;
+	}
+	public void setCfpid(String cfpid) {
+		this.cfpid = cfpid;
+	}
+
 }

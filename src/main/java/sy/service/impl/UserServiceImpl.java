@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sy.dao.BaseDaoI;
 import sy.model.Tauth;
+import sy.model.Tnotice;
 import sy.model.Trole;
 import sy.model.Troletauth;
 import sy.model.Tuser;
@@ -37,7 +38,8 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
 	private BaseDaoI<Tuser> userDao;
 	private BaseDaoI<Trole> roleDao;
 	private BaseDaoI<Tusertrole> userroleDao;
-
+	private BaseDaoI<Tnotice> noticeDao;
+	
 	public BaseDaoI<Trole> getRoleDao() {
 		return roleDao;
 	}
@@ -64,13 +66,27 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
 	public void setUserDao(BaseDaoI<Tuser> userDao) {
 		this.userDao = userDao;
 	}
+	
+	public BaseDaoI<Tnotice> getNoticeDao() {
+		return noticeDao;
+	}
+
+	@Autowired
+	public void setNoticeDao(BaseDaoI<Tnotice> noticeDao) {
+		this.noticeDao = noticeDao;
+	}
 
 	/**
 	 * 用户登录
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public User login(User user) {
-		Tuser u = userDao.get("from Tuser t where t.cname=? and t.cpwd=?", new Object[] { user.getCname(), Encrypt.e(user.getCpwd()) });
+		Tuser u = userDao.get("from Tuser t where t.cname=? and t.cpwd=?", new Object[] { user.getCname(), Encrypt.e(user.getCpwd()) });		
+		String cget = u.getCname();
+		cget="'"+cget+"'";
+		String hql ="select count(*) from Tnotice t where t.cget= "+cget;
+		Integer n = Integer.parseInt(String.valueOf(noticeDao.count(hql)));
+		u.setCno(n);
 		if (u != null) {
 			User t = new User();
 			BeanUtils.copyProperties(u, t);
@@ -333,6 +349,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
 			}
 		}
 		return b;
+	}
+
+	public void editUserInfo(User user) {
+		if (user.getCpwd() != null && !user.getCpwd().trim().equals("")) {
+			Tuser t = userDao.get(Tuser.class, user.getCid());
+			t.setCpwd(Encrypt.e(user.getCpwd()));
+		}
 	}
 
 

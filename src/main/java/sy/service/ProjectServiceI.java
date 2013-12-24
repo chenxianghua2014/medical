@@ -60,5 +60,20 @@ public interface ProjectServiceI extends BaseServiceI {
 	 */
 	public List<User> combobox(String groupId);
 	
+	/**
+	 * 获得进度
+	 * 
+	 * @return
+	 */
+	public void editProgress(Project project);
+	
+	/**
+	 * 更改状态
+	 * 
+	 * @return
+	 */
+	public void changeStatus(Project project);
+
+	
 
 }

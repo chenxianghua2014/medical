@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.Tpatent;
 import sy.pageModel.DataGrid;
+import sy.pageModel.EmpiricalResearch;
 import sy.pageModel.Patent;
 
 public interface PatentServiceI extends BaseServiceI{
@@ -40,4 +41,6 @@ public interface PatentServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public Tpatent get(Patent patent);
+	
+	public void changeFlag(Patent patent);
 }

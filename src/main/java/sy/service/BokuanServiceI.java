@@ -3,8 +3,10 @@ package sy.service;
 import java.util.List;
 
 import sy.model.Tbokuan;
+import sy.model.Tbokuan;
 import sy.pageModel.DataGrid;
 import sy.pageModel.Bokuan;
+import sy.pageModel.Kemu;
 import sy.pageModel.Project;
 import sy.pageModel.User;
 
@@ -43,6 +45,15 @@ public interface BokuanServiceI extends BaseServiceI {
 	 * @return
 	 */
 	public Tbokuan get(Bokuan bokuan);
+	
+	/**
+	 * 获得
+	 * 
+	 * @param 更新汇总表
+	 * @return
+	 * @author wei
+	 */
+	public Tbokuan updatepay(Bokuan bokuan);
 	
 	
 }

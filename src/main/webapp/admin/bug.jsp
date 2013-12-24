@@ -38,13 +38,23 @@
 				title : 'BUG名称',
 				field : 'cname',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			columns : [ [ {
 				title : 'BUG创建时间',
 				field : 'ccreatedatetime',
 				sortable : true,
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : 'BUG描述',
 				field : 'cdesc',

@@ -2,6 +2,7 @@ package sy.service;
 
 import sy.model.TempiricalResearch;
 import sy.pageModel.DataGrid;
+import sy.pageModel.Device;
 import sy.pageModel.EmpiricalResearch;
 
 public interface EmpiricalResearchServiceI extends BaseServiceI{
@@ -39,4 +40,6 @@ public interface EmpiricalResearchServiceI extends BaseServiceI{
 	 * @return
 	 */
 	public TempiricalResearch get(EmpiricalResearch empiricalResearch);
+	
+	public void changeFlag(EmpiricalResearch empiricalResearch);
 }

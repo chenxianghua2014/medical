@@ -32,7 +32,9 @@ public class Tdevice implements java.io.Serializable {
 	private String ccontactid;
 	private String cbackup1;
 	private String cbackup2;
+	private String cflag;
 
+	
 	// Constructors
 
 	/** default constructor */
@@ -48,7 +50,7 @@ public class Tdevice implements java.io.Serializable {
 	public Tdevice(String cid, String cnumber, String csource, String ccname,
 			String cename, Date cresearchtime, String cversion, String cfield,
 			String cfactory, Double cprice, String cnote, String cunit,
-			String ccontactid, String cbackup1, String cbackup2) {
+			String ccontactid, String cbackup1, String cbackup2, String cflag) {
 		this.cid = cid;
 		this.cnumber = cnumber;
 		this.csource = csource;
@@ -64,6 +66,7 @@ public class Tdevice implements java.io.Serializable {
 		this.ccontactid = ccontactid;
 		this.cbackup1 = cbackup1;
 		this.cbackup2 = cbackup2;
+		this.cflag = cflag;
 	}
 
 	// Property accessors
@@ -203,5 +206,12 @@ public class Tdevice implements java.io.Serializable {
 	public void setCbackup2(String cbackup2) {
 		this.cbackup2 = cbackup2;
 	}
-
+	@Column(name = "cflag", length = 36)
+	public String getCflag() {
+		return cflag;
+	}
+		
+	public void setCflag(String cflag) {
+		this.cflag = cflag;
+	}
 }
