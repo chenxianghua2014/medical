@@ -413,7 +413,7 @@ $(function(){
 <![endif]-->
 </li>
 
-<li><a class="hide" href="/mp/index.jsp">项目管理</a></li>
+<li><a class="hide" href="./mpIndex.jsp">项目管理</a></li>
 <li><a class="hide" href="#">数据服务</a>
 <!--[if lte IE 6]>
 <a href="index.html">MENUS
