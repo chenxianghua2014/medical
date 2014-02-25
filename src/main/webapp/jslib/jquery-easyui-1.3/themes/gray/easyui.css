@@ -312,7 +312,7 @@
 	position:relative;
 }
 .datagrid-pager-top{
-	border-top:0;
+	border-top:10;
 	border-bottom:1px solid #ccc;
 }
 
@@ -327,11 +327,11 @@
 	width:10000px;
 }
 .datagrid-header-row{
-	height:25px;
+	height:30px;
 }
 .datagrid-header td{
 	border-right:1px dotted #ccc;
-	font-size:12px;
+	font-size:15px;                 /* 标题 项目编号、项目名称大小 */
 	font-weight:normal;
 	background:#fafafa url('images/datagrid_header_bg.gif') repeat-x left bottom;
 	border-bottom:1px dotted #ccc;
@@ -399,6 +399,8 @@
 	overflow:hidden;
 	padding:0;
 	margin:0;
+	//center颜色
+	
 }
 .datagrid-body .datagrid-cell,.datagrid-footer .datagrid-cell{
 	overflow:hidden;
@@ -427,7 +429,8 @@
 	height:18px;
 }
 .datagrid-row{
-	height:25px;
+	height:40px;             //修改center间距
+	background:#FF0000;
 }
 .datagrid-row-collapse{
 	background:url('images/datagrid_row_collapse.gif') no-repeat center center;
@@ -439,11 +442,11 @@
 	background:#fafafa;
 }
 .datagrid-row-over{
-	background:#efefef;
+	background:#efefef;    //光标移动颜色
 	cursor:default;
 }
 .datagrid-row-selected{
-	background:#FBEC88;
+	background:#FBEC88;    //光标选中颜色
 }
 .datagrid-resize-proxy{
 	position:absolute;
@@ -620,7 +623,7 @@
 a.l-btn{
 	color:#444;
 	background:url('images/button_a_bg.gif') no-repeat top right;
-	font-size:12px;
+	font-size:15px;  /*展开、折叠、刷新字体大小*/
 	text-decoration:none;
 	display:inline-block;
 	zoom:1;
@@ -871,14 +874,14 @@ a.m-btn-plain-active{
 }
 .panel{
 	overflow:hidden;
-	font-size:12px;
+	font-size:15px;       /* 版权 */
 }
 .panel-header{
 	padding:5px;
-	line-height:15px;
+	line-height:30px;
 	color:#3F3F3F;
 	font-weight:bold;
-	font-size:12px;
+	font-size:20px;          /*功能导航、菜单、功能菜单、欢迎字体大小 */
 	background:url('images/panel_title.gif') repeat-x;
 	position:relative;
 	border:1px solid #D3D3D3;
@@ -1305,7 +1308,7 @@ a.s-btn-plain-active .s-btn-downarrow{
 	margin:0px;
 	padding:0px;
 	padding-left:4px;
-	font-size:12px;
+	font-size:17px;      /*首页、任务管理标签*/
 	width:5000px;
 	border-bottom:1px solid #D3D3D3;
 }
@@ -1425,6 +1428,8 @@ a.s-btn-plain-active .s-btn-downarrow{
 	margin:0;
 	padding:0;
 	list-style-type:none;
+	
+	
 }
 .tree li{
 	white-space:nowrap;
@@ -1434,10 +1439,13 @@ a.s-btn-plain-active .s-btn-downarrow{
 	margin:0;
 	padding:0;
 }
-.tree-node{
-	height:18px;
+.tree-node{						//左功能菜单修改
+	
 	white-space:nowrap;
 	cursor:pointer;
+	font-weight:bold;
+	font-size:23px;           
+	
 }
 .tree-indent{
 	display:inline-block;
@@ -1527,6 +1535,7 @@ a.s-btn-plain-active .s-btn-downarrow{
 	vertical-align:middle;
 	padding:1px 2px 1px 2px;
 	white-space:nowrap;
+	font-size:15px;  /* 修改左侧边栏字体大小 */
 }
 
 .tree-node-hover{

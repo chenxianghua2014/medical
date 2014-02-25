@@ -89,7 +89,7 @@
 }
 .datagrid-header td{
 	border-right:1px dotted #AED0EA;
-	font-size:12px;
+	font-size:16px;
 	font-weight:normal;
 	background:#f2f5f7 url('images/ui-bg_highlight-hard_100_f2f5f7_1x100.png') repeat-x 50% 50%;
 	border-bottom:1px dotted #AED0EA;
@@ -153,7 +153,7 @@
 	float:left;
 }
 .datagrid-body td,.datagrid-footer td{
-	font-size:12px;
+	font-size:33px;
 	border-right:1px dotted #AED0EA;
 	border-bottom:1px dotted #AED0EA;
 	overflow:hidden;

@@ -342,7 +342,7 @@
 					}
 				}
 			}
-			] ],
+			] ]/*,
 			onDblClickRow : function(row) {
 				if (editRow != undefined) {
 					treegrid.treegrid('endEdit', editRow.cid);
@@ -354,7 +354,7 @@
 					editType = 'edit';
 					treegrid.treegrid('unselectAll');
 				}
-			},
+			}*/,
 			onAfterEdit : function(row, changes) {
 				if (editType == undefined) {
 					editRow = undefined;

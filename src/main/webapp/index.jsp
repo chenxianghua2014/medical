@@ -167,10 +167,20 @@ width:130px;
 .c_left_box ul li { line-height:24px; margin:3px 0 3px 50px;  }
 .c_left_box ul li a{text-decoration:none;}
 .c_left_box ul li a:hover{text-decoration:underline;}
-.c_left_box ul li span { margin-left:0px; font-size:12px; 
+
+.c_left_box ul li a span { margin-left:0px; font-size:12px; 
 
 color:#666666;
 font-weight:lighter; z-index:99; zomm:1; }
+
+
+
+.sec h3{width:170px;height:25px;background:#C6E2FF;}
+.sec h3 span{font-size:13px;font-weight:bold;}
+.down1{display:block; width:18px; height:18px; background:url(info_show_js/images/green_up.gif) no-repeat; float:right; margin-right:10px; margin-top:3px}
+.up1{display:block; width:18px; height:18px; background:url(info_show_js/images/green_down.gif) no-repeat; float:right; margin-right:10px; margin-top:3px}
+
+
 
 #demo{overflow:auto;}
 #demo1 h2{
@@ -360,6 +370,17 @@ $(function(){
 		$(this).attr('class','down');
 		$(this).parent().next('ul').slideDown('2000');
 	});
+	
+	$(".down1").toggle(function(){
+		$(this).attr('class','up1');
+		$(this).parent().next('ul').slideUp('2000');
+	},function(){
+		$(this).attr('class','down1');
+		$(this).parent().next('ul').slideDown('2000');
+	});
+	
+	
+	
 });
 
 </script>
@@ -392,7 +413,7 @@ $(function(){
 <![endif]-->
 </li>
 
-<li><a class="hide" href="./mpIndex.jsp">项目管理</a></li>
+<li><a class="hide" href="/mp/index.jsp">项目管理</a></li>
 <li><a class="hide" href="#">数据服务</a>
 <!--[if lte IE 6]>
 <a href="index.html">MENUS
@@ -503,7 +524,20 @@ $(function(){
                                  	<li><a href="newsinfo/key_Tecl_1/3.pps"><span>农村冠心病规范诊疗</span></a></li>
                                  	<li><a href="newsinfo/key_Tecl_1/4.pps"><span>农村支气管哮喘诊疗</span></a></li>
                                  	<li><a href="newsinfo/key_Tecl_1/5.pps"><span>农村血脂异常规范</span></a></li>
-                                 </ul>
+                                 	<li class="sec"><h3><span>胆道结石规范诊疗</span><a href="#" class="down1" ></a></h3>
+                                 	<ul>
+                                 	<li><a href="newsinfo/key_Tecl_1/6.doc"><span>胆道结石的诊治流程</span></a></li>
+									<li><a href="newsinfo/key_Tecl_1/7.doc"><span>胆道结石诊疗规范</span></a></li>
+									<li><a href="newsinfo/key_Tecl_1/8.htm"><span>胆道结石-基线</span></a></li>
+									<li><a href="newsinfo/key_Tecl_1/9.htm"><span>胆道结石观察表</span></a></li>
+                                 	</ul>
+                                 	
+                                 	
+                                 	</li>
+
+                                 	
+
+                </ul>
             </div>
                         <div class="c_left_box">
            		<h2><span>农村急诊救治</span><a href="#" class="down"></a></h2>
