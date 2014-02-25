@@ -1,13 +1,11 @@
-<!-- 
-	author:wlq
-	date:2013/5/23
- -->
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
+    var searchForm;
+    
 	var datagrid;
 	var kemuAddDialog;
 	var kemuAddForm;
@@ -17,9 +15,17 @@
 	var cdescAdd;
 	var showCdescDialog;
 	$(function() {
+	
+		searchForm = $('#searchForm').form();
+		
 		datagrid = $('#datagrid').datagrid({
+			/* rowStyler:function(index,row){     
+			    if (index%2==0){     
+			            return 'background-color:#EFEFEF;';     
+			        }     
+			    }, */
 			url : 'kemuAction!datagrid.action',
-			title : 'kemu列表(弹窗修改模式)',
+			title : '经费科目支出列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -30,7 +36,9 @@
 			nowrap : false,
 			border : false,
 			idField : 'cid',
+			striped : true,
 			sortOrder : 'desc',
+			sortName : 'ccountTime',
 			frozenColumns : [ [ {
 				title : '编号',
 				field : 'cid',
@@ -40,23 +48,53 @@
 			}, {
 				title : '支出摘要',
 				field : 'cname',
-				width : 300
+				width : 300,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '金额（元）',
 				field : 'cmoney',
-				width : 150
-			} , {
+				align : 'right',
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			} ] ],
+			columns : [ [  {
 				title : '会计凭证号',
 				field : 'ccountId',
-				width : 150
+				align : 'right',
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}  , {
 				title : '记账时间',
 				field : 'ccountTime',
-				width : 150
+				width : 150,
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '票据号',
 				field : 'ctickets',
-				width : 150
+				align : 'right',
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} , {
 				title : '电子凭证',
 				field : 'cdatei',
@@ -68,7 +106,22 @@
 				title : '科目',
 				field : 'ccourse',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			}, {
+				title : '负责人',
+				field : 'cprojectid',
+				width : 150,
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}] ],
 			toolbar : [ {
 				text : '增加',
@@ -88,12 +141,6 @@
 				handler : function() {
 					edit();
 				}
-			}, '-', {
-				text : '取消选中',
-				iconCls : 'icon-undo',
-				handler : function() {
-					datagrid.datagrid('unselectAll');
-				}
 			}, '-' ],
 			onRowContextMenu : function(e, rowIndex, rowData) {
 				e.preventDefault();
@@ -106,6 +153,8 @@
 			}
 		});
 
+		
+		
 		kemuAddForm = $('#kemuAddForm').form({
 			url : 'kemuAction!add.action',
 			success : function(data) {
@@ -136,7 +185,7 @@
 				handler : function() {
 					kemuAddForm.submit();
 				}
-			} ]
+			}]
 		});
 
 		kemuEditForm = $('#kemuEditForm').form({
@@ -200,6 +249,15 @@
 		});
 
 	});
+	
+	function _search() {
+	        datagrid.datagrid('load', sy.serializeObject(searchForm));
+	}
+		
+	function cleanSearch() {
+			datagrid.datagrid('load', {});
+			searchForm.find('input').val('');
+	}
 
 	function add() {
 		kemuAddForm.find('input,textarea').val('');
@@ -290,6 +348,25 @@
 </script>
 </head>
 <body class="easyui-layout">
+	
+	<div region="north" border="false" title="过滤条件" style="height: 90px;overflow: hidden;" align="left">
+		<form id="searchForm">
+			<table class="tableForm datagrid-toolbar" style="width: 100%;height: 100%;">
+				<tr>
+					<th>负责人</th>
+					<td><input name="cprojectid" style="width:155px;" /></td>	
+					<th>科目</th>
+					<td><input name="ccourse" style="width:155px;" /></td>			
+					<th>记账时间</th>
+					<td><input name="ccountTimeStart" class="easyui-datebox" editable="false" style="width: 155px;" />
+					至<input name="ccountTimeEnd" class="easyui-datebox" editable="false" style="width: 155px;" />
+					<a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 	<div region="center" border="false">
 		<table id="datagrid"></table>
 	</div>
@@ -300,7 +377,7 @@
 		<div onclick="edit();" iconCls="icon-edit">编辑</div>
 	</div>
 
-	<div id="kemuAddDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="kemuAddDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="kemuAddForm" method="post">
 			<table class="tableForm">
 				<tr>
@@ -315,7 +392,7 @@
 					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
 				
 					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>
+					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
 					<th>票据号</th>
@@ -324,9 +401,21 @@
 					<th>科目</th>
 					<td>
 						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
+						   <option value="设备购置费">购置设备费</option>
+						   <option value="设备试制费">试制设备费</option>
+						   <option value="设备租赁费">设备改造与租赁费</option>
 						   <option value="材料费">材料费</option>
+						   <option value="测试化验加工费">测试化验加工费</option>
+						   <option value="燃料动力费">燃料动力费</option>
+						   <option value="差旅费">差旅费</option>
+						   <option value="会议费">会议费</option>
+						   <option value="国际合作与交流费">国际合作与交流费</option>
+						   <option value="出版/文献/信息传播/知识产权事务费">出版/文献/信息传播/知识产权事务费</option>
 						   <option value="劳务费">劳务费</option>
+						   <option value="专家咨询费">专家咨询费</option>
+						   <option value="其他支出">其他支出</option>
+						   <option value="间接费用">间接费用</option>
+						   <option value="绩效支出">绩效支出</option>
 						</select>
 					</td>					
 				</tr>
@@ -340,7 +429,7 @@
 		</form>
 	</div>
 
-	<div id="kemuEditDialog" style="display: none;width: 500px;height: 300px;" align="center">
+	<div id="kemuEditDialog" style="display: none;width: 600px;height: 400px;" align="center">
 		<form id="kemuEditForm" method="post">
 			<input type="hidden" name="cid" />
 			<table class="tableForm">
@@ -356,7 +445,7 @@
 					<td><input name="ccountId" class="easyui-validatebox" required="true"   missingMessage="请填写会计凭证号" /></td>
 				
 					<th>记账时间</th>
-					<td><input name="ccountTime" class="easyui-datetimebox" editable="false" style="width: 155px;" /></td>
+					<td><input name="ccountTime" class="easyui-datebox" editable="false" style="width: 155px;" /></td>
 				</tr>
 				<tr>
 					<th>票据号</th>
@@ -365,9 +454,21 @@
 					<th>科目</th>
 					<td>
 						<select  name="ccourse">
-						   <option value="购置设备费">购置设备费</option>
+						   <option value="设备购置费">购置设备费</option>
+						   <option value="设备试制费">试制设备费</option>
+						   <option value="设备租赁费">设备改造与租赁费</option>
 						   <option value="材料费">材料费</option>
+						   <option value="测试化验加工费">测试化验加工费</option>
+						   <option value="燃料动力费">燃料动力费</option>
+						   <option value="差旅费">差旅费</option>
+						   <option value="会议费">会议费</option>
+						   <option value="国际合作与交流费">国际合作与交流费</option>
+						   <option value="出版/文献/信息传播/知识产权事务费">出版/文献/信息传播/知识产权事务费</option>
 						   <option value="劳务费">劳务费</option>
+						   <option value="专家咨询费">专家咨询费</option>
+						   <option value="其他支出">其他支出</option>
+						   <option value="间接费用">间接费用</option>
+						   <option value="绩效支出">绩效支出</option>
 						</select>
 					</td>					
 				</tr>

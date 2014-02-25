@@ -22,7 +22,11 @@
 						msg : json.msg
 					});
 					var user = json.obj;
-					afterLoginSuccess(user.loginName, user.ip);
+					if(user.ccd > 0)
+					{
+						afterLoginSuccess(user.loginName, user.groupId);
+					}
+					else afterLoginSuccess1(user.loginName, user.groupId);
 				} else {
 					$.messager.show({
 						title : '失败',
@@ -59,16 +63,15 @@
 		});
 
 		loginAndRegDialog = $('#loginAndRegDialog').show().dialog({
-			buttons : [ {
+			buttons : [ /* {
 				text : '注册',
 				handler : function() {					
 						regDialog.dialog('open');
 				}
-			}, {
+			}, */ {
 				text : '登录',
 				handler : function() {
-					var f = loginTabs.tabs('getSelected').find('form');
-					f.submit();
+					loginInputForm.submit();
 				}
 			} ]
 		});
@@ -95,12 +98,16 @@
 
 		loginTabs = $('#loginTabs').tabs({
 			onSelect : function(title) {
-				if ('输入方式' == title) {
+				window.setTimeout(function() {
+						$('div.validatebox-tip').remove();
+						loginInputForm.find('input[name=cname]').focus();
+					}, 0);
+				/* if ('输入方式' == title) {
 					window.setTimeout(function() {
 						$('div.validatebox-tip').remove();
 						loginInputForm.find('input[name=cname]').focus();
 					}, 0);
-				} else if ('表格方式' == title) {
+				}  else if ('表格方式' == title) {
 					window.setTimeout(function() {
 						if (loginDatagridName.combogrid('options').url == '') {
 							loginDatagridName.combogrid({
@@ -121,7 +128,7 @@
 						$('div.validatebox-tip').remove();
 						loginComboboxName.combobox('textbox').focus();
 					}, 0);
-				}
+				}  */
 			}
 		});
 
@@ -175,15 +182,18 @@
 		});
 
 		var afterLoginSuccess = function(loginName, ip) {
-			$('#indexLayout').layout('panel', 'center').panel('setTitle', sy.fs('欢迎 {0} 登录！ 登陆地IP：{1}', loginName, ip));
+			$('#indexLayout').layout('panel', 'center').panel('setTitle', sy.fs('欢迎您 :{0}！ 您有：{1}个会议通知，请查看', loginName, ip));
+			loginAndRegDialog.dialog('close');
+		};
+		var afterLoginSuccess1 = function(loginName,ip) {
+			$('#indexLayout').layout('panel', 'center').panel('setTitle', sy.fs('欢迎您 :{0}！ 您近期没有会议通知', loginName, ip));
 			loginAndRegDialog.dialog('close');
 		};
 		
 	});
 </script>
 <div id="loginAndRegDialog" modal="true" title="系统登录" closable="false" style="width:250px;height:210px;display: none;overflow: hidden;">
-	<div id="loginTabs" fit="true" border="false">
-		<div title="输入方式" style="overflow: hidden;">
+	
 			<div class="info">
 				<div class="tip icon-tip"></div>
 				<div>请输入您的用户名和密码</div>
@@ -204,34 +214,9 @@
 					</table>
 				</form>
 			</div>
-		</div>
-		
-		<div title="补全方式" style="overflow: hidden;">
-			<div class="info">
-				<div class="tip icon-tip"></div>
-				<div>可自动补全用户名</div>
-			</div>
-			<div align="center">
-				<form id="loginComboboxForm" method="post">
-					<table class="tableForm">
-						<tr>
-							<th style="width: 50px;">登录名</th>
-							<td><select id="loginComboboxName" name="cname" style="display: none;width:157px;"></select>
-							</td>
-						</tr>
-						<tr>
-							<th>密码</th>
-							<td><input name="cpwd" type="password" class="easyui-validatebox" required="true" value="" />
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div>
 </div>
 
-<div id="regDialog" style="width:250px;display: none;padding: 5px;" align="center">
+<!-- <div id="regDialog" style="width:250px;display: none;padding: 5px;" align="center">
 	<form id="regForm" method="post">
 		<table class="tableForm">
 			<tr>
@@ -248,4 +233,4 @@
 			</tr>
 		</table>
 	</form>
-</div>
+</div> -->

@@ -154,6 +154,7 @@
 			nowrap : false,
 			animate : false,
 			border : false,
+			striped :true,
 			idField : 'cid',
 			treeField : 'cname',
 			frozenColumns : [ [ {
@@ -164,7 +165,7 @@
 			}, {
 				field : 'cname',
 				title : '菜单名称',
-				width : 180,
+				width : 260,
 				editor : {
 					type : 'validatebox',
 					options : {
@@ -195,13 +196,13 @@
 			}, {
 				field : 'curl',
 				title : '菜单地址',
-				width : 250,
+				width : 300,
 				editor : {
 					type : 'text'
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -215,11 +216,16 @@
 						max : 999,
 						required : true
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			}, {
 				field : 'cpid',
 				title : '上级菜单',
-				width : 150,
+				width : 260,
 				formatter : function(value, rowData, rowIndex) {
 					return rowData.cpname;
 				},
@@ -244,7 +250,7 @@
 			}, {
 				field : 'cpname',
 				title : '上级菜单',
-				width : 150,
+				width : 260,
 				hidden : true
 			} ] ],
 			onDblClickRow : function(row) {

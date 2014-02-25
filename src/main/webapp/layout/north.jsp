@@ -17,7 +17,7 @@
 	}
 
 	var userInfoWindow;
-	function showUserInfo() {
+	/* function showUserInfo() {
 		userInfoWindow = $('<div/>').window({
 			modal : true,
 			title : '当前用户信息',
@@ -30,6 +30,53 @@
 			onClose : function() {
 				$(this).window('destroy');
 			}
+		});
+	} */
+	function showUserInfo() {
+		var p = parent.sy.dialog({
+			title : '用户信息',
+			href : 'userAction!showUserInfo.action',
+			width : 290,
+			height : 255,
+			buttons : [ {
+				text : '修改密码',
+				handler : function() {
+					var f = p.find('form');
+					f.form('submit', {
+						url : 'userAction!editUserInfo.action',
+						success : function(d) {
+							var json = $.parseJSON(d);
+							if (json.success) {
+								p.dialog('close');
+							}
+							parent.sy.messagerShow({
+								msg : json.msg,
+								title : '提示'
+							});
+						}
+					});
+				}
+			} ]
+			/* onLoad : function() {
+				var authIds = p.find('ul');
+				var authIdsTree = authIds.tree({
+					url : 'authAction!treeRecursive.action',
+					lines : true,
+					checkbox : true,
+					onLoadSuccess : function(node, data) {
+						var f = p.find('form');
+						var ids = f.find('input[name=authIds]').val();
+						var idList = sy.getList(ids);
+						if (idList.length > 0) {
+							for ( var i = 0; i < idList.length; i++) {
+								var n = authIdsTree.tree('find', idList[i]);
+								authIdsTree.tree('check', n.target);
+							}
+						}
+						authIdsTree.unbind();
+					}
+				});
+			} */
 		});
 	}
 </script>

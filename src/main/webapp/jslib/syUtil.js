@@ -564,7 +564,7 @@ Date.prototype.format = function(format) {
 		return '';
 	}
 	if (!format) {
-		format = "yyyy-MM-dd hh:mm:ss";
+		format = "yyyy-MM-dd";
 	}
 	var o = {
 		/* month */

@@ -19,7 +19,7 @@
 
 		datagrid = $('#datagrid').datagrid({
 			url : 'userAction!datagrid.action',
-			title : '用户列表(admin拥有所有权限，不需要更改角色)',
+			title : '用户列表',
 			iconCls : 'icon-save',
 			striped : true,
 			pagination : true,
@@ -49,6 +49,11 @@
 					options : {
 						required : true
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			} ] ],
 			columns : [ [ {
@@ -65,7 +70,7 @@
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -75,14 +80,14 @@
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
 				title : '所属角色',
 				field : 'roleIds',
 				width : 150,
-				formatter : function(value, rowData, rowIndex) {
+			    formatter : function(value, rowData, rowIndex) {
 					if (rowData.roleNames) {
 						return sy.fs('<span title="{0}">{1}</span>', rowData.roleNames, rowData.roleNames);
 					}
@@ -91,35 +96,71 @@
 					type : 'multiplecombobox',
 					options : {
 						url : 'roleAction!roleCombobox.action',
+						//url : 'projectAction!myProjectCombobox.action',
 						valueField : 'cid',
 						textField : 'cname'
+					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
 				title : '所属角色',
 				field : 'roleNames',
 				width : 150,
-				hidden : true
+				hidden : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '工作单位',
 				field : 'cworkplace',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ,{
 				title : '电子邮件',
 				field : 'cemail',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '通信地址',
 				field : 'caddress',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			},{
 				title : '联系电话',
 				field : 'ctelphone',
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : '所属分组',
 				field : 'cgroupid',
 				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
 				/*formatter : function(value, rowData, rowIndex) {
 					return rowData.groupName;
 				}, */
@@ -378,13 +419,7 @@
 			var row = {
 				cid : sy.UUID()
 			};
-			/*datagrid.datagrid('insertRow', {
-				index : 0,
-				row : row
-			});
-			editRow = 0;
-			datagrid.datagrid('selectRow', editRow);
-			datagrid.datagrid('beginEdit', editRow);*/
+			
 			datagrid.datagrid('appendRow', row);
 			editRow = datagrid.datagrid('getRows').length - 1;
 			datagrid.datagrid('selectRow', editRow);
@@ -461,7 +496,9 @@
 				</tr>
 				<tr>
 					<th>最后修改时间</th>
-					<td><input name="cmodifydatetimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />至<input name="cmodifydatetimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td>
+					<td><input name="cmodifydatetimeStart" class="easyui-datetimebox" editable="false" style="width: 155px;" />
+					至<input name="cmodifydatetimeEnd" class="easyui-datetimebox" editable="false" style="width: 155px;" /><a href="javascript:void(0);" class="easyui-linkbutton" onclick="_search();">
+					过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanSearch();">取消</a></td>
 				</tr>
 			</table>
 		</form>

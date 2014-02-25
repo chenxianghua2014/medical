@@ -3,8 +3,7 @@
 <html>
 <head>
 <jsp:include page="../inc.jsp"></jsp:include>
-<script type="text/javascript" charset="utf-8">
-	/*version 0.13*/
+<script type="text/javascript" charset="UTF-8">
 	var editRow;
 	var editType;/*add or edit or undefined*/
 	var treegrid;
@@ -69,6 +68,11 @@
 
 		treegrid = $('#treegrid').treegrid({
 			url : 'projectAction!treegrid.action',
+			rowStyler:function(index,row){     
+			    if (index%2==0){     
+			            return 'background-color:#EFEFEF;';     
+			        }     
+			    },
 			toolbar : [ {
 				text : '展开',
 				iconCls : 'icon-redo',
@@ -123,10 +127,12 @@
 				handler : function() {
 					if (editRow != undefined) {
 						treegrid.treegrid('endEdit', editRow.cid);
+						treegrid.treegrid('reload');
 					}
 				}
-			}, '-', {
+			}, '-'/* , {
 				text : '取消编辑',
+				id :'123',
 				iconCls : 'icon-undo',
 				handler : function() {
 					if (editRow) {
@@ -147,22 +153,46 @@
 				handler : function() {
 					treegrid.treegrid('unselectAll');
 				}
+			}, '-' */, {
+				text : '更改状态',
+				iconCls : 'icon-undo',
+				handler : function() {
+					changeStatus();
+				}
 			}, '-' ],
 			title : '',
 			iconCls : 'icon-save',
-			rownumbers:true, 
 			fit : true,
 			fitColumns : false,
 			nowrap : true,
-			border : false,
 			animate : false,
+			border : false,
 			idField : 'cid',
-			treeField : 'cname', 
-			frozenColumns : [ [ 
-			 {
+			treeField : 'cname',
+			columns : [ [  {
+				title : 'cid',
+				field : 'cid',
+				width : 50,
+				hidden : false,
+				checkbox : true
+			},  {
+				field : 'curl',
+				title : '项目编号',
+				width : 150,
+				height : 200,
+				editor : {
+					type : 'text'
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
+			},{
 				field : 'cname',
 				title : '项目名称',
-				width : 240,
+				width : 350,
+				size : 100,				
 				editor : {
 					type : 'validatebox',
 					options : {
@@ -171,68 +201,83 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			},{
-				field : 'cpid',
-				title : '从属项目',
-				width : 150,
-				align : 'center',
-				formatter : function(value, rowData, rowIndex) {
-					if (rowData.cpname) {
-						return sy.fs('<span title="{0}">{1}</span>', rowData.cpname, rowData.cpname);
-					}
-				},
-				editor : {
-					type : 'combocheckboxtree',
-					options : {
-						url : 'projectAction!projectTreeRecursive.action',
-						animate : false,
-						lines : !sy.isLessThanIe8(),
-						onLoadSuccess : function(row, data) {
-							var t = $(this);
-							if (data) {
-								$(data).each(function(index, d) {
-									if (this.state == 'closed') {
-										t.tree('expandAll');
-									}
-								});
-							}
-						}
-					}
-				}
-
-			},{
-				field : 'cpname',
-				title : '从属项目',
-				width : 150,
-				hidden : true
-			} ] ],
-			columns : [ [ 
+			} , 
 			{
-				field : 'cuid',
-				title : '负责人',
+				field : '123',                                   //添加任务状态 拖期、进行中、已完成
+				title : '任务状态',
 				width : 150,
-				align : 'center',
+				align : 'right',
 				formatter : function(value, rowData, rowIndex) {
-					return rowData.cuname;
-				},
-				editor : {
-					type : 'combobox',
-					options : {
-						url : 'projectAction!userCombobox.action',
-						valueField : 'cid',
-						textField : 'cname'
-					}
+				value=rowData.cendtime;
+				status=rowData.cstatus;
+				id=rowData.cid;
+				var time2012="2012-12-31";
+				var time2013="2013-12-31";
+				var time2014="2014-12-31"; 
+				if ((id>54)&&(value==time2012)&&(status==1))
+				{
+					return sy.fs('<font size="3" color="red">拖期</font>');
 				}
+				if ((id>54)&&(value==time2013)&&(status==1))
+				{
+					return sy.fs('<font size="3">进行中</font>');
+				}
+				if ((id>54)&&(value==time2014)&&(status==1))
+				{
+					
+					return sy.fs('<font size="3" color="green">未开展</font>');
+				}
+				if (status==0)
+				{
+				    return sy.fs('<font size="3">完成</font>');
+				}
+				if(id<55)
+				{
+					return sy.fs('<font size="3">进行中</font>');
+				}
+				}					
+			},
+			{
+				field : 'cprogress',
+				title : '进度',
+				align : 'center',
+				width : 100,
+				editor : {
+					type : 'text'
+				},
+				formatter : function(value) {
+				if (value!=0) {
+				
+					value = value*100;
+					value=value.toFixed(2);
+					 var s = '<div style="width:100%;border:1px solid #ccc">' +
+                        '<div style="width:' + value + '%;background:#20C9FF;color:#ggg">' + value + '%' + '</div>'
+                        '</div>';
+              		return s; 
+				    }
+				else {
+				
+					value = 0;
+					value.toFixed(2);					
+					var s = '<div style="width:100%;border:1px solid #ccc">' +
+                        '<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+                        '</div>';
+              		return s;
+					}
+				}						
+					
 			},{
 				field : 'cstarttime',
 				title : '开始时间',
 				width : 150,
 				formatter : function(value, rowData, rowIndex) {
+				    var now ;
+				    
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				},
 				editor : {
@@ -240,63 +285,49 @@
 				}
 			},{
 				field : 'cendtime',
-				title : '开始时间',
-				width : 150,				
+				title : '结束时间',
+				width : 150,
+				formatter : function(value, rowData, rowIndex) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},				
 				editor : {
 					type : 'datebox'
 				}
 			} ,{
 				field : 'cresponsecompany',
-				title : '负责单位1',
+				title : '负责单位',
 				width : 150,
 				editor : {
 					type : 'text'
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
-			} ,{
-				field : 'cresponser',
-				title : '赞助单位',
+			}  ,{
+				field : 'cuid',
+				title : '负责人',
 				width : 150,
-				editor : {
-					type : 'text'
-				},
-				formatter : function(value) {
+				formatter : function(value, rowData, rowIndex) {
+					value=rowData.cuname;
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				},
+				editor : {
+					type : 'combobox',
+					options : {
+						url : 'projectAction!projectCombobox.action',
+						valueField : 'cid',
+						textField : 'cname'
 					}
 				}
-			} ,{
-				field : 'cstatus',
-				title : '状态',
-				width : 150,
-				editor : {
-					type : 'text'
-				},
-				formatter : function(value) {
-					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
-					}
-				}
-			} ,{
-				field : 'cbudget',
-				title : '资金（万元）',
-				width : 150,
-				editor : {
-					type : 'text'
-				},
-				formatter :  function formatBudget(value){  
-            						if (value){  
-                						return '￥'+value;  
-            						} else {  
-                						return '空';  
-            						}  
-        						}  
-			} 
-			] ],
+			}
+			] ]
+			/*,
 			onDblClickRow : function(row) {
 				if (editRow != undefined) {
 					treegrid.treegrid('endEdit', editRow.cid);
@@ -308,7 +339,8 @@
 					editType = 'edit';
 					treegrid.treegrid('unselectAll');
 				}
-			},
+			}*/
+			,
 			onAfterEdit : function(row, changes) {
 				if (editType == undefined) {
 					editRow = undefined;
@@ -372,6 +404,10 @@
 			},
 			onCollapse : function(row) {
 				treegrid.treegrid('unselectAll');
+			},
+			//点击显示选中和取消选中事件
+			onClickRow : function(row) {
+				datagrid-toolbar;
 			}
 		});
 
@@ -396,9 +432,43 @@
 			});
 		}
 	}
+	function changeStatus() {
+		var node = treegrid.treegrid('getSelected');
+		
+		if (node) {
+			$.messager.confirm('询问', '您确定要更改【' + node.cname + '】的状态？',
+					function(b) {
+						if (b) {
+							$.ajax({
+								url : 'projectAction!changeStatus.action',
+								data : node,
+								cache : false,
+								dataType : "json",
+								success : function(r) {
+									if (r.success) {
+										treegrid.treegrid('reload');
+										$.messager.show({
+											msg : r.msg,
+											title : '提示'
+										});
+										editRow = undefined;
+									} else {
+										$.messager.show({
+											msg : '更改失败!',
+											title : '提示'
+										});
+									}
+								}
+							});
+						}
+					});
+		}
+								
+				
+	}
 	function append() {
 
-	   if (editRow != undefined) {
+	    if (editRow != undefined) {
 			treegrid.treegrid('endEdit', editRow.cid);
 		}
 
@@ -420,8 +490,7 @@
 			editType = 'add';
 			treegrid.treegrid('select', editRow.cid);
 			treegrid.treegrid('beginEdit', editRow.cid);
-		} 
-		//alert("hello");
+		} ;
 			
 	}
 	function remove() {

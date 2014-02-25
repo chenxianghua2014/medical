@@ -15,7 +15,7 @@
 	$(function() {
 		datagrid = $('#datagrid').datagrid({
 			url : 'bugAction!datagrid.action',
-			title : 'BUG列表(弹窗修改模式)',
+			title : 'BUG列表',
 			iconCls : 'icon-save',
 			pagination : true,
 			pagePosition : 'bottom',
@@ -38,13 +38,23 @@
 				title : 'BUG名称',
 				field : 'cname',
 				width : 150,
-				sortable : true
+				sortable : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			columns : [ [ {
 				title : 'BUG创建时间',
 				field : 'ccreatedatetime',
 				sortable : true,
-				width : 150
+				width : 150,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			}, {
 				title : 'BUG描述',
 				field : 'cdesc',
@@ -295,7 +305,9 @@
 				</tr>
 				<tr>
 					<th>BUG描述</th>
-					<td colspan="3"><textarea name="cdesc" id="cdescAdd"></textarea></td>
+					<td colspan="3">
+					<textarea id="cdescAdd" name="cdesc"  rows="12" cols="80" style="width: 80%"></textarea>
+					</td>
 				</tr>
 			</table>
 		</form>

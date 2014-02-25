@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="Description" content="首届大学生科技资源共享与服务创新实践竞赛      老年人口健康状况调查数据主要评估指标的可视化展示" />
+<meta name="keywords" content="可视化" />
+<meta name="Author" contect="北京邮电大学" / >
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> 
+<meta name="format-detection" content="telephone=no" />
+<link rel="shortcut icon" href="/images/favicon.ico" />
+<link rel="icon" href="/images/favicon.ico" />
+
+<!-- Bootstrap  -->
+<link href="bootstrap/global.min.css" rel="stylesheet" media="screen" />
+<link href="bootstrap/responsive.min.css" rel="stylesheet" media="screen" />
+<!-- jVector -->
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<!-- D3.js -->
+
+<!-- HighCharts -->
+<script src="highcharts/highcharts.js"></script>
+<script src="highcharts/highcharts-more.js"></script>
+<script src="highcharts/exporting.js"></script>
+<script src="highcharts/themes/grid.js"></script>
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="js/html5.js"></script> 
+<![endif]-->
+
+<title>老年人口健康状况调查数据主要评估指标的可视化展示</title>
+
+<link rel="stylesheet" href="css/body.css" type="text/css" />
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar" onload="completed();" ontouchstart="">
+
+<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+	
+   
+
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p>建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.firefox.com.cn/" target="_blank">FireFox</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
+
+
+
+
+
+	
+    
+    
+    
+    <!--  患病情况 Disease  -->
+
+	<section id="disease" class="row">
+		<div class="span12 panel">
+			<div class="row">
+				<div>
+					<div id="diseasepeople" class="span8"></div>
+					<script type="text/javascript" src="highcharts/disease.js"></script>
+				</div>
+				<div class="span4 relative">
+					<div class="row">
+						<div class="span4">
+							<div class="padding-large">
+								<h3>男女疾病分布情况</h3>
+								<p class="wo">在本次调查的80岁以上老人中，有男性6688人，女性8950人。各项疾病整体患病人群中，女性患病人群多一些，但由于受访人群中女性所占比例较大，所以认为男女患病概率差不多。
+								<br>
+								从右图中也可看出，心脏病，支气管炎和和白内障为老年人多发病。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	

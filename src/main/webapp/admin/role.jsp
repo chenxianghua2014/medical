@@ -38,6 +38,11 @@
 					options : {
 						required : true
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			} ] ],
 			columns : [ [ {
@@ -46,6 +51,11 @@
 				width : 150,
 				editor : {
 					type : 'text'
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			}, {
 				title : '拥有权限',
@@ -53,7 +63,7 @@
 				width : 300,
 				formatter : function(value, rowData, rowIndex) {
 					if (rowData.authNames) {
-						return sy.fs('<span title="{0}">{1}</span>', rowData.authNames, rowData.authNames);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', rowData.authNames, rowData.authNames);
 					}
 				},
 				editor : {
@@ -78,7 +88,12 @@
 				title : '拥有权限',
 				field : 'authNames',
 				width : 150,
-				hidden : true
+				hidden : true,
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
+				}
 			} ] ],
 			toolbar : [ {
 				text : '增加',

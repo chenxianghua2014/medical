@@ -107,7 +107,7 @@
 			}, {
 				field : 'cname',
 				title : '权限名称',
-				width : 200,
+				width : 350,
 				editor : {
 					type : 'validatebox',
 					options : {
@@ -116,7 +116,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			} ] ],
@@ -129,7 +129,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -141,7 +141,7 @@
 				},
 				formatter : function(value) {
 					if (value) {
-						return sy.fs('<span title="{0}">{1}</span>', value, value);
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
 					}
 				}
 			}, {
@@ -155,13 +155,20 @@
 						max : 999,
 						required : true
 					}
+				},
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				}
 			}, {
 				field : 'cpid',
 				title : '上级权限',
 				width : 150,
-				formatter : function(value, rowData, rowIndex) {
-					return rowData.cpname;
+				formatter : function(value) {
+					if (value) {
+						return sy.fs('<span style="font-size:14px" title="{0}">{1}</span>', value, value);
+					}
 				},
 				editor : {
 					type : 'combotree',
