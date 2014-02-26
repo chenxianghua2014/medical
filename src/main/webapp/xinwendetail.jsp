@@ -253,7 +253,7 @@ color:#000;
 <![endif]-->
 </li>
 
-<li><a class="hide" href="/mp/index.jsp">项目管理</a></li>
+<li><a class="hide" href="./mpIndex.jsp">项目管理</a></li>
 <li><a class="hide" href="#">数据服务</a>
 <!--[if lte IE 6]>
 <a href="index.html">MENUS
@@ -287,14 +287,14 @@ color:#000;
 		
 		%>
 		<li><a href="http://192.168.1.193:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
-                <li><a href="http://192.168.1.195:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+                <li><a href="http://192.168.1.193:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
 		<% 
 		}
 		else
 		{
 		%>
 		<li><a href="http://219.239.169.12:8080/medical/disp/hello1.jsp" title="changjianbing">数据分析</a></li>
-                <li><a href="http://219.239.169.112:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
+                <li><a href="http://219.239.169.12:8080/health/" title="jizhengjiuzhi">信息采集</a></li>
 		<%
 		}
   %>
