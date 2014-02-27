@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>农村基本医疗卫生关键技术研究与示范协同研究工作平台</title>
 
 <style type="text/css">
@@ -526,7 +526,7 @@ $(function(){
                                  	<li><a href="newsinfo/key_Tecl_1/5.pps"><span>农村血脂异常规范</span></a></li>
                                  	<li class="sec"><h3><span>胆道结石规范诊疗</span><a href="#" class="down1" ></a></h3>
                                  	<ul>
-                                 	<li><a href="newsinfo/key_Tecl_1/6.doc"><span>胆道结石的诊治流程</span></a></li>
+                                 						<li><a href="newsinfo/key_Tecl_1/6.jsp"><span>胆道结石的诊治流程</span></a></li>
 									<li><a href="newsinfo/key_Tecl_1/7.doc"><span>胆道结石诊疗规范</span></a></li>
 									<li><a href="newsinfo/key_Tecl_1/8.htm"><span>胆道结石-基线</span></a></li>
 									<li><a href="newsinfo/key_Tecl_1/9.htm"><span>胆道结石观察表</span></a></li>
