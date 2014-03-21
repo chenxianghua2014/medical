@@ -44,7 +44,7 @@ public class RepairListener implements ServletContextListener, ServletContextAtt
 	public void contextInitialized(ServletContextEvent evt) {
 		logger.info("修复数据库");
 		ctx = WebApplicationContextUtils.getWebApplicationContext(evt.getServletContext());
-		RepairServiceI repairService = (RepairServiceI) ctx.getBean("repairService");
+		//RepairServiceI repairService = (RepairServiceI) ctx.getBean("repairService");
 		//repairService.repair();
 		//logger.info("2013-3-19日，停止修复数据库！");
 	}

@@ -185,6 +185,15 @@ padding-top:8px;
 bottom:-8px;
 color:#fff; line-height:20px;
 }
+.n  h1
+{width:195px; background:url(info_show_js/images/header_bg2012.gif) no-repeat;
+height:32px; background-position:0 -128px;
+background-repeat:repeat;font-size:14px;
+font-weight:bold;padding-left:15px;
+padding-top:8px;
+bottom:-8px;
+color:#fff; line-height:20px;
+}
 
 .xinweizhuanqu h4{ width:528px; background:url(info_show_js/images/sf_centerbg01.jpg) no-repeat; height:26px; line-height:26px; color:#fff; padding-left:15px; font-size:14px; border-bottom:2px solid #2491bd;}
 
